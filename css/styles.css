@@ -1,14 +1,31 @@
+html,
+body {
+	/*height: 100%;
+	width:100%;
+	margin:0;
+	padding:0;*/
+}
+
 body {
     font-family: source-sans-pro, sans-serif;
     font-size: 15px;
-    padding-top: 60px;
-    /*padding-bottom: 40px;*/
+    padding-bottom: 100px;
+	background-image:url("../img/bg/redcarpet.jpg");
+	background-repeat:no-repeat;
+ 	background-position:top;
+	background-size:cover;
 }
 
 @media (max-width: 979px) {
     body {
        padding-top: 0;
 	}
+}
+
+/* Wrapper for page content to push down footer */
+#main {
+	background:rgba(255,255,255,0.9);
+	padding:0;
 }
 
 .dropdown-menu {
@@ -24,4 +41,18 @@ body {
 
 .no-reports {
     display: none;
+}
+
+/* Set the fixed height of the footer here */
+footer {
+  height: 60px;
+  background-color:rgba(255,255,255,0.85);
+  line-height:60px;
+  text-align:center;
+  border-top:#ccc solid 1px;
+  margin-top:30px;
+}
+
+#player{
+	
 }
