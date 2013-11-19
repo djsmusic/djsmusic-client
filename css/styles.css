@@ -28,19 +28,12 @@ body {
 	padding:0;
 }
 
-.dropdown-menu {
-    max-height: 400px;
-    overflow: auto;
-    width: 230px;
+.navbar-brand{
+	padding-top:7px;
+	padding-bottom:0;
 }
-
-.list-item {
-    padding-top: 6px;
-    padding-left: 56px;
-}
-
-.no-reports {
-    display: none;
+.navbar-brand img{
+	height:30px;
 }
 
 /* Set the fixed height of the footer here */
