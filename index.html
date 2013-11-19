@@ -15,6 +15,9 @@
     <![endif]-->
 
     <script src="http://use.edgefonts.net/source-sans-pro.js"></script>
+    
+    <!-- Require.js -->
+	<script type="text/javascript" src="lib/require.js"></script>
 
 </head>
 
@@ -26,7 +29,9 @@
     </div>
 </div>
 
-<script src="lib/jquery-1.9.1.min.js"></script>
+
+
+<!--<script src="lib/jquery-1.9.1.min.js"></script>
 <script src="lib/underscore-min.js"></script>
 <script src="lib/backbone-min.js"></script>
 <script src="bootstrap-3/js/bootstrap.js"></script>
@@ -37,22 +42,67 @@
 <script src="js/views/player.js"></script>
 <script src="js/views/contact.js"></script>
 <script src="js/views/employeelist.js"></script>
-<script src="js/views/employeedetails.js"></script>
+<script src="js/views/employeedetails.js"></script>-->
 
-<!-- SELECT ONE (AND ONLY ONE) OF THE DATA PERSISTENCE SOLUTIONS BELOW -->
-
+<!-- DATA PERSISTENCE -->
 <!-- Uncomment the script below to access the application data using an in-memory data store -->
 <script src="js/models/model-in-memory.js"></script>
-
-<!-- Uncomment the script below to access the application data using RESTful services. Open model-rest.js and adjust the URL attributes to reflect your URL endpoints. -->
-<!--<script src="js/models/model-rest.js"></script>-->
 
 <!-- Uncomment the script below to access the application data using RESTful services with JSONP. Open model-rest.js and adjust the URL attributes to reflect your REST endpoints. -->
 <!--<script src="js/models/model-rest-jsonp.js"></script>-->
 
-<!-- Uncomment the two scripts below to use Parse.com as the data persistence layer. -->
-<!--<script src="lib/parse-1.2.2.min.js"></script>-->
-<!--<script src="js/models/model-parse-com.js"></script>-->
+<!-- Application init -->
+<script type="text/javascript" charset="utf-8">
+	// Basic configuration
+	// I decided to include full paths here for flexibility
+	requirejs.config({
+		'paths': {
+			// Main app
+			'app': 'js/app',
+			// Models
+			
+			// Data persistance, uncomment only one
+			// Local memory
+				'api' : 'js/models/model-in-memory.js',
+			// DJsMusic API
+			//	'api' : 'js/models/model-rest-jsonp.js',
+			
+			// Views
+			//'home' : 'js/view/home',
+			//'contact' : 'js/view/contact',
+			//'player' : 'js/view/player',
+			//'shell' : 'js/view/shell',
+			// Libraries
+			'jquery': 'lib/jquery-1.9.1',
+			'underscore': 'lib/underscore-min',
+			'backbone': 'lib/backbone-min',
+			'bootstrap': 'bootstrap-3/bootstrap.min'
+		},
+		// Configure the libraries
+		'shim': {
+			'underscore': {
+				'exports': '_'
+			},
+			'backbone': {
+				'deps': ['jquery', 'underscore'],
+				'exports': 'Backbone'
+			}
+		}
+	});
+	// This would probably be better in main.js
+	// but I'm maintaining the original structure
+	require(['app'], function(App) {
+		var App = new App();
+		App.loadTemplates(["HomeView", "ContactView", "PlayerView", "ShellView", "EmployeeView", "EmployeeSummaryView", "EmployeeListItemView"],
+			function () {
+				App.router = new App.Router();
+				Backbone.history.start();
+		});
+		new App({
+			el: $('#application')
+		});
+	});
+</script>
 
 </body>
 </html>
