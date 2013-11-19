@@ -39,6 +39,10 @@ directory.Router = Backbone.Router.extend({
             $('.dropdown').removeClass("open");
         });
         this.$content = $("#content");
+        this.$player = $("#player");
+        
+        directory.PlayerView = new directory.PlayerView();
+        this.$player.html(directory.PlayerView.render().el);
     },
 
     home: function () {
@@ -80,7 +84,7 @@ directory.Router = Backbone.Router.extend({
 });
 
 $(document).on("ready", function () {
-    directory.loadTemplates(["HomeView", "ContactView", "ShellView", "EmployeeView", "EmployeeSummaryView", "EmployeeListItemView"],
+    directory.loadTemplates(["HomeView", "ContactView", "PlayerView", "ShellView", "EmployeeView", "EmployeeSummaryView", "EmployeeListItemView"],
         function () {
             directory.router = new directory.Router();
             Backbone.history.start();
