@@ -17,7 +17,7 @@
     <script src="http://use.edgefonts.net/source-sans-pro.js"></script>
     
     <!-- Require.js -->
-	<script type="text/javascript" src="lib/require.js"></script>
+	<script type="text/javascript" src="lib/require-2.1.9.js"></script>
 
 </head>
 
@@ -46,7 +46,7 @@
 
 <!-- DATA PERSISTENCE -->
 <!-- Uncomment the script below to access the application data using an in-memory data store -->
-<script src="js/models/model-in-memory.js"></script>
+<!--<script src="js/models/model-in-memory.js"></script>-->
 
 <!-- Uncomment the script below to access the application data using RESTful services with JSONP. Open model-rest.js and adjust the URL attributes to reflect your REST endpoints. -->
 <!--<script src="js/models/model-rest-jsonp.js"></script>-->
@@ -63,17 +63,17 @@
 			
 			// Data persistance, uncomment only one
 			// Local memory
-				'api' : 'js/models/model-in-memory.js',
+			//	'api' : 'js/models/model-in-memory.js',
 			// DJsMusic API
-			//	'api' : 'js/models/model-rest-jsonp.js',
+				'api' : 'js/models/model-rest-jsonp.js',
 			
 			// Views
-			//'home' : 'js/view/home',
-			//'contact' : 'js/view/contact',
-			//'player' : 'js/view/player',
-			//'shell' : 'js/view/shell',
+			//'home' : 'js/views/home',
+			//'contact' : 'js/views/contact',
+			//'player' : 'js/views/player',
+			'shell' : 'js/views/shell',
 			// Libraries
-			'jquery': 'lib/jquery-1.9.1',
+			'jquery': 'lib/jquery-1.9.1.min',
 			'underscore': 'lib/underscore-min',
 			'backbone': 'lib/backbone-min',
 			'bootstrap': 'bootstrap-3/bootstrap.min'
@@ -92,15 +92,14 @@
 	// This would probably be better in main.js
 	// but I'm maintaining the original structure
 	require(['app'], function(App) {
-		var App = new App();
-		App.loadTemplates(["HomeView", "ContactView", "PlayerView", "ShellView", "EmployeeView", "EmployeeSummaryView", "EmployeeListItemView"],
+		App.loadTemplates(["HomeView", "ContactView", "PlayerView", "ShellView"],
 			function () {
 				App.router = new App.Router();
 				Backbone.history.start();
 		});
-		new App({
+		/*new App({
 			el: $('#application')
-		});
+		});*/
 	});
 </script>
 

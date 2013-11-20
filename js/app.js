@@ -7,7 +7,7 @@
  * @author Alejandro U. Álvarez <alejandro@urbanoalvarez.es>
  */
 
-define(['jquery', 'backbone'], function($, Backbone) {
+define(['jquery', 'backbone', 'shell'], function($, Backbone, ShellView) {
 	
 	var directory = {
 	
@@ -20,13 +20,14 @@ define(['jquery', 'backbone'], function($, Backbone) {
 	        var deferreds = [];
 	
 	        $.each(views, function(index, view) {
-	            if (directory[view]) {
+	            //if (directory[view]) {
 	                deferreds.push($.get('tpl/' + view + '.html', function(data) {
+	                	directory[view] = {prototype: {}};
 	                    directory[view].prototype.template = _.template(data);
 	                }, 'html'));
-	            } else {
-	                alert(view + " not found");
-	            }
+	            //} else {
+	            //    alert(view + " not found");
+	            //}
 	        });
 	
 	        $.when.apply(null, deferreds).done(callback);
@@ -38,12 +39,12 @@ define(['jquery', 'backbone'], function($, Backbone) {
 	
 	    routes: {
 	        "":                 "home",
-	        "contact":          "contact",
-	        "employees/:id":    "employeeDetails"
+	        "contact":          "contact"
 	    },
 	
 	    initialize: function () {
-	        directory.shellView = new directory.ShellView();
+	    	console.log('App init');
+	        directory.shellView = new ShellView();
 	        $('body').html(directory.shellView.render().el);
 	        // Close the search dropdown on click anywhere in the UI
 	        $('body').click(function () {
@@ -76,22 +77,7 @@ define(['jquery', 'backbone'], function($, Backbone) {
 	        }
 	        this.$content.html(directory.contactView.el);
 	        directory.shellView.selectMenuItem('contact-menu');
-	    },
-	
-	    employeeDetails: function (id) {
-	        var employee = new directory.Employee({id: id});
-	        var self = this;
-	        employee.fetch({
-	            success: function (data) {
-	                console.log(data);
-	                // Note that we could also 'recycle' the same instance of EmployeeFullView
-	                // instead of creating new instances
-	                self.$content.html(new directory.EmployeeView({model: data}).render().el);
-	            }
-	        });
-	        directory.shellView.selectMenuItem();
 	    }
-	
 	});
 	
 	return directory;

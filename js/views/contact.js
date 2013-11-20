@@ -1,8 +1,12 @@
-directory.ContactView = Backbone.View.extend({
-
-    render:function () {
-        this.$el.html(this.template());
-        return this;
-    }
-
+define([], function(){
+	var ContactView = Backbone.View.extend({
+	
+	    render:function () {
+	        this.$el.html(this.template());
+	        return this;
+	    }
+	
+	});
+	
+	return ContactView;
 });

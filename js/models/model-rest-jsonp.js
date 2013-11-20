@@ -8,26 +8,27 @@
         Use: /directory-rest-php/employees
 
  */
-
-directory.Employee = Backbone.Model.extend({
-
-    urlRoot:"http://localhost:3000/employees",
-//    urlRoot:"/directory-rest-php/employees",
-
-    initialize:function () {
-        this.reports = new directory.EmployeeCollection();
-        this.reports.url = this.urlRoot + "/" + this.id + "/reports";
-    }
-
-});
-
-directory.EmployeeCollection = Backbone.Collection.extend({
-
-    model: directory.Employee,
-
-    url:"http://localhost:3000/employees"
-//    url:"/directory-rest-php/employees"
-
+define([], function(){
+	/*directory.Employee = Backbone.Model.extend({
+	
+	    urlRoot:"http://localhost:3000/employees",
+	//    urlRoot:"/directory-rest-php/employees",
+	
+	    initialize:function () {
+	        this.reports = new directory.EmployeeCollection();
+	        this.reports.url = this.urlRoot + "/" + this.id + "/reports";
+	    }
+	
+	});
+	
+	directory.EmployeeCollection = Backbone.Collection.extend({
+	
+	    model: directory.Employee,
+	
+	    url:"http://localhost:3000/employees"
+	//    url:"/directory-rest-php/employees"
+	
+	});*/
 });
 
 var originalSync = Backbone.sync;
