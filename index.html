@@ -17,91 +17,9 @@
     <script src="http://use.edgefonts.net/source-sans-pro.js"></script>
     
     <!-- Require.js -->
-	<script type="text/javascript" src="lib/require-2.1.9.js"></script>
+	<script type="text/javascript" data-main="js/app" src="js/lib/require-2.1.9.js"></script>
 
 </head>
 
-<body>
-
-<div class="container">
-    <div class="row">
-        <div id="content" class="span12>"></div>
-    </div>
-</div>
-
-
-
-<!--<script src="lib/jquery-1.9.1.min.js"></script>
-<script src="lib/underscore-min.js"></script>
-<script src="lib/backbone-min.js"></script>
-<script src="bootstrap-3/js/bootstrap.js"></script>
-
-<script src="js/app.js"></script>
-<script src="js/views/shell.js"></script>
-<script src="js/views/home.js"></script>
-<script src="js/views/player.js"></script>
-<script src="js/views/contact.js"></script>
-<script src="js/views/employeelist.js"></script>
-<script src="js/views/employeedetails.js"></script>-->
-
-<!-- DATA PERSISTENCE -->
-<!-- Uncomment the script below to access the application data using an in-memory data store -->
-<!--<script src="js/models/model-in-memory.js"></script>-->
-
-<!-- Uncomment the script below to access the application data using RESTful services with JSONP. Open model-rest.js and adjust the URL attributes to reflect your REST endpoints. -->
-<!--<script src="js/models/model-rest-jsonp.js"></script>-->
-
-<!-- Application init -->
-<script type="text/javascript" charset="utf-8">
-	// Basic configuration
-	// I decided to include full paths here for flexibility
-	requirejs.config({
-		'paths': {
-			// Main app
-			'app': 'js/app',
-			// Models
-			
-			// Data persistance, uncomment only one
-			// Local memory
-			//	'api' : 'js/models/model-in-memory.js',
-			// DJsMusic API
-				'api' : 'js/models/model-rest-jsonp.js',
-			
-			// Views
-			//'home' : 'js/views/home',
-			//'contact' : 'js/views/contact',
-			//'player' : 'js/views/player',
-			'shell' : 'js/views/shell',
-			// Libraries
-			'jquery': 'lib/jquery-1.9.1.min',
-			'underscore': 'lib/underscore-min',
-			'backbone': 'lib/backbone-min',
-			'bootstrap': 'bootstrap-3/bootstrap.min'
-		},
-		// Configure the libraries
-		'shim': {
-			'underscore': {
-				'exports': '_'
-			},
-			'backbone': {
-				'deps': ['jquery', 'underscore'],
-				'exports': 'Backbone'
-			}
-		}
-	});
-	// This would probably be better in main.js
-	// but I'm maintaining the original structure
-	require(['app'], function(App) {
-		App.loadTemplates(["HomeView", "ContactView", "PlayerView", "ShellView"],
-			function () {
-				App.router = new App.Router();
-				Backbone.history.start();
-		});
-		/*new App({
-			el: $('#application')
-		});*/
-	});
-</script>
-
-</body>
+<body></body>
 </html>
