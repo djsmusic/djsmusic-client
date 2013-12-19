@@ -24,8 +24,9 @@ body {
 
 /* Wrapper for page content to push down footer */
 #main {
-	background:rgba(255,255,255,0.9);
+	background:rgba(255,255,255,0.98);
 	padding:0;
+	box-shadow:rgba(0,0,0,0.6) 0 0 20px;
 }
 
 .navbar-brand{
@@ -36,10 +37,16 @@ body {
 	height:30px;
 }
 
+table{
+	background:#fff;
+	border:solid 1px #ddd;
+	border-top:none;
+}
+
 /* Set the fixed height of the footer here */
 footer {
   height: 60px;
-  background-color:rgba(255,255,255,0.85);
+  background-color:rgba(0,0,0,0.1);
   line-height:60px;
   text-align:center;
   border-top:#ccc solid 1px;
