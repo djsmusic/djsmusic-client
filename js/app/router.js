@@ -31,9 +31,19 @@ define(function (require) {
         },
 
         home: function () {
-            homeView.delegateEvents(); // delegate events when the view is recycled
-            homeView.render();
-            shellView.selectMenuItem('home-menu');
+        	require(["app/views/Employee", "app/models/employee"], function (EmployeeView, models) {
+	        	var employee = new models.Employee({id: 1});
+	            employee.fetch({
+	                success: function (data) {
+	                	console.log('Loaded data: ',data);
+	                    
+	                    var view = new HomeView({model: data, el: $content});
+	                    view.render();
+	                    view.delegateEvents(); // delegate events when the view is recycled
+			        }
+	            });
+	    	});
+	    	shellView.selectMenuItem('home-menu');
         },
 
         contact: function () {
