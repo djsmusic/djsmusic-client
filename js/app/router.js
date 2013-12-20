@@ -31,9 +31,9 @@ define(function (require) {
         },
 
         home: function () {
-        	require(["app/views/Home", "app/models/employee"], function (HomeView, models) {
-	        	var employee = new models.Employee({id: 1});
-	            employee.fetch({
+        	require(["app/views/Home", "app/models/song"], function (HomeView, models) {
+        		var song = new models.Song({id: 1});
+	            song.fetch({
 	                success: function (data) {
 	                	console.log('Loaded data: ',data);
 	                    

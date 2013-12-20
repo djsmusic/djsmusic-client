@@ -18,17 +18,19 @@ define(function (require) {
         },*/
         
         render: function () {
-        	console.log(this.model.attributes);
+        	console.log('Home view: ',this.model);
             this.$el.html(template(this.model.attributes));
-            this.model.reports.fetch({
+            console.log("About to fetch");
+            this.model.topSongs.fetch({
+            	rating: 3,
                 success: function (data) {
                     if (data.length === 0) {
                         $('.no-reports').show();
                     }
                 }
             });
-            //var listView = new SongListView({collection: this.model.songs, el: $('.report-list', this.el)});
-            //listView.render();
+            var listView = new SongListView({collection: this.model.topSongs, el: $('#top tbody', this.el)});
+            listView.render();
             return this;
         }
 
