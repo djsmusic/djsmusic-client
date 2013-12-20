@@ -31,7 +31,7 @@ define(function (require) {
         },
 
         home: function () {
-        	require(["app/views/Employee", "app/models/employee"], function (EmployeeView, models) {
+        	require(["app/views/Home", "app/models/employee"], function (HomeView, models) {
 	        	var employee = new models.Employee({id: 1});
 	            employee.fetch({
 	                success: function (data) {

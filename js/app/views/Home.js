@@ -18,7 +18,8 @@ define(function (require) {
         },*/
         
         render: function () {
-            this.$el.html(template());
+        	console.log(this.model.attributes);
+            this.$el.html(template(this.model.attributes));
             this.model.reports.fetch({
                 success: function (data) {
                     if (data.length === 0) {
@@ -26,8 +27,8 @@ define(function (require) {
                     }
                 }
             });
-            var listView = new SongListView({collection: this.model.songs, el: $('.report-list', this.el)});
-            listView.render();
+            //var listView = new SongListView({collection: this.model.songs, el: $('.report-list', this.el)});
+            //listView.render();
             return this;
         }
 
