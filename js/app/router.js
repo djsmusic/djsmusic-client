@@ -5,7 +5,7 @@ define(function (require) {
     var $           = require('jquery'),
         Backbone    = require('backbone'),
         ShellView   = require('app/views/Shell'),
-        HomeView    = require('app/views/Home'),
+		HomeView    = require('app/views/Home'),
 
         $body = $('body'),
         shellView = new ShellView({el: $body}).render(),
@@ -31,17 +31,10 @@ define(function (require) {
         },
 
         home: function () {
-        	require(["app/views/Home", "app/models/song"], function (HomeView, models) {
-        		var song = new models.Song({id: 1});
-	            song.fetch({
-	                success: function (data) {
-	                	console.log('Loaded data: ',data);
-	                    
-	                    var view = new HomeView({model: data, el: $content});
-	                    view.render();
-	                    view.delegateEvents(); // delegate events when the view is recycled
-			        }
-	            });
+        	require(["app/views/Home"], function (HomeView) {
+        		var view = new HomeView({el: $content});
+	            view.render();
+	            view.delegateEvents(); // delegate events when the view is recycled
 	    	});
 	    	shellView.selectMenuItem('home-menu');
         },

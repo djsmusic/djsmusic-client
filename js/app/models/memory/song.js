@@ -39,10 +39,7 @@ define(function (require) {
 	   Song = Backbone.Model.extend({
 	
 	        initialize: function () {
-	            //this.reports = new ReportsCollection();
-	            //this.reports.parent = this;
-	            this.topSongs = new SongCollection();
-	            this.topSongs.parent = this;
+	        	console.log('Started new Song model');
 	        },
 	
 	        sync: function (method, model, options) {
@@ -72,7 +69,7 @@ define(function (require) {
    
 	return {
 		Song: Song,
-		Songs : SongCollection
+		TopSongsCollection : SongCollection
 	};
         
 });
