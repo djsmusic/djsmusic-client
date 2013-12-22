@@ -5,7 +5,7 @@ define(function (require) {
     var $                   = require('jquery'),
         _                   = require('underscore'),
         Backbone            = require('backbone'),
-        Songs				= require('app/models/song'),
+        TopSongs			= require('app/models/memory/topSongs'),
         SongListView		= require('app/views/SongList'),
         tpl                 = require('text!tpl/Home.html'),
 
@@ -14,17 +14,13 @@ define(function (require) {
     return Backbone.View.extend({
     	
     	initialize: function(){
-    		this.songs = new Songs.TopSongsCollection();
+    		this.songs = new TopSongs([],{rating: 3});
     		console.log('Initialize home view: ',this.songs);
+    		var songList = new SongListView({collection : this.songs});
     	},
 
         render: function () {
         	this.$el.html(template());
-            
-            this.songs.fetch().done(function(){
-            	var listView = new SongListView({collection: self.songs, el: $('#top tbody', self.el)});
-            	listView.render();
-			});
             
             return this;
         }

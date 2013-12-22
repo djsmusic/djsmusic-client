@@ -34,9 +34,9 @@ define(function (require) {
         	require(["app/views/Home"], function (HomeView) {
         		var view = new HomeView({el: $content});
 	            view.render();
-	            view.delegateEvents(); // delegate events when the view is recycled
+	            //view.delegateEvents(); // delegate events when the view is recycled
+	            shellView.selectMenuItem('home-menu');
 	    	});
-	    	shellView.selectMenuItem('home-menu');
         },
 
         contact: function () {

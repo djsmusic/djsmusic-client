@@ -25,16 +25,6 @@ define(function (require) {
 	        deferred.resolve(song);
 	        return deferred.promise();
 	  },
-	  
-	  findByRating = function (rating) {
-	  		console.log("Finding by rating: ",rating);
-            var deferred = $.Deferred(),
-                results = songs.filter(function (element) {
-                    return rating <= element.rating;
-                });
-            deferred.resolve(results);
-            return deferred.promise();
-        },
    
 	   Song = Backbone.Model.extend({
 	
@@ -43,6 +33,7 @@ define(function (require) {
 	        },
 	
 	        sync: function (method, model, options) {
+	        	
 	            if (method === "read") {
 	                findById(parseInt(this.id)).done(function (data) {
 	                	console.log("Found by id: ", data);
@@ -51,25 +42,8 @@ define(function (require) {
 	            }
 	        }
 	
-	   }),
-	   
-	   SongCollection = Backbone.Collection.extend({
-
-            model: Song,
-
-            sync: function (method, model, options) {
-            	if (method === "read") {
-                    findByRating(options.rating).done(function (data) {
-                        options.success(data);
-                    });
-                }
-            }
-
-       });
+	   });
    
-	return {
-		Song: Song,
-		TopSongsCollection : SongCollection
-	};
+	return Song;
         
 });
