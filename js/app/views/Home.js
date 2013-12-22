@@ -5,7 +5,7 @@ define(function (require) {
     var $                   = require('jquery'),
         _                   = require('underscore'),
         Backbone            = require('backbone'),
-        TopSongs			= require('app/models/memory/topSongs'),
+        TopSongs			= require('app/collections/topSongs'),
         SongListView		= require('app/views/SongList'),
         tpl                 = require('text!tpl/Home.html'),
 
