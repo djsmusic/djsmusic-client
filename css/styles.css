@@ -37,6 +37,30 @@ body {
 	height:30px;
 }
 
+.panel{
+	border:#ccc solid 1px;
+	outline:#efefef solid 3px;
+	margin:5px;
+}
+
+.top-m{
+	margin-top:20px;
+}
+
+.top-l{
+	margin-top:40px;
+}
+
+.top-xl{
+	margin-top:70px;
+}
+.rating .glyphicon-star-empty{
+	color:#AAAAAA;
+}
+.rating .glyphicon-star{
+	color:#FF851B;
+}
+
 table{
 	background:#fff;
 	border:solid 1px #ddd;

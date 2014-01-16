@@ -27,6 +27,7 @@ define(function (require) {
         routes: {
             "": "home",
             "contact": "contact",
+            "browse": "browse",
             "employees/:id": "employeeDetails"
         },
 
@@ -37,6 +38,14 @@ define(function (require) {
 	            //view.delegateEvents(); // delegate events when the view is recycled
 	            shellView.selectMenuItem('home-menu');
 	    	});
+        },
+        
+        browse: function () {
+            require(["app/views/Browse"], function (ContactView) {
+                var view = new ContactView({el: $content});
+                view.render();
+                shellView.selectMenuItem('browse-menu');
+            });
         },
 
         contact: function () {

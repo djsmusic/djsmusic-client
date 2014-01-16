@@ -2,11 +2,11 @@
 	<div class="container">
 		<div class="col-md-9">
 			<h3>Welcome!</h3>
-			<p>Welcome to tde 2014 version of DJs Music, released for its 7td anniversary</p>
+			<p>Welcome to tde 2014 version of DJs Music, released for its 7<sup>th</sup> anniversary</p>
 			<ul class="nav nav-tabs">
 			  <li class="active"><a href="#top" data-toggle="tab">Top songs</a></li>
-			  <li><a href="#recent" data-toggle="tab">Recientes</a></li>
-			  <li><a href="#downloaded" data-toggle="tab">Más descargadas</a></li>
+			  <li><a href="#recent" data-toggle="tab">Latest</a></li>
+			  <li><a href="#downloaded" data-toggle="tab">Most downloaded</a></li>
 			</ul>
 			<div class="tab-content">
 				<div id="top" class="tab-pane active">
@@ -23,6 +23,9 @@
 						</thead>
 						<tbody></tbody>
 					</table>
+					<div class="alert alert-danger">
+						<b>Oops!</b> I still didn't figure out how Collections really work in Backbone, so the content for this table isn't loading properly.
+					</div>
 				</div>
 				<div id="recent" class="tab-pane">
 					Recientes
@@ -33,11 +36,15 @@
 			</div>
 		</div>
 		<div class="col-md-3">
-			<h3>Sidebar!</h3>
-			<p>This is loading from the Home view, thanks to Backbone it is super easy to do :D</p>
+			<h3>Enjoy the design?</h3>
+			<p>What you are seeing is rendered with Backbone from several different Views, cool huh?</p>
 			<hr />
-			<h3>Other content</h3>
-			<p>Text</p>
+			<h3>Random thoughts</h3>
+			<p>Bootstrap makes it so easy to add new content that just looks nice!</p>
+			<p>Backbone makes it even easier to load dynamic content. Together, design is almost instant</p>
+			<div class="alert alert-info">
+				<b>Hey there!</b> This could be an ad, or some cool info, or nothing really...
+			</div>
 		</div>
 	</div>
 </div>
