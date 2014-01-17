@@ -28,6 +28,7 @@ define(function (require) {
             "": "home",
             "contact": "contact",
             "browse": "browse",
+            "people": "people",
             "employees/:id": "employeeDetails"
         },
 
@@ -41,16 +42,24 @@ define(function (require) {
         },
         
         browse: function () {
-            require(["app/views/Browse"], function (ContactView) {
-                var view = new ContactView({el: $content});
+            require(["app/views/Browse"], function (View) {
+                var view = new View({el: $content});
                 view.render();
                 shellView.selectMenuItem('browse-menu');
             });
         },
+        
+        people: function () {
+            require(["app/views/People"], function (View) {
+                var view = new View({el: $content});
+                view.render();
+                shellView.selectMenuItem('people-menu');
+            });
+        },
 
         contact: function () {
-            require(["app/views/Contact"], function (ContactView) {
-                var view = new ContactView({el: $content});
+            require(["app/views/Contact"], function (View) {
+                var view = new View({el: $content});
                 view.render();
                 shellView.selectMenuItem('contact-menu');
             });
