@@ -72,6 +72,7 @@ body {
 }
 
 .profile-compact{
+	display: inline-block;
 	position:relative;
 	overflow:hidden;
 	height:200px;

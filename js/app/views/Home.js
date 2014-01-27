@@ -15,12 +15,15 @@ define(function (require) {
     	
     	initialize: function(){
     		this.songs = new TopSongs([],{rating: 3});
-    		console.log('Initialize home view: ',this.songs);
-    		var songList = new SongListView({collection : this.songs});
+    		console.log('Initialize home view with collection: ',this.songs);
+    		this.songList = new SongListView({collection : this.songs});
     	},
 
         render: function () {
         	this.$el.html(template());
+        	
+        	console.log("Adding to DOM: ", this.songList.render().el);
+        	$('#top-songs').append(this.songList.render().el);
             
             return this;
         }
