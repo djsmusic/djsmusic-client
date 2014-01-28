@@ -18,7 +18,7 @@ define(function (require) {
         },
 
         render: function () {
-        	console.log('Using:',this.model.attributes);
+        	console.log('SongListItem: Using:',this.model.attributes);
             this.$el.html(template(this.model.attributes));
             return this;
         }

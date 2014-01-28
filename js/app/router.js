@@ -5,12 +5,10 @@ define(function (require) {
     var $           = require('jquery'),
         Backbone    = require('backbone'),
         ShellView   = require('app/views/Shell'),
-		HomeView    = require('app/views/Home'),
 
         $body = $('body'),
         shellView = new ShellView({el: $body}).render(),
-        $content = $("#content", shellView.el),
-        homeView = new HomeView({el: $content});
+        $content = $("#content", shellView.el);
 
     // Close the search dropdown on click anywhere in the UI
     $body.click(function () {
@@ -70,21 +68,6 @@ define(function (require) {
         	require(["app/views/Music"], function (View) {
         		var view = new View({el: $content});
                 view.render();
-            });
-        },
-
-        employeeDetails: function (id) {
-            require(["app/views/Employee", "app/models/employee"], function (EmployeeView, models) {
-                var employee = new models.Employee({id: id});
-                employee.fetch({
-                    success: function (data) {
-                        // Note that we could also 'recycle' the same instance of EmployeeFullView
-                        // instead of creating new instances
-                        var view = new EmployeeView({model: data, el: $content});
-                        view.render();
-                    }
-                });
-                shellView.selectMenuItem();
             });
         }
 

@@ -12,16 +12,22 @@ define(function (require) {
     	tagName: 'tbody',
 
         initialize: function () {
-        	console.log("Received collection on init: ", this.collection);
-        	console.log("Container: ",this.el);
+        	console.log("SongList: Init");
+        	console.log("SongList: Fetching collection");
             this.collection.on("reset", this.render, this);
             this.collection.on("add", this.render, this);
-            this.collection.fetch();
+            this.collection.fetch({
+            	success: function(model, data){
+            		console.log("SongList: Fetched", data);
+            	},
+            	error: function(model, err){
+            		console.log("SongList: Not fetched", err);
+            	}
+            });
         },
 
         render: function () {
-        	console.log('Render collection: ', this.collection);
-        	console.log("Render on ", this.$el);
+        	console.log('SongList: Received collection: ', this.collection.models);
         	this.$el.empty();
 		    _.each(this.collection.models, function (song) {
             	this.$el.append(new SongListItemView({model: song}).render().el);

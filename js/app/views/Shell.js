@@ -5,8 +5,6 @@ define(function (require) {
     var $                   = require('jquery'),
         _                   = require('underscore'),
         Backbone            = require('backbone'),
-        EmployeeListView    = require('app/views/EmployeeList'),
-        models              = require('app/models/employee'),
         tpl                 = require('text!tpl/Shell.html'),
 
         template = _.template(tpl),
@@ -15,13 +13,11 @@ define(function (require) {
     return Backbone.View.extend({
 
         initialize: function () {
-            this.employeeList = new models.EmployeeCollection();
+        	console.log('Shell: init');
         },
 
         render: function () {
             this.$el.html(template());
-            var listView = new EmployeeListView({collection: this.employeeList, el: $(".employee-list", this.el)});
-            listView.render();
             $menuItems = $('.navbar .nav li', this.el);
             return this;
         },
@@ -32,12 +28,8 @@ define(function (require) {
         },
 
         search: function (event) {
-            var key = $('#searchText').val();
-            this.employeeList.fetch({reset: true, data: {name: key}, success: function () {
-                setTimeout(function () {
-                    $('.dropdown').addClass('open');
-                });
-            }});
+        	var key = $('#searchText').val();
+        	console.log('Shell: Search for '+key);
         },
 
         onkeypress: function (event) {

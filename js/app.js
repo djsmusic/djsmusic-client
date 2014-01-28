@@ -22,7 +22,7 @@ require.config({
     map: {
         '*': {
             'app/models/employee': 'app/models/memory/employee',
-            'app/models/song': 'app/models/memory/song'
+            'app/models/song': 'app/models/song'
         }
     },
 
