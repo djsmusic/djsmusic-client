@@ -25,10 +25,10 @@ define(function (require) {
         	console.log("Adding to DOM: ", this.songList.render().el);
         	$('#top-songs').append(this.songList.render().el);
         	
-        	$('.nav-tabs a').click(function (e) {
+        	/*$('.nav-tabs a').click(function (e) {
 				e.preventDefault();
 				$(this).tab('show');
-			});
+			});*/
             
             return this;
         }

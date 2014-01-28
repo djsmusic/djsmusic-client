@@ -117,6 +117,10 @@ table{
 	border-top:none;
 }
 
+.fb-comments, .fb-comments * {
+	width: 100% !important;
+}
+
 /* Set the fixed height of the footer here */
 footer {
   height: 60px;

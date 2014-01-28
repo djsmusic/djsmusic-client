@@ -29,6 +29,7 @@ define(function (require) {
             "contact": "contact",
             "browse": "browse",
             "people": "people",
+            "music/:id" : "music",
             "employees/:id": "employeeDetails"
         },
 
@@ -62,6 +63,13 @@ define(function (require) {
                 var view = new View({el: $content});
                 view.render();
                 shellView.selectMenuItem('contact-menu');
+            });
+        },
+        
+        music : function(id){
+        	require(["app/views/Music"], function (View) {
+        		var view = new View({el: $content});
+                view.render();
             });
         },
 
