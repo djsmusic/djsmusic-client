@@ -10,21 +10,14 @@ define(function (require) {
 
 			model: Song,
 			
-			url: "http://api.djs-music.com/songs",
-			
-			initialize: function(){
-				console.log('SongCollection: init');
-			}/*,
-			
-			sync: function(method, response){
-				console.log("SongCollection: Synced: ", response.models);
-				return response;
+			url: function(){
+				return "http://api.djs-music.com/songs/"+this.type;
 			},
-			   
-			parse: function(method, response){
-				console.log("SongCollection: Received response: ",response);
-				return response;
-			}*/
+			
+			initialize: function(models, options){
+				console.log('SongCollection: init');
+				this.type = options.type;
+			}
 
         });
 

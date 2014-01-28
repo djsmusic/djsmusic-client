@@ -14,7 +14,7 @@ define(function (require) {
     return Backbone.View.extend({
     	
     	initialize: function(){
-    		this.songs = new Songs();
+    		this.songs = new Songs([],{type: 'top'});
     		console.log('Home: Init');
     		this.songList = new SongListView({collection : this.songs});
     	},
