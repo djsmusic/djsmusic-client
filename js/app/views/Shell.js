@@ -14,13 +14,15 @@ define(function (require) {
     return Backbone.View.extend({
 
         initialize: function () {
+        	this.Player = new Player();
         	console.log('Shell: init');
         },
 
         render: function () {
             this.$el.html(template());
             $menuItems = $('.navbar .nav li', this.el);
-            $('#player').append(new Player().render().el);
+            $('#player').append(this.Player.render().el);
+            
             return this;
         },
 

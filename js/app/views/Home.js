@@ -22,7 +22,6 @@ define(function (require) {
         render: function () {
         	this.$el.html(template());
         	
-        	console.log("Home: Adding to DOM: ", this.songList.render().el);
         	$('#top-songs').append(this.songList.render().el);
             
             return this;

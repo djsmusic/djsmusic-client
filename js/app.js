@@ -17,7 +17,7 @@ require.config({
         backbone : '../lib/backbone-min',
         text : '../lib/text',
         underscore : '../lib/underscore-min',
-        sound : '../lib/soundmanager2-jsmin',
+        soundmanager2 : '../lib/soundmanager/script/soundmanager2-jsmin',
         slider : '../lib/bootstrap-slider'
     },
 
@@ -35,6 +35,9 @@ require.config({
         },
         'underscore': {
             exports: '_'
+        },
+        'soundmanager2':{
+        	exports: 'soundManager'
         }
     }
 });

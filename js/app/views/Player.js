@@ -1,8 +1,8 @@
 define(function (require) {
 
     "use strict";
-    
-    function timeToString(time){
+
+	function timeToString(time){
     	var sec_num = time;
 	    var minutes = Math.floor(sec_num / 60);
 	    var seconds = Math.floor(sec_num - (minutes * 60));
@@ -17,7 +17,7 @@ define(function (require) {
         _                   = require('underscore'),
         Backbone            = require('backbone'),
         tpl                 = require('text!tpl/Player.html'),
-        sound				= require('sound'),
+        soundManager		= require('soundmanager2'),
         Slider				= require('slider'),
         
         playlist			= [],			// Playlist, array of track objects
@@ -25,28 +25,37 @@ define(function (require) {
 		state 				= 1,			// 0 => Pause, 1 => Playing
 
         template = _.template(tpl);
-
+    
     return Backbone.View.extend({
 
         initialize: function () {
         	console.log('Player: init');
+        	
+        	soundManager.setup({
+				url: '../../soundmanager/swf/',
+				flashVersion: 8
+			});
         },
 
         render: function () {
         	this.$el.html(template());
         	
         	this.$loaded = this.$el.find('.seek-loaded');
+        	this.$songInfo = this.$el.find('.song-info');
         	
         	var this_ = this;
         	
         	this.slider = this.$el.find('input.seek-slider').slider({
         		formater : function(val){
-        			var total = 341, // Total time in seconds
+        			if(typeof(current.length)==='undefined'){
+        				current.length = 0;
+        			}
+        			var total = current.length, // Total time in seconds
         				elapsed = total * val / 1000;
         			return timeToString(elapsed);
         		}
         	});
-        	
+        	       	
             return this;
         },
 
@@ -56,6 +65,46 @@ define(function (require) {
         	"click .next": "next",
         	"click .random": "toggleRandom",
         	"click .repeat": "toggleRepeat"
+        },
+        
+        /**
+         * Add a track to the playlist 
+         */
+        addToPlaylist: function(track){
+        	
+        	var this_ = this;
+        	
+        	console.log('Player: Trying to add to playlist: ', track);
+        	soundManager.onready(function(){
+        		// Check if it's playable
+				if(soundManager.canPlayURL(track.url)){
+					
+					track.sound = soundManager.createSound({
+						url: track.url,
+						id: track.url,
+						autoPlay: false,
+						autoLoad: true
+					});
+					/*// Start loading it and display the progress
+					track.sound.whileloading(function(){
+						var percent = this.bytesLoaded*100/this.bytesTotal;
+						console.log('Player: Loaded '+percent+'%');
+					});*/
+					
+					// Store in playlist
+					playlist.push(track);
+					
+					console.log('Player: Song added to playlist: ',track);
+					
+					// Load in the player if it's the only song
+					if(playlist.length == 1){
+		        		this_.next();
+		        	}
+				}else{
+					console.error('Player: Cant play track: ',track.url);
+				}
+			});
+        	
         },
         
         /**
@@ -75,6 +124,19 @@ define(function (require) {
 		 */
 		next: function(){
 			console.log('Player: Next');
+			
+			if(playlist.length==0){
+				console.error('Player: Playlist is empty');
+				return;
+			}
+			
+			current = playlist.pop();
+			
+			console.log(this.$songInfo);
+			
+			// I need to load the song in soundmanager
+			// and its data (title and artist) in the player
+			this.$songInfo.html('<a href="#music/'+current.songId+'">'+current.title+'</a> <small>by <a href="#dj-songs/'+current.artistId+'">'+current.artist+'</a></small>');
 		},
 		/**
 		 * Play the previous song in the playlist 
@@ -88,13 +150,19 @@ define(function (require) {
 		 */
 		playPause: function(){
 			var icon;
+			if(!this.ready()){
+				console.warn('Player: Sound not ready: ',current);
+				return;
+			}
 			if(state==0){
 				this.$el.find("a.playPause i").removeClass('fa-pause').addClass('fa-play');
 				state = 1;
+				current.sound.pause();
 				console.log('Player: Now Paused');
 			}else{
 				this.$el.find("a.playPause i").removeClass('fa-play').addClass('fa-pause');
 				state = 0;
+				current.sound.play();
 				console.log('Player: Now Playing');
 			}
 		},
@@ -131,6 +199,15 @@ define(function (require) {
 		 */
 		setLoaded: function(percent){
 			this.$loaded.width(percent+'%');
+		},
+		/**
+		 * Returns whether current is holding a valid song to play 
+		 */
+		ready: function(){
+			if(typeof(current.sound)=='object'){
+				return true;
+			}
+			return false;
 		}
 
     });

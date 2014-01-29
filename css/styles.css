@@ -159,6 +159,11 @@ table{
 	color:#ccc;
 	font-size:0.8em;
 }
+.audio-player .song-info{
+	width: 100%;
+	overflow: hidden;
+	height: 20px;
+}
 .audio-player .elapsed, .audio-player .total, .audio-player .seek{
 	display:inline-block;
 	font-size:0.7em;
@@ -229,7 +234,7 @@ table{
 	background:rgba(255,255,255,0.05);
 	position:absolute;
 	z-index:1;
-	width:60%;
+	width:0%;
 	height:100%;
 }
 .audio-player .elapsed, .audio-player .total{
