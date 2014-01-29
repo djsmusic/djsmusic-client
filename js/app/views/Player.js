@@ -1,12 +1,24 @@
 define(function (require) {
 
     "use strict";
+    
+    function timeToString(time){
+    	var sec_num = time;
+	    var minutes = Math.floor(sec_num / 60);
+	    var seconds = Math.floor(sec_num - (minutes * 60));
+	
+	    if (minutes < 10) {minutes = "0"+minutes;}
+	    if (seconds < 10) {seconds = "0"+seconds;}
+	    var time    = minutes+':'+seconds;
+	    return time;
+    }
 
     var $                   = require('jquery'),
         _                   = require('underscore'),
         Backbone            = require('backbone'),
         tpl                 = require('text!tpl/Player.html'),
         sound				= require('sound'),
+        Slider				= require('slider'),
         
         playlist			= [],			// Playlist, array of track objects
 		current 			= null,			// Current track object
@@ -22,6 +34,14 @@ define(function (require) {
 
         render: function () {
         	this.$el.html(template());
+        	this.$el.find('input.seek-slider').slider({
+        		formater : function(val){
+        			var total = 341, // Total time in seconds
+        				elapsed = total * val / 1000;
+        			
+        			return timeToString(elapsed);
+        		}
+        	});
             return this;
         },
 

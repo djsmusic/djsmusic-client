@@ -17,7 +17,8 @@ require.config({
         backbone : '../lib/backbone-min',
         text : '../lib/text',
         underscore : '../lib/underscore-min',
-        sound : '../lib/soundmanager2-jsmin'
+        sound : '../lib/soundmanager2-jsmin',
+        slider : '../lib/bootstrap-slider'
     },
 
     map: {
