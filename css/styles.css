@@ -242,7 +242,6 @@ table{
 }
 .audio-player .playlist{
 	height:50px;
-	overflow:hidden;
 }
 .audio-player .playlist ul{
 	list-style:none;
@@ -252,8 +251,9 @@ table{
 }
 .audio-player .playlist li{
 	display:inline-block;
+	position:relative;
 }
-.audio-player .playlist li a{
+.audio-player .playlist li .track{
 	background: url('http://www.deathwishinc.com/img/icons/vinyl-off-trans.png') no-repeat 4px;
 	width: 50px;
 	height: 50px;
@@ -264,8 +264,19 @@ table{
 	padding: 4px;
 	position:relative;
 }
-.audio-player .playlist li a:hover{
+.audio-player .playlist li .delete{
+	position:absolute;
+	top:-5px;
+	right:-5px;
+	color:#fff;
+	display:none;
+}
+.audio-player .playlist li .track:hover{
 	background-color:rgba(255,255,255,0.1);
+}
+.audio-player .playlist li .delete:hover{
+	color:#eb0000;
+	cursor:pointer;
 }
 .audio-player .playlist li a.active{
 	border-bottom:solid 3px #eb0000;

@@ -59,10 +59,10 @@ define(function (require) {
         	
         	this.slider = this.$el.find('input.seek-slider').slider({
         		formater : function(val){
-        			if(typeof(current.length)==='undefined'){
-        				current.length = 0;
+        			if(typeof(current.duration)==='undefined'){
+        				current.duration = 0;
         			}
-        			var total = current.length, // Total time in seconds
+        			var total = current.duration/1000, // Total time in seconds
         				elapsed = total * val / 1000;
         			return timeToString(elapsed);
         		}
@@ -77,7 +77,8 @@ define(function (require) {
         	"click .next": "next",
         	"click .random": "toggleRandom",
         	"click .repeat": "toggleRepeat",
-        	"click .playlist a": "playTrack"
+        	"click .playlist a.track": "playTrack",
+        	"click .playlist a.delete": "removeTrack"
         },
         
         /**
@@ -94,34 +95,31 @@ define(function (require) {
         	soundManager.onready(function(){
         		// Check if it's playable
 				if(soundManager.canPlayURL(track.url)){
-					try{
-						track.sound = soundManager.createSound({
-							url: track.url,
-							id: track.url,
-							autoPlay: false,
-							autoLoad: false,
-							whileloading: function(){
-								var percent = this.bytesLoaded*100/this.bytesTotal;
-								this_.setLoaded(percent);
-							},
-							whileplaying: function(){
-								var percent = this.position*100/this.duration;
-								this_.setPlayed(percent);
-								this_.$elapsed.text(timeToString(this.position/1000));
-							},
-							onload: function(){
-								console.log('Player: Track loaded: '+track.title);
-								track.duration = this.duration;
-								this_.$total.text(timeToString(current.duration/1000));
-							}
-						});
-					}catch(e){
-						console.error('Player: ',e);
-					}
+					
+					track.sound = soundManager.createSound({
+						url: track.url,
+						id: track.url,
+						autoPlay: false,
+						autoLoad: false,
+						whileloading: function(){
+							var percent = this.bytesLoaded*100/this.bytesTotal;
+							this_.setLoaded(percent);
+						},
+						whileplaying: function(){
+							var percent = this.position*100/this.duration;
+							this_.setPlayed(percent);
+							this_.$elapsed.text(timeToString(this.position/1000));
+						},
+						onload: function(){
+							console.log('Player: Track loaded: '+track.title);
+							track.duration = this.duration;
+							this_.$total.text(timeToString(current.duration/1000));
+						}
+					});
 					
 					
 					// Display in the playlist
-					track.$obj = $('<li><a href="#music/'+track.songId+'" title="'+track.title+'" rel="'+playlist.length+'"></a></li>').appendTo(this_.$playlist);
+					track.$obj = $('<li><a class="track" href="#music/'+track.songId+'" title="'+track.title+'" rel="'+playlist.length+'"></a><a class="delete" aria-hidden="true" rel="'+playlist.length+'" title="Remove from playlist"><i class="fa fa-times-circle"></i></a></li>').appendTo($(this_.$playlist).find('ul'));
 					
 					// Store in playlist
 					playlist.push(track);
@@ -130,7 +128,7 @@ define(function (require) {
 					
 					// Load in the player if it's the only song
 					if(playlist.length == 1){
-		        		//this_.next();
+		        		this_.next();
 		        	}
 				}else{
 					console.error('Player: Cant play track: ',track.url);
@@ -143,7 +141,7 @@ define(function (require) {
 		 * Show the player 
 		 */
 		show: function(){
-			$('#player').removeClass('hidden');
+			$('#player').removeClass('hidden').show();
 		},
 		/**
 		 * Hide the player 
@@ -177,15 +175,22 @@ define(function (require) {
 			this.playCurrent();
 		},
 		/**
+		 * Remove the selected track from the playlist 
+		 */
+		removeTrack: function(e){
+			e.preventDefault();
+			var index = $(e.currentTarget).attr('rel');
+			item = playlist[index];
+			item.$obj.remove();
+			playlist.splice(index,1);
+		},
+		/**
 		 * Play the track in current 
 		 */
 		playCurrent: function(){
-			// Remove the currently playing song from the playlist
-			//current.$obj.remove();
 			// Add the active class
 			this.$playlist.find('a.active').removeClass('active');
 			
-			console.log(current.$obj);
 			current.$obj.find('a').addClass('active');
 			
 			this.$songInfo.html('<a href="#music/'+current.songId+'">'+current.title+'</a> <small>by <a href="#dj-songs/'+current.artistId+'">'+current.artist+'</a></small>');
