@@ -43,12 +43,14 @@
 <div id="player" class="navbar navbar-inverse navbar-fixed-bottom audio-player">
 	<div class="container">
 		<div class="row" style="color:#fff">
-			<div class="col-md-2 controls">
-				<a href="#prev" class="btn"><i class="fa fa-fast-backward" style="vertical-align:middle;"></i></a>
-				<a href="#play" class="btn"><i class="fa fa-play fa-2x" style="vertical-align:middle;"></i></a>
-				<a href="#next" class="btn disabled"><i class="fa fa-fast-forward" style="vertical-align:middle;"></i></a>
+			<div class="col-xs-1 col-md-2 controls">
+				<div class="row">
+					<div class="col-md-4 visible-md visible-lg" style="padding:0; text-align:right;"><a href="#prev" class="btn"><i class="fa fa-fast-backward" style="vertical-align:middle;"></i></a></div>
+					<div class="col-md-4" style="padding:0"><a href="#play" class="btn"><i class="fa fa-play fa-2x" style="vertical-align:middle;"></i></a></div>
+					<div class="col-md-4 visible-md visible-lg" style="padding:0;  text-align:left;"><a href="#next" class="btn disabled"><i class="fa fa-fast-forward" style="vertical-align:middle;"></i></a></div>
+				</div>
 			</div>
-			<div class="col-md-4 current-track">
+			<div class="col-xs-15 col-md-4 current-track">
 				<div>
 					<div class=""><a href="#music/1">Track name</a> <small>by <a href="#dj-songs/1">DJ Name</a></small></div>
 					<div class="song">
@@ -62,7 +64,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-5 playlist">
+			<div class="col-md-5 playlist visible-md visible-lg">
 				<ul>
 					<li><a href="#music/1" title="Track title 1"></a></li>
 					<li><a href="#music/1" title="Track title 2"></a></li>
@@ -76,7 +78,7 @@
 					<li><a href="#music/1" title="Track title 10"></a></li>
 				</ul>
 			</div>
-			<div class="col-md-1 controls">
+			<div class="col-md-1 controls visible-lg">
 				<a href="#prev" class="btn btn-xs"><i class="glyphicon glyphicon-random" style="vertical-align:middle;"></i></a>
 				<a href="#play" class="btn btn-xs"><i class="glyphicon glyphicon-retweet" style="vertical-align:middle;"></i></a>
 			</div>
