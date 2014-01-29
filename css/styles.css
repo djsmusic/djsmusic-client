@@ -143,7 +143,6 @@ table{
 .audio-player .current-track{
 	height:50px;
 	overflow:hidden;
-	border-left:solid 1px #111;
 	padding:2px 10px;
 }
 .audio-player .current-track small{
@@ -170,8 +169,29 @@ table{
 .audio-player .playlist{
 	height:50px;
 	overflow:hidden;
-	border-left:solid 1px #111;
-	border-right:solid 1px #111;
+}
+.audio-player .playlist ul{
+	list-style:none;
+	margin:0;
+	padding:0;
+	width:500px;
+}
+.audio-player .playlist li{
+	display:inline-block;
+}
+.audio-player .playlist li a{
+	background: url('http://www.deathwishinc.com/img/icons/vinyl-off-trans.png') no-repeat 4px;
+	width: 50px;
+	height: 50px;
+	display: inline-block;
+	line-height: 42px;
+	text-align: center;
+	color: #fff;
+	text-shadow: #000 0 0px 2px;
+	padding: 4px;
+}
+.audio-player .playlist li a:hover{
+	background-color:rgba(255,255,255,0.1);
 }
 
 /* Set the fixed height of the footer here */
