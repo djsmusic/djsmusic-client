@@ -16,7 +16,8 @@ require.config({
         jquery : '../lib/jquery-1.9.1.min',
         backbone : '../lib/backbone-min',
         text : '../lib/text',
-        underscore : '../lib/underscore-min'
+        underscore : '../lib/underscore-min',
+        sound : '../lib/soundmanager2-jsmin'
     },
 
     map: {

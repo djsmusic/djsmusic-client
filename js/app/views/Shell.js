@@ -5,6 +5,7 @@ define(function (require) {
     var $                   = require('jquery'),
         _                   = require('underscore'),
         Backbone            = require('backbone'),
+        Player				= require('app/views/Player'),
         tpl                 = require('text!tpl/Shell.html'),
 
         template = _.template(tpl),
@@ -19,6 +20,7 @@ define(function (require) {
         render: function () {
             this.$el.html(template());
             $menuItems = $('.navbar .nav li', this.el);
+            $('#player').append(new Player().render().el);
             return this;
         },
 
