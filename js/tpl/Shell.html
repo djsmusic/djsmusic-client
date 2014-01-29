@@ -40,22 +40,30 @@
 	</footer>
 </div>
 
-<div id="player" class="navbar navbar-inverse navbar-fixed-bottom">
+<div id="player" class="navbar navbar-inverse navbar-fixed-bottom audio-player">
 	<div class="container">
 		<div class="row" style="color:#fff">
-			<div class="col-md-2" style="line-height:50px">
+			<div class="col-md-2 controls">
 				<a href="#prev" class="btn"><i class="fa fa-fast-backward" style="vertical-align:middle;"></i></a>
 				<a href="#play" class="btn"><i class="fa fa-play fa-2x" style="vertical-align:middle;"></i></a>
-				<a href="#next" class="btn"><i class="fa fa-fast-forward" style="vertical-align:middle;"></i></a>
+				<a href="#next" class="btn disabled"><i class="fa fa-fast-forward" style="vertical-align:middle;"></i></a>
 			</div>
-			<div class="col-md-4">
-				Track name<br />
-				<small>DJ Name</small>
+			<div class="col-md-4 current-track">
+				<div>
+					<div class="">Track name <small>by DJ Name</small></div>
+					<div class="song">
+						<div class="elapsed">00:00</div>
+						<div class="seek"></div>
+						<div class="total">00:00</div>
+					</div>
+				</div>
 			</div>
-			<div class="col-md-4">
-				Playlist
+			<div class="col-md-4 playlist">
+				<div>
+					Playlist
+				</div>
 			</div>
-			<div class="col-md-2" style="line-height:50px">
+			<div class="col-md-2 controls">
 				<a href="#prev" class="btn"><i class="glyphicon glyphicon-random" style="vertical-align:middle;"></i></a>
 				<a href="#play" class="btn"><i class="glyphicon glyphicon-retweet" style="vertical-align:middle;"></i></a>
 			</div>
