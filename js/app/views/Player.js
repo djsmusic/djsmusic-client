@@ -21,7 +21,7 @@ define(function (require) {
         Slider				= require('slider'),
         
         playlist			= [],			// Playlist, array of track objects
-		current 			= null,			// Current track object
+		current 			= {},			// Current track object
 		state 				= 1,			// 0 => Pause, 1 => Playing
 
         template = _.template(tpl);
@@ -34,14 +34,19 @@ define(function (require) {
 
         render: function () {
         	this.$el.html(template());
-        	this.$el.find('input.seek-slider').slider({
+        	
+        	this.$loaded = this.$el.find('.seek-loaded');
+        	
+        	var this_ = this;
+        	
+        	this.slider = this.$el.find('input.seek-slider').slider({
         		formater : function(val){
         			var total = 341, // Total time in seconds
         				elapsed = total * val / 1000;
-        			
         			return timeToString(elapsed);
         		}
         	});
+        	
             return this;
         },
 
@@ -121,6 +126,12 @@ define(function (require) {
 				console.log('Player: Repeat mode ON');
 			}
 		},
+		/**
+		 * Sets the loaded percentage 
+		 */
+		setLoaded: function(percent){
+			this.$loaded.width(percent+'%');
+		}
 
     });
 
