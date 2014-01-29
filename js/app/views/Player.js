@@ -26,7 +26,7 @@ define(function (require) {
 
         template = _.template(tpl);
     
-    return Backbone.View.extend({
+    var Player = Backbone.View.extend({
 
         initialize: function () {
         	console.log('Player: init');
@@ -35,6 +35,15 @@ define(function (require) {
 				url: '../../soundmanager/swf/',
 				flashVersion: 8
 			});
+			
+			soundManager.ontimeout(function(status) {
+				console.error('Player: Timeout loading soundManager. Status: '+status.success+'. Error type: '+ status.error.type);
+				// Retry
+				soundManager.setup({
+					url: '../../soundmanager/swf/',
+					flashVersion: 8
+				});
+			});
         },
 
         render: function () {
@@ -42,6 +51,9 @@ define(function (require) {
         	
         	this.$loaded = this.$el.find('.seek-loaded');
         	this.$songInfo = this.$el.find('.song-info');
+        	this.$elapsed = this.$el.find('.elapsed');
+        	this.$total = this.$el.find('.total');
+        	this.$playlist = this.$el.find('.playlist');
         	
         	var this_ = this;
         	
@@ -64,7 +76,8 @@ define(function (require) {
         	"click .previous": "prev",
         	"click .next": "next",
         	"click .random": "toggleRandom",
-        	"click .repeat": "toggleRepeat"
+        	"click .repeat": "toggleRepeat",
+        	"click .playlist a": "playTrack"
         },
         
         /**
@@ -72,24 +85,43 @@ define(function (require) {
          */
         addToPlaylist: function(track){
         	
+        	this.show();
+        	
         	var this_ = this;
         	
         	console.log('Player: Trying to add to playlist: ', track);
+        	
         	soundManager.onready(function(){
         		// Check if it's playable
 				if(soundManager.canPlayURL(track.url)){
+					try{
+						track.sound = soundManager.createSound({
+							url: track.url,
+							id: track.url,
+							autoPlay: false,
+							autoLoad: false,
+							whileloading: function(){
+								var percent = this.bytesLoaded*100/this.bytesTotal;
+								this_.setLoaded(percent);
+							},
+							whileplaying: function(){
+								var percent = this.position*100/this.duration;
+								this_.setPlayed(percent);
+								this_.$elapsed.text(timeToString(this.position/1000));
+							},
+							onload: function(){
+								console.log('Player: Track loaded: '+track.title);
+								track.duration = this.duration;
+								this_.$total.text(timeToString(current.duration/1000));
+							}
+						});
+					}catch(e){
+						console.error('Player: ',e);
+					}
 					
-					track.sound = soundManager.createSound({
-						url: track.url,
-						id: track.url,
-						autoPlay: false,
-						autoLoad: true
-					});
-					/*// Start loading it and display the progress
-					track.sound.whileloading(function(){
-						var percent = this.bytesLoaded*100/this.bytesTotal;
-						console.log('Player: Loaded '+percent+'%');
-					});*/
+					
+					// Display in the playlist
+					track.$obj = $('<li><a href="#music/'+track.songId+'" title="'+track.title+'" rel="'+playlist.length+'"></a></li>').appendTo(this_.$playlist);
 					
 					// Store in playlist
 					playlist.push(track);
@@ -98,7 +130,7 @@ define(function (require) {
 					
 					// Load in the player if it's the only song
 					if(playlist.length == 1){
-		        		this_.next();
+		        		//this_.next();
 		        	}
 				}else{
 					console.error('Player: Cant play track: ',track.url);
@@ -111,7 +143,7 @@ define(function (require) {
 		 * Show the player 
 		 */
 		show: function(){
-			$('#player').show();
+			$('#player').removeClass('hidden');
 		},
 		/**
 		 * Hide the player 
@@ -132,11 +164,34 @@ define(function (require) {
 			
 			current = playlist.pop();
 			
-			console.log(this.$songInfo);
+			this.playCurrent();
+		},
+		/**
+		 * Plays the selected object from the playlist 
+		 */
+		playTrack: function(e){
+			e.preventDefault();
+			var index = $(e.currentTarget).attr('rel');
+			current = playlist[index];
 			
-			// I need to load the song in soundmanager
-			// and its data (title and artist) in the player
+			this.playCurrent();
+		},
+		/**
+		 * Play the track in current 
+		 */
+		playCurrent: function(){
+			// Remove the currently playing song from the playlist
+			//current.$obj.remove();
+			// Add the active class
+			this.$playlist.find('a.active').removeClass('active');
+			
+			console.log(current.$obj);
+			current.$obj.find('a').addClass('active');
+			
 			this.$songInfo.html('<a href="#music/'+current.songId+'">'+current.title+'</a> <small>by <a href="#dj-songs/'+current.artistId+'">'+current.artist+'</a></small>');
+			
+			// Start playing
+			this.playPause();
 		},
 		/**
 		 * Play the previous song in the playlist 
@@ -195,6 +250,12 @@ define(function (require) {
 			}
 		},
 		/**
+		 * Sets the played percentage 
+		 */
+		setPlayed: function(percent){
+			this.slider.slider('setValue', percent*10);
+		},
+		/**
 		 * Sets the loaded percentage 
 		 */
 		setLoaded: function(percent){
@@ -211,5 +272,7 @@ define(function (require) {
 		}
 
     });
+    
+    return new Player();
 
 });

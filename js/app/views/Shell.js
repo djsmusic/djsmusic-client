@@ -14,7 +14,7 @@ define(function (require) {
     return Backbone.View.extend({
 
         initialize: function () {
-        	this.Player = new Player();
+        	this.Player = Player;
         	console.log('Shell: init');
         },
 

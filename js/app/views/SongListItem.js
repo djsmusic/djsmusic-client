@@ -15,7 +15,7 @@ define(function (require) {
         tagName: "tr",
 
         initialize: function () {
-        	this.Player = new Player();
+        	this.Player = Player;
             this.model.on("change", this.render, this);
         },
 
