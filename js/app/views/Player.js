@@ -27,6 +27,10 @@ define(function (require) {
 
         events: {
         	"click .playPause": "playPause",
+        	"click .previous": "prev",
+        	"click .next": "next",
+        	"click .random": "toggleRandom",
+        	"click .repeat": "toggleRepeat"
         },
         
         /**
@@ -45,13 +49,13 @@ define(function (require) {
 		 * Play the next song in the playlist 
 		 */
 		next: function(){
-			console.log('Next');
+			console.log('Player: Next');
 		},
 		/**
 		 * Play the previous song in the playlist 
 		 */
 		prev: function(){
-			console.log('Prev');
+			console.log('Player: Prev');
 		},
 		/**
 		 * Toggle the state of the player. Always according to what the sound library says.
@@ -68,7 +72,35 @@ define(function (require) {
 				state = 0;
 				console.log('Player: Now Playing');
 			}
-		}
+		},
+		/**
+		 * Toggle random mode
+		 */
+		toggleRandom: function(){
+			var $random = this.$el.find("a.random");
+			if($random.hasClass('active')){
+				// Disable random mode
+				$random.removeClass('active');
+				console.log('Player: Random mode OFF');
+			}else{
+				$random.addClass('active');
+				console.log('Player: Random mode ON');
+			}
+		},
+		/**
+		 * Toggle repeat mode
+		 */
+		toggleRepeat: function(){
+			var $repeat = this.$el.find("a.repeat");
+			if($repeat.hasClass('active')){
+				// Disable random mode
+				$repeat.removeClass('active');
+				console.log('Player: Repeat mode OFF');
+			}else{
+				$repeat.addClass('active');
+				console.log('Player: Repeat mode ON');
+			}
+		},
 
     });
 

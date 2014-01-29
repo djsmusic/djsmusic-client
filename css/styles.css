@@ -134,7 +134,14 @@ table{
 	text-shadow:#000 0 1px 1px;
 }
 .audio-player .controls a{
-	color:#ccc;
+	color:#aaa;
+}
+.audio-player .controls a.active{
+	color:#0095FF;
+	box-shadow:none;
+}
+.audio-player .controls a.active:hover{
+	color:#99D5FF;
 }
 .audio-player .controls a:hover{
 	color:#fff;
