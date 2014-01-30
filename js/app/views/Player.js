@@ -60,6 +60,7 @@ define(function (require) {
         	var this_ = this;
         	
         	this.slider = this.$el.find('input.seek-slider').slider({
+        		enabled: false,
         		formater : function(val){
         			if(typeof(this_.current)==='undefined' || typeof(this_.current.duration)==='undefined'){
         				this_.current.duration = 0;
@@ -67,6 +68,12 @@ define(function (require) {
         			var total = this_.current.duration/1000, // Total time in seconds
         				elapsed = total * val / 1000;
         			return timeToString(elapsed);
+        		}
+        	}).on('slideStop',function(slide){
+        		if(this_.ready()){
+        			var pos = slide.value;
+        			this_.current.sound.setPosition(this_.current.duration * pos/1000);
+        			this_.$elapsed.text(timeToString(pos/1000));
         		}
         	});
         	       	
@@ -265,6 +272,8 @@ define(function (require) {
 			}else{
 				this.disable(this.$next);
 			}
+			
+			this.slider.slider('enable');
 			
 			this.$songInfo.html('<a href="#music/'+this.current.songId+'">'+this.current.title+'</a> <small>by <a href="#dj-songs/'+this.current.artistId+'">'+this.current.artist+'</a></small>');
 			
