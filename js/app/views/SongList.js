@@ -13,8 +13,7 @@ define(function (require) {
 
         initialize: function () {
         	console.log("SongList: Init");
-        	console.log("SongList: Fetching collection");
-            this.collection.on("reset", this.render, this);
+        	this.collection.on("reset", this.render, this);
             this.collection.on("add", this.render, this);
             this.collection.fetch({
             	success: function(model, data){
@@ -27,7 +26,6 @@ define(function (require) {
         },
 
         render: function () {
-        	console.log('SongList: Received collection: ', this.collection.models);
         	this.$el.empty();
 		    _.each(this.collection.models, function (song) {
             	this.$el.append(new SongListItemView({model: song}).render().el);

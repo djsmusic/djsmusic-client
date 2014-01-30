@@ -208,14 +208,12 @@ define(function (require) {
 		 * Enables an element 
 		 */
 		enable: function($obj){
-			console.log('Player: Enable ',$obj);
 			$obj.removeClass('disabled');
 		},
 		/*
 		 *  Disables an element
 		 */
 		disable: function($obj){
-			console.log('Player: Disable ',$obj);
 			$obj.addClass('disabled');
 		},
 		/**

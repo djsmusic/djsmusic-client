@@ -6,12 +6,7 @@ define(function (require) {
         Backbone            = require('backbone'),
 
         Song = Backbone.Model.extend({
-			urlRoot: "http://api.djs-music.com/song",
-
-            initialize: function () {
-            	console.log('Song model: init');
-            }
-
+			urlRoot: "http://api.djs-music.com/song"
         });
 
     return Song;
