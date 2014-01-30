@@ -124,10 +124,14 @@ define(function (require) {
 					});
 					
 					// Display in the playlist
-					track.$obj = $('<li><a class="track" href="#music/'+track.songId+'" title="'+track.title+'" rel="'+this_.playlist.length+'"></a><a class="delete" aria-hidden="true" rel="'+this_.playlist.length+'" title="Remove from playlist"><i class="fa fa-times-circle"></i></a></li>').appendTo($(this_.$playlist).find('ul'));
+					track.$obj = $('<li><a class="track" href="#music/'+track.songId+'" title="'+track.title+'"></a><a class="delete" aria-hidden="true" title="Remove from playlist"><i class="fa fa-times-circle"></i></a></li>').appendTo($(this_.$playlist).find('ul'));
 					
 					// Store in playlist
 					this_.playlist.push(track);
+					
+					if(typeof(this_.current.index)==='undefined'){
+						this_.current.index = -1;
+					}
 					
 					// Update the next button status
 					if(this_.current.index < this_.playlist.length-1){
@@ -170,9 +174,13 @@ define(function (require) {
 				return;
 			}
 			
-			this.current = this.playlist[0]; // We read from the start
-			this.current.index = 0;
+			var index = this.current.index+1;
 			
+			this.current = this.playlist[index]; // We read from the start
+			this.current.index = index;
+			
+			this.rewind();
+
 			this.playCurrent();
 		},
 		/**
@@ -192,30 +200,41 @@ define(function (require) {
 			this.current = this.playlist[index];
 			this.current.index = index;
 			
+			this.rewind();
+			
 			this.playCurrent();
 		},
 		/**
 		 * Enables an element 
 		 */
 		enable: function($obj){
+			console.log('Player: Enable ',$obj);
 			$obj.removeClass('disabled');
 		},
 		/*
 		 *  Disables an element
 		 */
 		disable: function($obj){
+			console.log('Player: Disable ',$obj);
 			$obj.addClass('disabled');
+		},
+		/**
+		 * Takes the current track to the beginning 
+		 */
+		rewind: function(){
+			this.current.sound.setPosition(0);
 		},
 		/**
 		 * Plays the selected object from the playlist 
 		 */
 		playTrack: function(e){
 			e.preventDefault();
-			var index = $(e.currentTarget).attr('rel');
+			var index = $(e.currentTarget).parent('li').index('.playlist li');
 			this.current = this.playlist[index];
-			
+			this.current.index = index;
+						
 			// Rewind the track in case it was already listened
-			this.current.sound.setPosition(0);
+			this.rewind();
 			
 			this.playCurrent();
 		},
@@ -224,10 +243,10 @@ define(function (require) {
 		 */
 		removeTrack: function(e){
 			e.preventDefault();
-			var index = $(e.currentTarget).attr('rel'),
+			var index = $(e.currentTarget).parent('li').index('.playlist li'),
 				item = this.playlist[index];
 			item.$obj.remove();
-			delete this.playlist[index];
+			this.playlist.splice(index,1);
 		},
 		/**
 		 * Play the track in current 
@@ -236,8 +255,6 @@ define(function (require) {
 			// Add the active class
 			this.$playlist.find('a.active').removeClass('active');
 			this.current.$obj.find('a.track').addClass('active');
-			
-			console.log('Playlist size: '+this.playlist.length);
 			
 			// Enable/Disable next/prev buttons
 			if(this.current.index > 0){
@@ -349,7 +366,7 @@ define(function (require) {
 			$obj.find('a.delete').show();
 		},
 		/**
-		 *  Triggered on mouse out. Hides the delete button
+		 * Triggered on mouse out. Hides the delete button
  		 * @param {Object} event
 		 */
 		outTrack: function(e){
