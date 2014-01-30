@@ -271,14 +271,15 @@ table{
 	color:#fff;
 	display:none;
 }
-.audio-player .playlist li .track:hover{
+.audio-player .playlist li:hover .track{
 	background-color:rgba(255,255,255,0.1);
+	border-bottom:solid 3px #ccc;
 }
 .audio-player .playlist li .delete:hover{
 	color:#eb0000;
 	cursor:pointer;
 }
-.audio-player .playlist li a.active{
+.audio-player .playlist li a.active, .audio-player .playlist li a.active:hover{
 	border-bottom:solid 3px #eb0000;
 }
 
