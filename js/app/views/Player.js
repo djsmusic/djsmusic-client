@@ -27,6 +27,8 @@ define(function (require) {
     	playlist : [],		// Playlist, array of track objects
     	current: {},		// Current track object
     	state : 1,			// 0 => Pause, 1 => Playing
+    	random: false,		// Random mode
+    	repeat: false,		// Repeat mode
 
         initialize: function () {
         	console.log('Player: init');
@@ -91,7 +93,7 @@ define(function (require) {
         	"click .next": "next",
         	"click .random": "toggleRandom",
         	"click .repeat": "toggleRepeat",
-        	"click .playlist a.track": "playTrack",
+        	"click .playlist a.track": "clickedTrack",
         	"click .playlist a.delete": "removeTrack",
         	"mouseover .playlist li" : "overTrack",
         	"mouseout .playlist li" : "outTrack"
@@ -113,6 +115,7 @@ define(function (require) {
 				if(soundManager.canPlayURL(track.url)){
 					
 					track.title += '-'+this_.playlist.length;
+					track.played = false;	// Played flag, used by the random mode
 					
 					track.sound = soundManager.createSound({
 						url: track.url,
@@ -181,19 +184,57 @@ define(function (require) {
 		next: function(){
 			console.log('Player: Next');
 			
+			// Select the normal next index
 			var index = this.current.index+1;
 			
-			if(typeof(this.playlist[index]) === 'undefined'){
-				console.error('Player: No next track');
-				return false;
+			// Check random and repeat modes
+			if(this.random && this.playlist.length > 1){
+				// Select a random track and play it
+				// Different from the current one
+				index = Math.floor(Math.random()*this.playlist.length);
+				var initial = index;
+				while(index == this.current.index || this.playlist[index].played){
+					// Chose another one until it's different and it wasn't already played
+					index++;
+					if(index == initial){
+						// Already looped through all tracks!
+						console.error('Player: No next track');
+						return false;
+					}
+					if(typeof(this.playlist[index]) === 'undefined'){
+						index = 0; // Start over
+					}
+				}
+				this.playTrack(index);
+				
+				// Check if there are any more available
+				var available = false;
+				for(var i=0;i<this.playlist.length;i++){
+					if(!this.playlist[i].played){
+						available = true;
+						break;
+					}
+				}
+				if(!available){
+					// No more tracks available. Since the user wants to go to next
+					// reset the status and keep looping.
+					this.resetPlayed();
+				}
+				
+				return true;
 			}
 			
-			this.current = this.playlist[index]; // We read from the start
-			this.current.index = index;
+			// Make sure it's valid
+			if(typeof(this.playlist[index]) === 'undefined'){
+				if(this.repeat){
+					index = 0;
+				}else{
+					console.error('Player: No next track');
+					return false;
+				}
+			}
 			
-			this.rewind();
-
-			this.playCurrent();
+			this.playTrack(index);
 			
 			return true;
 		},
@@ -210,12 +251,7 @@ define(function (require) {
 				return false;
 			}
 			
-			this.current = this.playlist[index];
-			this.current.index = index;
-			
-			this.rewind();
-			
-			this.playCurrent();
+			this.playTrack(index);
 			
 			return true;
 		},
@@ -240,11 +276,17 @@ define(function (require) {
 			this.$elapsed.text('00:00');
 		},
 		/**
-		 * Plays the selected object from the playlist 
+		 * Plays the clicked tracked from the playlist 
 		 */
-		playTrack: function(e){
+		clickedTrack: function(e){
 			e.preventDefault();
 			var index = $(e.currentTarget).parent('li').index('.playlist li');
+			this.playTrack(index);
+		},
+		/**
+		 * Plays the selected object from the playlist 
+		 */
+		playTrack: function(index){
 			this.current = this.playlist[index];
 			this.current.index = index;
 						
@@ -279,7 +321,7 @@ define(function (require) {
 			}
 			if(this.current.index < this.playlist.length-1){
 				this.enable(this.$next);
-			}else{
+			}else if(!this.random && !this.repeat){
 				this.disable(this.$next);
 			}
 			
@@ -314,13 +356,28 @@ define(function (require) {
 			var this_ = this;
 			this.current.sound.play({
 				onfinish: function() {
+					// The current sound has finished.
+					if(this_.playlist.length==0){
+						// Only one element in the playlist
+						this_.pause();
+						this_.rewind();
+						return;
+					}
 					// Try to play the next track
 					if(!this_.next()){
+						// Check repeat mode
+						if(this_.repeat){
+							this_.playTrack(0);
+							return;
+						}
 						this_.pause();
 						this_.rewind();
 					}
 				}
 			});
+			// Set the played flag of the current sound to true.
+			// This flag is used by the random mode to avoid repeating the same tracks
+			this.current.played = true;
 			console.log('Player: Now Playing');
 			this.state = 1;
 			this.$el.find("a.playPause i").removeClass('fa-play').addClass('fa-pause');
@@ -342,10 +399,23 @@ define(function (require) {
 			if($random.hasClass('active')){
 				// Disable random mode
 				$random.removeClass('active');
+				this.random = false;
 				console.log('Player: Random mode OFF');
 			}else{
 				$random.addClass('active');
+				this.random = true;
+				// Reset all the played status
+				this.resetPlayed();
+				this.enable(this.$next);
 				console.log('Player: Random mode ON');
+			}
+		},
+		/**
+		 * Resets the played status of all tracks in the playlist 
+		 */
+		resetPlayed: function(){
+			for(var i=0;i<this.playlist.length;i++){
+				this.playlist[i].played = false;
 			}
 		},
 		/**
@@ -356,9 +426,12 @@ define(function (require) {
 			if($repeat.hasClass('active')){
 				// Disable random mode
 				$repeat.removeClass('active');
+				this.repeat = false;
 				console.log('Player: Repeat mode OFF');
 			}else{
 				$repeat.addClass('active');
+				this.repeat = true;
+				this.enable(this.$next);
 				console.log('Player: Repeat mode ON');
 			}
 		},
