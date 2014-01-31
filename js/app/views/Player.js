@@ -69,11 +69,16 @@ define(function (require) {
         				elapsed = total * val / 1000;
         			return timeToString(elapsed);
         		}
+        	}).on('slideStart',function(){
+        		// Set up a flag to prevent the seeker to be moved
+        		// if it's on play state.
+        		this_.slider.sliding = true;
         	}).on('slideStop',function(slide){
         		if(this_.ready()){
         			var pos = slide.value;
         			this_.current.sound.setPosition(this_.current.duration * pos/1000);
         			this_.$elapsed.text(timeToString(pos/1000));
+        			this_.slider.sliding = false;
         		}
         	});
         	       	
@@ -176,12 +181,12 @@ define(function (require) {
 		next: function(){
 			console.log('Player: Next');
 			
-			if(this.playlist.length==0){
-				console.error('Player: Playlist is empty');
-				return;
-			}
-			
 			var index = this.current.index+1;
+			
+			if(typeof(this.playlist[index]) === 'undefined'){
+				console.error('Player: No next track');
+				return false;
+			}
 			
 			this.current = this.playlist[index]; // We read from the start
 			this.current.index = index;
@@ -189,6 +194,8 @@ define(function (require) {
 			this.rewind();
 
 			this.playCurrent();
+			
+			return true;
 		},
 		/**
 		 * Play the previous song in the playlist 
@@ -196,13 +203,12 @@ define(function (require) {
 		prev: function(){
 			console.log('Player: Prev');
 			
-			if(this.playlist.length < 2 || typeof(this.current.index)==='undefined'){
-				console.error('Player: Playlist is empty');
-				this.disable($prev);
-				return;
-			}
-			
 			var index = this.current.index-1;
+			
+			if(typeof(this.playlist[index]) === 'undefined'){
+				console.error('Player: No prev track');
+				return false;
+			}
 			
 			this.current = this.playlist[index];
 			this.current.index = index;
@@ -210,6 +216,8 @@ define(function (require) {
 			this.rewind();
 			
 			this.playCurrent();
+			
+			return true;
 		},
 		/**
 		 * Enables an element 
@@ -228,6 +236,8 @@ define(function (require) {
 		 */
 		rewind: function(){
 			this.current.sound.setPosition(0);
+			this.setPlayed(0);
+			this.$elapsed.text('00:00');
 		},
 		/**
 		 * Plays the selected object from the playlist 
@@ -301,7 +311,16 @@ define(function (require) {
 		 */
 		play: function(){
 			soundManager.pauseAll();
-			this.current.sound.play();
+			var this_ = this;
+			this.current.sound.play({
+				onfinish: function() {
+					// Try to play the next track
+					if(!this_.next()){
+						this_.pause();
+						this_.rewind();
+					}
+				}
+			});
 			console.log('Player: Now Playing');
 			this.state = 1;
 			this.$el.find("a.playPause i").removeClass('fa-play').addClass('fa-pause');
@@ -344,9 +363,10 @@ define(function (require) {
 			}
 		},
 		/**
-		 * Sets the played percentage 
+		 * Sets the played percentage only if it's not being moved.
 		 */
 		setPlayed: function(percent){
+			if(this.slider.sliding) return;
 			this.slider.slider('setValue', percent*10);
 		},
 		/**

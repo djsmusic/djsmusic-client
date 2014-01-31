@@ -129,18 +129,18 @@ table{
 	line-height:50px;
 	text-align:center;
 }
-.audio-player .disabled{
-	color:#888;
-	text-shadow:#000 0 1px 1px;
-}
 .audio-player .controls a{
 	color:#aaa;
 }
-.audio-player .controls a.active{
+.audio-player .controls .disabled{
+	color:#555;
+	text-shadow:#000 0 1px 1px;
+}
+.audio-player .controls .active{
 	color:#0095FF;
 	box-shadow:none;
 }
-.audio-player .controls a.active:hover{
+.audio-player .controls .active:hover{
 	color:#99D5FF;
 }
 .audio-player .controls a:hover{
