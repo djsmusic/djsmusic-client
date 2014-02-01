@@ -30,16 +30,8 @@ define(function (require) {
         
         playSong: function(e){
         	e.preventDefault();
-        	// Dummy track to test
-        	var song = {
-        		title : 'Welcome to the club Remix',
-        		artist: 'DJ Bassenergy',
-        		songId: 1,
-        		artistId: 1,
-        		url: 'http://songs.djs-music.com/26-19-C5sJG6f8em.mp3'
-        	}; 
-            
-            this.Player.addToPlaylist(song);
+        	
+        	this.Player.addToPlaylist(this.model);
         }
 
     });

@@ -100,10 +100,19 @@ define(function (require) {
         },
         
         /**
-         * Add a track to the playlist 
+         * Add a track to the playlist
+         * @param (Object) Backbone song model
          */
         addToPlaylist: function(track){
         	
+        	if(track instanceof Backbone.Model){
+				console.log('Player: Received model, all fine');
+				track = track.attributes;
+			}else if(track instanceof Backbone.Collection){
+				console.log('Player: Received Collection, not ready');
+				return;
+			}
+			   	
         	this.show();
         	
         	var this_ = this;
