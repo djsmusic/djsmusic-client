@@ -197,6 +197,13 @@ define(function (require) {
 		next: function(){
 			console.log('Player: Next');
 			
+			if(this.playlist.length==0 && this.repeat && this.ready()){
+				// Playlist is empty, but we are in repeat mode
+				// so keep playing the loaded sound
+				this.playCurrent();
+				return true;
+			}
+			
 			// Select the normal next index
 			var index = this.current.index+1;
 			
@@ -369,13 +376,6 @@ define(function (require) {
 			var this_ = this;
 			this.current.sound.play({
 				onfinish: function() {
-					// The current sound has finished.
-					if(this_.playlist.length==0){
-						// Only one element in the playlist
-						this_.pause();
-						this_.rewind();
-						return;
-					}
 					// Try to play the next track
 					if(!this_.next()){
 						// Check repeat mode
