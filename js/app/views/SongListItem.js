@@ -25,7 +25,7 @@ define(function (require) {
         },
         
         events: {
-        	'click a.song' : 'playSong'
+        	'click a.play' : 'playSong'
         },
         
         playSong: function(e){

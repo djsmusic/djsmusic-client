@@ -10,9 +10,14 @@ define(function (require) {
         template = _.template(tpl);
 
     return Backbone.View.extend({
+    	
+    	initialize: function(data){
+    		console.log('Music: init');
+    		this.model.on("change", this.render);
+    	},
 
         render: function () {
-            this.$el.html(template());
+        	this.$el.html(template(this.model.attributes));
             return this;
         }
 

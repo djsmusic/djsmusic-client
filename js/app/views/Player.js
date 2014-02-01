@@ -148,7 +148,7 @@ define(function (require) {
 					});
 					
 					// Display in the playlist
-					track.$obj = $('<li><a class="track" href="#music/'+track.songId+'" title="'+track.title+'" data-toggle="tooltip"></a><a class="delete" aria-hidden="true" title="Remove from playlist" data-toggle="tooltip" data-placement="top"><i class="fa fa-times-circle"></i></a></li>').appendTo($(this_.$playlist).find('ul'));
+					track.$obj = $('<li><a class="track" href="#music/'+track.songId+'" title="'+track.title+'" data-toggle="tooltip"><img src="'+track.thumb+'" class="img-thumbnail" style="height:40px" /></a><a class="delete" aria-hidden="true" title="Remove from playlist" data-toggle="tooltip" data-placement="top"><i class="fa fa-times-circle"></i></a></li>').appendTo($(this_.$playlist).find('ul'));
 					// Add the tooltip
 					track.$obj.find('a.track').tooltip({
 						delay: { show: 250, hide: 0 }

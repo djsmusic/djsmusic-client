@@ -10,6 +10,4 @@ define(function (require) {
         });
 
     return Song;
-
-
 });

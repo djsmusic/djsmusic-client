@@ -27,8 +27,7 @@ define(function (require) {
             "contact": "contact",
             "browse": "browse",
             "people": "people",
-            "music/:id" : "music",
-            "employees/:id": "employeeDetails"
+            "music/:songId" : "music"
         },
 
         home: function () {
@@ -65,9 +64,17 @@ define(function (require) {
         },
         
         music : function(id){
-        	require(["app/views/Music"], function (View) {
-        		var view = new View({el: $content});
-                view.render();
+        	require(["app/views/Music", "app/models/song"], function (View, Song) {
+        		var track = new Song();
+	        	track.fetch({
+	    			data:{
+	    				songId: id
+	    			},
+	    			success: function(data){
+	    				var view = new View({el: $content, model: data});
+	    				view.render();
+	    			}
+	    		});
             });
         }
 
