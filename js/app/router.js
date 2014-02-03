@@ -27,7 +27,8 @@ define(function (require) {
             "contact": "contact",
             "browse": "browse",
             "people": "people",
-            "music/:songId" : "music"
+            "music/:songId" : "music",
+            "album/:albumId" : "album"
         },
 
         home: function () {
@@ -65,11 +66,21 @@ define(function (require) {
         
         music : function(id){
         	require(["app/views/Music", "app/models/song"], function (View, Song) {
-        		var track = new Song();
+        		console.log('New Song():');
+        		var track = new Song({songId: id});
 	        	track.fetch({
-	    			data:{
-	    				songId: id
-	    			},
+	    			success: function(data){
+	    				var view = new View({el: $content, model: data});
+	    				view.render();
+	    			}
+	    		});
+            });
+        },
+        
+        album : function(id){
+        	require(["app/views/Album", "app/models/album"], function (View, Album) {
+        		var album = new Album({albumId: id});
+	        	album.fetch({
 	    			success: function(data){
 	    				var view = new View({el: $content, model: data});
 	    				view.render();
