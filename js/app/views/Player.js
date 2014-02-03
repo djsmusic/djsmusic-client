@@ -93,13 +93,15 @@ define(function (require) {
          * Add a track to the playlist
          * @param (Object) Backbone song model
          */
-        addToPlaylist: function(track){
+        addToPlaylist: function(model){
         	
-        	if(track instanceof Backbone.Model){
+        	var data;
+        	
+        	if(model instanceof Backbone.Model){
 				console.log('Player: Received model, all fine');
-				track = track.attributes;
-			}else if(track instanceof Backbone.Collection){
-				console.log('Player: Received Collection, not ready');
+				data = model.attributes;
+			}else if(model instanceof Backbone.Collection){
+				console.warn('Player: Received Collection, not ready');
 				return;
 			}
 			   	
@@ -107,18 +109,18 @@ define(function (require) {
         	
         	var this_ = this;
         	
-        	console.log('Player: Adding to playlist: ', track);
+        	console.log('Player: Adding to playlist: ', data);
         	
         	soundManager.onready(function(){
         		// Check if it's playable
-				if(soundManager.canPlayURL(track.url)){
+				if(soundManager.canPlayURL(data.track.url)){
 					
-					track.title += '-'+this_.playlist.length;
-					track.played = false;	// Played flag, used by the random mode
+					data.track.title += '-'+this_.playlist.length;
+					data.played = false;	// Played flag, used by the random mode
 					
-					track.sound = soundManager.createSound({
-						url: track.url,
-						id: track.url+'-'+this_.playlist.length,
+					data.sound = soundManager.createSound({
+						url: data.track.url,
+						id: data.track.url+'-'+this_.playlist.length,
 						autoPlay: false,
 						autoLoad: false,
 						whileloading: function(){
@@ -131,21 +133,21 @@ define(function (require) {
 							this_.$elapsed.text(Display.timeToString(this.position/1000));
 						},
 						onload: function(){
-							console.log('Player: Track loaded: '+track.title);
-							track.duration = this.duration;
+							console.log('Player: Track loaded: '+data.track.title);
+							data.duration = this.duration;
 							this_.$total.text(Display.timeToString(this_.current.duration/1000));
 						}
 					});
 					
 					// Display in the playlist
-					track.$obj = $('<li><a class="track" href="#music/'+track.songId+'" title="'+track.title+'" data-toggle="tooltip"><img src="'+track.thumb+'" class="img-thumbnail" style="height:40px" /></a><a class="delete" aria-hidden="true" title="Remove from playlist" data-toggle="tooltip" data-placement="top"><i class="fa fa-times-circle"></i></a></li>').appendTo($(this_.$playlist).find('ul'));
+					data.$obj = $('<li><a class="track" href="#music/'+data.track.id+'" title="'+data.track.name+'" data-toggle="tooltip"><img src="'+data.album.photo+'" class="img-thumbnail" style="height:40px" /></a><a class="delete" aria-hidden="true" title="Remove from playlist" data-toggle="tooltip" data-placement="top"><i class="fa fa-times-circle"></i></a></li>').appendTo($(this_.$playlist).find('ul'));
 					// Add the tooltip
-					track.$obj.find('a.track').tooltip({
+					data.$obj.find('a.track').tooltip({
 						delay: { show: 250, hide: 0 }
 					});
 					
 					// Store in playlist
-					this_.playlist.push(track);
+					this_.playlist.push(data);
 					
 					if(typeof(this_.current.index)==='undefined'){
 						this_.current.index = -1;
@@ -163,7 +165,7 @@ define(function (require) {
 		        		this_.next();
 		        	}
 				}else{
-					console.error('Player: Cant play track: ',track.url);
+					console.error('Player: Cant play track: ',data.track.url);
 				}
 			});
         	
@@ -239,6 +241,7 @@ define(function (require) {
 				if(this.repeat){
 					index = 0;
 				}else{
+					this.disable(this.$next);
 					console.error('Player: No next track');
 					return false;
 				}
@@ -258,6 +261,7 @@ define(function (require) {
 			
 			if(typeof(this.playlist[index]) === 'undefined'){
 				console.error('Player: No prev track');
+				this.disable(this.$prev);
 				return false;
 			}
 			
@@ -337,7 +341,7 @@ define(function (require) {
 			
 			this.slider.slider('enable');
 			
-			this.$songInfo.html('<a href="#music/'+this.current.songId+'">'+this.current.title+'</a> <small>by <a href="#dj-songs/'+this.current.artistId+'">'+this.current.artist+'</a></small>');
+			this.$songInfo.html('<a href="#music/'+this.current.track.id+'">'+this.current.track.name+'</a> <small>by <a href="#dj-songs/'+this.current.artist.id+'">'+this.current.artist.name+'</a></small>');
 			
 			// Start playing
 			this.play();
