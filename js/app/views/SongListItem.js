@@ -20,7 +20,8 @@ define(function (require) {
         },
 
         render: function () {
-        	this.model.attributes.ratingStars = Display.rating(this.model.attributes.track.rating);
+        	this.model.attributes.track.ratingStars = Display.rating(this.model.attributes.track.rating);
+        	this.model.attributes.track.durationString = Display.timeToString(this.model.attributes.track.duration);
         	this.$el.html(template(this.model.attributes));
             return this;
         },
