@@ -15,8 +15,7 @@ define(function (require) {
         tagName: "tr",
 
         initialize: function () {
-        	this.Player = Player;
-            this.model.on("change", this.render, this);
+        	this.model.on("change", this.render, this);
         },
 
         render: function () {
@@ -31,7 +30,7 @@ define(function (require) {
         playSong: function(e){
         	e.preventDefault();
         	
-        	this.Player.addToPlaylist(this.model);
+        	Player.addToPlaylist(this.model);
         }
 
     });

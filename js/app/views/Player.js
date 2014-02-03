@@ -2,23 +2,13 @@ define(function (require) {
 
     "use strict";
 
-	function timeToString(time){
-    	var sec_num = time;
-	    var minutes = Math.floor(sec_num / 60);
-	    var seconds = Math.floor(sec_num - (minutes * 60));
-	
-	    if (minutes < 10) {minutes = "0"+minutes;}
-	    if (seconds < 10) {seconds = "0"+seconds;}
-	    var time    = minutes+':'+seconds;
-	    return time;
-    }
-
     var $                   = require('jquery'),
         _                   = require('underscore'),
         Backbone            = require('backbone'),
         tpl                 = require('text!tpl/Player.html'),
         soundManager		= require('soundmanager2'),
         Slider				= require('slider'),
+        Display				= require('display'),
 
         template = _.template(tpl);
     
@@ -69,7 +59,7 @@ define(function (require) {
         			}
         			var total = this_.current.duration/1000, // Total time in seconds
         				elapsed = total * val / 1000;
-        			return timeToString(elapsed);
+        			return Display.timeToString(elapsed);
         		}
         	}).on('slideStart',function(){
         		// Set up a flag to prevent the seeker to be moved
@@ -79,7 +69,7 @@ define(function (require) {
         		if(this_.ready()){
         			var pos = slide.value;
         			this_.current.sound.setPosition(this_.current.duration * pos/1000);
-        			this_.$elapsed.text(timeToString(pos/1000));
+        			this_.$elapsed.text(Display.timeToString(pos/1000));
         			this_.slider.sliding = false;
         		}
         	});
@@ -138,12 +128,12 @@ define(function (require) {
 						whileplaying: function(){
 							var percent = this.position*100/this.duration;
 							this_.setPlayed(percent);
-							this_.$elapsed.text(timeToString(this.position/1000));
+							this_.$elapsed.text(Display.timeToString(this.position/1000));
 						},
 						onload: function(){
 							console.log('Player: Track loaded: '+track.title);
 							track.duration = this.duration;
-							this_.$total.text(timeToString(this_.current.duration/1000));
+							this_.$total.text(Display.timeToString(this_.current.duration/1000));
 						}
 					});
 					
