@@ -15,8 +15,9 @@ define(function (require) {
     	
     	initialize: function(){
     		console.log('Home: Init');
-    		this.songs = new Songs([],{type: 'top'});
+    		this.songs = new Songs();
     		this.songList = new SongListView({collection : this.songs});
+    		this.songs.fetch();
     	},
 
         render: function () {

@@ -16,7 +16,7 @@ define(function (require) {
     return Backbone.View.extend({
     	
     	initialize: function(data){
-    		console.log('Album: init ID '+this.model.attributes.album.id);
+    		console.log('DJ Songs: init ID '+this.model.attributes.artist.id);
     		this.model.on("change", this.render);
     		// Request the list of songs in the album
 			var artistId = this.model.attributes.artist.id;

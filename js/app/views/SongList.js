@@ -15,14 +15,6 @@ define(function (require) {
         	console.log("SongList: Init");
         	this.collection.on("reset", this.render, this);
             this.collection.on("add", this.render, this);
-            this.collection.fetch({
-            	success: function(model, data){
-            		console.log("SongList: Fetched", data);
-            	},
-            	error: function(model, err){
-            		console.error("SongList: Not fetched! ", err);
-            	}
-            });
         },
 
         render: function () {
