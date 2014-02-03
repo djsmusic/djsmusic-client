@@ -117,6 +117,10 @@ body {
 	border-top:none;
 }
 
+.table-tabs tr:first-child td{
+	border-top:none;
+}
+
 .fb-comments, .fb-comments * {
 	width: 100% !important;
 }

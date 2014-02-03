@@ -8,12 +8,12 @@ define(function (require) {
         Model = Backbone.Model.extend({
 			
 			initialize: function(options){
-				console.log('Album: init');
-				this.albumId = options.albumId;
+				console.log('User: init');
+				this.userId = options.userId;
 			},
 			
 			url: function(){
-				return "http://api.djs-music.com/albums/"+this.albumId;
+				return "http://api.djs-music.com/users/"+this.userId;
 			}
         });
 

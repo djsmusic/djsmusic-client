@@ -3,43 +3,47 @@
 		<div class="row">
 			<div class="col-md-3 visible-lg visible-md">
 				<div class="row album text-center">
-					<img src="<%= album.photo %>" width="100%" alt="<%= album.name %>" />
-					<h3><a href="#album/<%= album.id %>"><%= album.name %></a></h3>
+					<img src="<%= artist.photo %>" width="100%" alt="<%= album.name %>" />
 				</div>
+				<blockquote><%= artist.description %></blockquote>
 				<hr />
-				<div class="row">
-					<div class="col-md-4">
-						<img src="<%= artist.photo %>" class="img-thumbnail" width="100%" alt="Photo" />
-					</div>
-					<div class="col-md-8">
-						<h4><a href="#/dj-songs/<%= artist.id %>"><%= artist.name %></a></h4>
-						<p>23 Tracks<br />
-							2 albums</p>
-						<hr />
-						Related tracks...
-					</div>
-				</div>
+				<h4>Albums:</h4>
+				Gallery of albums
 			</div>
 			
 			<div class="col-md-9">
 				<ol class="breadcrumb">
-				  <li><a href="#/dj-songs/<%= artist.id %>"><%= artist.name %></a></li>
-				  <li><a href="#/albums/<%= artist.id %>">Albums</a></li>
-				  <li><%= album.name %></li>
+				  <li><%= artist.name %></li>
 				</ol>
-				<h1><%= album.name %>
+				<h1><%= artist.name %>
 					<div class="pull-right"><small style="font-size:0.4em">
 						<i class="fa fa-play"></i> <%= album.plays %> |
 						<i class="fa fa-download"></i> <%= album.downloads %>
 					</small></div>
 				</h1>
 				
-				<blockquote><%= album.description %></blockquote>
-				<h3>Track list</h3>
-				<div class="table-responsive">
-					<table id="songs" class="table table-striped table-condensed"></table>
+				<div class="pull-right">
+					<small>Order by:
+						<select name="order">
+							<option value="best">Best tracks</option>
+							<option value="release">Release date</option>
+							<option value="downloads">Downloads</option>
+						</select>
+					</small>
 				</div>
+				
+				<h3>Tracks</h3>
+				
+				<div class="table-responsive">
+					<table id="songs" class="table table-striped table-hover table-condensed"></table>
+				</div>
+				
+				<div class="text-center">
+					<a href="#" class="btn btn-default btn-sm"><i class="fa fa-play"></i> Play all</a>
+				</div>
+				
 				<hr />
+				
 				<div class="panel" style="width:728px;height:90px; margin:auto">
 					<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 					<!-- DJs - Music banner -->

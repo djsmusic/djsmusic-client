@@ -28,7 +28,8 @@ define(function (require) {
             "browse": "browse",
             "people": "people",
             "music/:songId" : "music",
-            "album/:albumId" : "album"
+            "album/:albumId" : "album",
+            "dj-songs/:id" : "dj_songs"
         },
 
         home: function () {
@@ -81,6 +82,18 @@ define(function (require) {
         	require(["app/views/Album", "app/models/album"], function (View, Album) {
         		var album = new Album({albumId: id});
 	        	album.fetch({
+	    			success: function(data){
+	    				var view = new View({el: $content, model: data});
+	    				view.render();
+	    			}
+	    		});
+            });
+        },
+        
+        dj_songs : function(id){
+        	require(["app/views/DJ_Songs", "app/models/user"], function (View, User) {
+        		var user = new User({userId: id});
+	        	user.fetch({
 	    			success: function(data){
 	    				var view = new View({el: $content, model: data});
 	    				view.render();
