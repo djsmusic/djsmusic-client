@@ -101,7 +101,10 @@ define(function (require) {
 				console.log('Player: Received model, all fine');
 				data = model.attributes;
 			}else if(model instanceof Backbone.Collection){
-				console.warn('Player: Received Collection, not ready');
+				// Loop through the collection adding each model
+				for(var i=0;i<model.models.length;i++){
+					this.addToPlaylist(model.models[i]);
+				}
 				return;
 			}
 			   	
