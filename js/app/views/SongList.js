@@ -20,7 +20,7 @@ define(function (require) {
             		console.log("SongList: Fetched", data);
             	},
             	error: function(model, err){
-            		console.log("SongList: Not fetched", err);
+            		console.error("SongList: Not fetched! ", err);
             	}
             });
         },

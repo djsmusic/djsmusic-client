@@ -7,6 +7,7 @@ define(function (require) {
         Backbone            = require('backbone'),
         tpl                 = require('text!tpl/SongListItem.html'),
         Player				= require('app/views/Player'),
+        Display				= require('display'),
 
         template = _.template(tpl);
 
@@ -19,6 +20,7 @@ define(function (require) {
         },
 
         render: function () {
+        	this.model.attributes.ratingStars = Display.rating(this.model.attributes.track.rating);
         	this.$el.html(template(this.model.attributes));
             return this;
         },

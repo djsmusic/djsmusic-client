@@ -1,6 +1,6 @@
-<td><img src="<%= thumb %>" class="img-thumbnail" style="height:40px" /></td>
-<td><a href="#music/<%= songId %>" class="play"><i class="fa fa-play-circle fa-xs"></i></a> <a href="#music/<%= songId %>" class="song"><%= title %></a></td>
-<td><%= artist %></td>
-<td><%= duration %></td>
-<td><%= downloads %></td>
-<td><span class="rating"><%= rating %></span></td>
+<td><img src="<%= album.photo %>" class="img-thumbnail" style="height:40px" /></td>
+<td><a href="#music/<%= track.id %>" class="play"><i class="fa fa-play-circle fa-xs"></i></a> <a href="#music/<%= track.id %>" class="song"><%= track.name %></a></td>
+<td><%= artist.name %></td>
+<td><%= track.duration %></td>
+<td><%= track.downloads %></td>
+<td><span class="rating"><%= ratingStars %></span></td>
