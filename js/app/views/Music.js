@@ -13,7 +13,7 @@ define(function (require) {
 
     return Backbone.View.extend({
     	
-    	initialize: function(data){
+    	initialize: function(){
     		console.log('Music: init');
     		this.model.on("change", this.render);
     	},

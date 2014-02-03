@@ -5,9 +5,17 @@ define(function (require) {
     var $                   = require('jquery'),
         Backbone            = require('backbone'),
 
-        Song = Backbone.Model.extend({
-			urlRoot: "http://api.djs-music.com/song"
+        Model = Backbone.Model.extend({
+        	
+        	initialize: function(options){
+        		console.log('Song: init');
+        		this.songId = options.songId;
+			},
+			
+			url: function(){
+				return "http://api.djs-music.com/music/"+this.songId;
+			}
         });
 
-    return Song;
+    return Model;
 });

@@ -6,22 +6,20 @@ define(function (require) {
         Backbone            = require('backbone'),
         Song				= require('app/models/song'),
 
-        Songs = Backbone.Collection.extend({
+        collection = Backbone.Collection.extend({
 
 			model: Song,
 			
-			url: function(){
-				return "http://api.djs-music.com/songs/"+this.type;
+			initialize: function(models, options){
+				console.log('Songs: init');
 			},
 			
-			initialize: function(models, options){
-				console.log('SongCollection: init');
-				this.type = options.type;
+			url: function(){
+				return "http://api.djs-music.com/music";
 			}
 
         });
 
-    return Songs;
-
+    return collection;
 
 });
