@@ -24,6 +24,9 @@ define(function (require) {
 
         routes: {
             "": "home",
+            "advertise": "advertise",
+            "about": "about",
+            "technology": "technology",
             "contact": "contact",
             "browse": "browse",
             "people": "people",
@@ -61,7 +64,27 @@ define(function (require) {
             require(["app/views/Contact"], function (View) {
                 var view = new View({el: $content});
                 view.render();
-                shellView.selectMenuItem('contact-menu');
+            });
+        },
+        
+        advertise: function () {
+            require(["app/views/Advertise"], function (View) {
+                var view = new View({el: $content});
+                view.render();
+            });
+        },
+        
+        about: function () {
+            require(["app/views/About"], function (View) {
+                var view = new View({el: $content});
+                view.render();
+            });
+        },
+        
+        technology: function () {
+            require(["app/views/Technology"], function (View) {
+                var view = new View({el: $content});
+                view.render();
             });
         },
         
