@@ -1,6 +1,6 @@
 <div class="media">
 	<a href="#/music/<%= track.id %>" class="pull-left">
-		<img class="media-object img-responsive img-rounded" style="height:auto" src="<%= album.photo %>" alt="album.name">
+		<img class="media-object img-responsive img-thumbnail" style="height:auto" src="<%= album.photo %>" alt="album.name">
 	</a>
 	<div class="media-body">
 		<h4 class="media-heading">
@@ -9,7 +9,7 @@
 			<small><%= track.durationString %></small>
 			<span class="pull-right text-right">
 				<span class="rating"><%=  track.ratingStars %></span><br />
-				<small><i class="fa fa-download"></i> <%= track.downloads %></small>
+				<small><i class="fa fa-download" style="font-size:0.9em"></i> <%= track.downloads %> &nbsp; <i class="fa fa-caret-right"></i> <%= track.plays %></small>
 			</span>
 		</h4>
 		<a href="#/dj-songs/<% artist.id %>"><%= artist.name %></a>
