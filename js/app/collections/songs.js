@@ -5,6 +5,7 @@ define(function (require) {
     var $                   = require('jquery'),
         Backbone            = require('backbone'),
         Song				= require('app/models/song'),
+        API					= require('api'),
 
         collection = Backbone.Collection.extend({
 
@@ -15,7 +16,7 @@ define(function (require) {
 			},
 			
 			url: function(){
-				return "http://api.djs-music.com/music";
+				return API.url+"/music";
 			}
 
         });

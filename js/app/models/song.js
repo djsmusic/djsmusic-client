@@ -1,9 +1,10 @@
-define(function (require) {
+define(function (require, exports, module) {
 
     "use strict";
 
     var $                   = require('jquery'),
         Backbone            = require('backbone'),
+        API					= require('api'),
 
         Model = Backbone.Model.extend({
         	
@@ -13,7 +14,7 @@ define(function (require) {
 			},
 			
 			url: function(){
-				return "http://api.djs-music.com/music/"+this.songId;
+				return API.url+"/music/"+this.songId;
 			}
         });
 

@@ -96,6 +96,20 @@ body {
 	text-shadow: rgba(0,0,0,.5) 0 0 5px;
 }
 
+.big-list .pull-left{
+	width:30%;
+	max-width:64px;
+	min-width:64px;
+	max-height:64px;
+	margin:4px;
+	overflow:hidden;
+	border-radius:5px;
+	margin-right:15px;
+}
+.big-list a{
+	color:inherit;
+}
+
 .content-bottom{
 	position:absolute;
 	bottom:0;
