@@ -96,6 +96,25 @@ body {
 	text-shadow: rgba(0,0,0,.5) 0 0 5px;
 }
 
+/* Music lists */
+
+a.play{
+	color:#333;
+}
+a.play:hover{
+	color:#FF851B;
+}
+
+.music-list{
+	color:#999;
+}
+
+.music-list-tabbed li:first-child{
+	border-top:none;
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+}
+
 .big-list .pull-left{
 	width:30%;
 	max-width:64px;
