@@ -41,9 +41,14 @@ define(function (require) {
                 event.preventDefault();
             }
         },
-
+        
+        deselectMenuItems: function(){
+        	$menuItems.removeClass('active');
+        },
+        
         selectMenuItem: function (menuItem) {
-            $menuItems.removeClass('active');
+            this.deselectMenuItems();
+            
             if (menuItem) {
                 $('.' + menuItem).addClass('active');
             }
