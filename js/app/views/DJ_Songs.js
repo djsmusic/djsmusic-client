@@ -24,11 +24,6 @@ define(function (require) {
     		this.model.on("change", this.render);
     		// Artist ID
 			var artistId = this.model.attributes.artist.id;
-			// Search params
-			this.params = {
-				user: artistId
-			};
-			var params = this.params;
 			// Get the artists songs
        		this.songs = new Songs();
     		this.songs.fetch({
@@ -44,11 +39,19 @@ define(function (require) {
     				console.log('Albums: Fetched ',data);
     			}
     		});
+    		// Get the artists albums
+    		this.albums = new Albums();
+    		this.albums.fetch({
+    			data: {
+    				user: artistId
+    			},
+    			success: function(mod,data){
+    				console.log('Albums: Fetched ',data);
+    			}
+    		});
     		// Create new list views
     		this.songList = new SongListView({collection : this.songs});
     		this.albumList = new AlbumListView({collection : this.albums});
-    		// Comments init
-    		this.comments = new Comments();
     	},
     	
     	events: {
