@@ -9,7 +9,7 @@ define(function (require) {
 
     return Backbone.View.extend({
     	
-    	tagName: 'tbody',
+    	tagName: 'ul',
 
         initialize: function () {
         	console.log("SongList: Init");
@@ -18,7 +18,7 @@ define(function (require) {
         },
 
         render: function () {
-        	this.$el.empty();
+        	this.$el.empty().addClass('list-group');
 		    _.each(this.collection.models, function (song) {
             	this.$el.append(new SongListItemView({model: song}).render().el);
             }, this);
