@@ -14,7 +14,7 @@ define(function (require) {
 			},
 			
 			url: function(){
-				return API.url+"/users/"+this.userId;
+				return API.url+"users/"+this.userId;
 			}
         });
 
