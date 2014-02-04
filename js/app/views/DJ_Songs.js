@@ -41,11 +41,19 @@ define(function (require) {
     				console.log('Albums: Fetched ',data);
     			}
     		});
+    		// Get the artists albums
+    		this.albums = new Albums();
+    		this.albums.fetch({
+    			data: {
+    				user: artistId
+    			},
+    			success: function(mod,data){
+    				console.log('Albums: Fetched ',data);
+    			}
+    		});
     		// Create new list views
     		this.songList = new SongListView({collection : this.songs});
     		this.albumList = new AlbumListView({collection : this.albums});
-    		// Comments init
-    		this.comments = new Comments();
     	},
     	
     	events: {
