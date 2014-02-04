@@ -2,6 +2,6 @@
  by <a href="#/dj-songs/<%= artist.id %>"><%= artist.name %></a>
  <small><%= track.durationString %></small>
 <div class="pull-right">
-	<small><i class="fa fa-download"></i> <%= track.downloads %></small>
+	<small><i class="fa fa-download"></i> <%= track.downloads %> &nbsp; <i class="fa fa-caret-right"></i> <%= track.plays %></small>
 	&nbsp; <span class="rating"><%= track.ratingStars %></span>
 </div>
