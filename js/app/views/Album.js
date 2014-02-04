@@ -38,13 +38,13 @@ define(function (require) {
         },
         
         events: {
-        	'click a.play' : 'playSong'
+        	'click a.playAll' : 'playAllSongs'
         },
         
-        playSong: function(e){
+        playAllSongs: function(e){
         	e.preventDefault();
         	
-        	Player.addToPlaylist(this.model);
+        	Player.addToPlaylist(this.songs);
         }
 
     });
