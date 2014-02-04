@@ -15,15 +15,38 @@ define(function (require) {
     	
     	initialize: function(){
     		console.log('Home: Init');
-    		this.songs = new Songs();
-    		this.songList = new SongListView({collection : this.songs});
-    		this.songs.fetch();
+    		// Create the collections
+    		this.topSongs = new Songs();
+    		this.latestSongs = new Songs();
+    		this.downloadedSongs = new Songs();
+    		// Fetch
+    		this.topSongs.fetch({
+    			data: {
+    				orderby: 'best'
+    			}
+    		});
+    		this.latestSongs.fetch({
+    			data: {
+    				orderby: 'release'
+    			}
+    		});
+    		this.downloadedSongs.fetch({
+    			data: {
+    				orderby: 'downloads'
+    			}
+    		});
+    		// Create the lists
+    		this.topSongsList = new SongListView({collection : this.topSongs});
+    		this.latestSongsList = new SongListView({collection : this.latestSongs});
+    		this.downloadedSongsList = new SongListView({collection : this.downloadedSongs});
     	},
 
         render: function () {
         	this.$el.html(template());
         	
-        	$('#top-songs').append(this.songList.render().el);
+        	$('#top-songs').append(this.topSongsList.render().el);
+        	$('#latest-songs').append(this.latestSongsList.render().el);
+        	$('#downloaded-songs').append(this.downloadedSongsList.render().el);
             
             return this;
         }
