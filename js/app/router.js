@@ -76,6 +76,7 @@ define(function (require) {
             require(["app/views/Advertise"], function (View) {
                 var view = new View({el: $content});
                 view.render();
+
                 shellView.deselectMenuItems();
             });
         },
@@ -84,6 +85,7 @@ define(function (require) {
             require(["app/views/About"], function (View) {
                 var view = new View({el: $content});
                 view.render();
+
                 shellView.deselectMenuItems();
             });
         },
@@ -92,6 +94,7 @@ define(function (require) {
             require(["app/views/Technology"], function (View) {
                 var view = new View({el: $content});
                 view.render();
+
                 shellView.deselectMenuItems();
             });
         },
