@@ -9,7 +9,6 @@ define(function (require, exports, module) {
         Model = Backbone.Model.extend({
         	
         	initialize: function(options){
-        		console.log('Song: init');
         		this.songId = options.songId;
 			},
 			
