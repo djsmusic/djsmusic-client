@@ -36,6 +36,16 @@
 				
 				<blockquote><%= album.description %></blockquote>
 				
+				<div class="pull-right">
+					<small>Order by:
+						<select name="orderby" class="filter">
+							<option value="release">Release date</option>
+							<option value="best">Best tracks</option>
+							<option value="downloads">Downloads</option>
+						</select>
+					</small>
+				</div>
+				
 				<h3>Track list</h3>
 				
 				<div id="songs" class="music-list"></div>
