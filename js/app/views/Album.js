@@ -32,6 +32,9 @@ define(function (require) {
     	},
 
         render: function () {
+        	this.model.attributes.album.playsString = Display.number(this.model.attributes.album.plays);
+        	this.model.attributes.album.downloadsString = Display.number(this.model.attributes.album.downloads);
+        	
         	this.$el.html(template(this.model.attributes));
         	
         	$('#songs').append(this.songList.render().el);
