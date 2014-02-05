@@ -24,15 +24,12 @@ define(function (require) {
     		this.model.on("change", this.render);
     		// Artist ID
 			var artistId = this.model.attributes.artist.id;
-			// Search params
-			this.params = {
-				user: artistId
-			};
-			var params = this.params;
 			// Get the artists songs
        		this.songs = new Songs();
+       		this.songs.meta('user', this.model.attributes.artist.id);
+       		
     		this.songs.fetch({
-    			data: params
+    			data: this.songs.meta()
     		});
     		// Get the artists albums
     		this.albums = new Albums();
@@ -74,12 +71,11 @@ define(function (require) {
         
         filter: function(e){
         	e.preventDefault();
-        	this.params[$(e.currentTarget).attr('name')] = $(e.currentTarget).val();  
         	this.songs.reset();
-        	var params = this.params;
-        	console.log('Searching with ',params);
+        	this.songs.meta($(e.currentTarget).attr('name'), $(e.currentTarget).val());
+        	console.log('Searching with ',this.songs.meta());
         	this.songs.fetch({
-    			data: params,
+    			data: this.songs.meta(),
     			success: function(collection){
     				collection.trigger('fetched');
     			}
