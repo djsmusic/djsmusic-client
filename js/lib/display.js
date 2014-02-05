@@ -24,5 +24,20 @@ define([], function () {
     	return ret;
     };
     
+    Display.number = function(num,separator){
+    	if(typeof(separator)==='undefined'){
+    		separator = ',';
+    	}
+    	num = Math.floor(num);
+    	var number = num.toFixed(2) + '',
+	   		x = number.split('.'),
+	    	x1 = x[0],
+	    	rgx = /(\d+)(\d{3})/;
+	    while (rgx.test(x1)) {
+	        x1 = x1.replace(rgx, '$1' + separator + '$2');
+	    }
+	    return x1;
+	};
+    
     return Display;
 });
