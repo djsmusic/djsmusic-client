@@ -28,16 +28,13 @@ define(function (require) {
         render: function () {
         	if(typeof(this.url)==='undefined'){
         		// Generate the URL if none was specified
-        		var loc = window.location.href,
-        			parts = loc.split('#');
-        		this.url = parts[1];
-        		if(this.url.charAt(0)!=='/') this.url = '/'+this.url;
+        		this.url = '/'+Backbone.history.getFragment();
         	}
         	
         	// Process the tags
         	this.$el.html(template({
                 url: this.url,	// Commenting item: Ex. '/music/123'
-                lang: ''					// Ex. lang: 'es.'
+                lang: ''		// Ex. lang: 'es.'
             }));
             return this;
         }
