@@ -12,8 +12,6 @@ define(function (require) {
 			model: Song,
 			
 			initialize: function(models, options){
-				console.log('Songs: init');
-				
 				this._meta = {};
 			},
 			
@@ -48,7 +46,9 @@ define(function (require) {
 		            	});
 		            }
 
-		            this.trigger('set:meta');
+		            if(typeof(notify)==='undefined' || notify==true){
+		            	this.trigger('set:meta');
+		            }
 		        }
 		    },
 

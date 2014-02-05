@@ -54,7 +54,7 @@ define(function (require) {
         paging: function(e){
         	var type = $(e.currentTarget).attr('rel'),
 				current = this.collection.meta('page');
-			if(typeof(current)==='undefined' || current < 1) current = 1;
+			if(typeof(current)==='undefined' || current < 0) current = 0;
 			switch(type){
 				case 'prev':
 					current--;
@@ -64,6 +64,7 @@ define(function (require) {
 					break;
 			}
 			if(current<0) current = 0;
+
 			this.collection.meta('page',current);
 			
 			if(current<2){
@@ -72,8 +73,8 @@ define(function (require) {
 			}
 			if(current>1) $('.pager li:first-child').removeClass('disabled');
 			
+
 			this.collection.meta('page',current);
-			$('.pager small').text(current);
 			
 			return this;
         },
