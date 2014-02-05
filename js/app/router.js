@@ -21,6 +21,10 @@ define(function (require) {
     });
 
     return Backbone.Router.extend({
+    	
+    	initialize: function(){
+    		this.bind('route', this.trackPageview);
+    	},
 
         routes: {
             "": "home",
@@ -130,7 +134,23 @@ define(function (require) {
 	    			}
 	    		});
             });
-        }
+        },
+        
+        // Google Analytics Tracking
+        trackPageview: function (){
+	        var url = Backbone.history.getFragment();
+	
+	        // Prepend slash
+	        if (!/^\//.test(url) && url != ""){
+	            url = "/" + url;
+	        }
+			
+			if(typeof(_gaq)!=='undefined'){
+				_gaq.push(['_trackPageview', url]);
+			}else{
+				console.warn('Router: Google Analytics not found');
+			}
+	    }
 
     });
 

@@ -13,7 +13,7 @@ body {
     background-color:#000;
 	background-image:url("../img/bg/redcarpet.jpg");
 	background-repeat:no-repeat;
- 	background-position:center center fixed;
+ 	background-position:fixed;
 	background-size:cover;
 	-webkit-background-size: cover;
     -moz-background-size: cover;
