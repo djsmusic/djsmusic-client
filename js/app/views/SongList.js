@@ -14,7 +14,7 @@ define(function (require) {
         initialize: function () {
         	console.log("SongList: Init");
         	this.collection.on("reset", this.render, this);
-            this.collection.on("add", this.render, this);
+            this.collection.on("add", this.renderOne, this);
         },
 
         render: function () {
@@ -23,6 +23,11 @@ define(function (require) {
             	this.$el.append(new SongListItemView({model: song}).render().el);
             }, this);
             
+            return this;
+       },
+       
+       renderOne: function (model) {
+       		this.$el.append(new SongListItemView({model: model}).render().el);
             return this;
         }
     });
