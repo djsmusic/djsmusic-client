@@ -9,7 +9,6 @@ define(function (require) {
         Model = Backbone.Model.extend({
 			
 			initialize: function(options){
-				console.log('User: init');
 				this.userId = options.userId;
 			},
 			

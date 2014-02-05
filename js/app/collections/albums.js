@@ -11,10 +11,6 @@ define(function (require) {
 
 			model: Album,
 			
-			initialize: function(models, options){
-				console.log('Albums: init');
-			},
-			
 			url: function(){
 				return API.url+"/albums";
 			}
