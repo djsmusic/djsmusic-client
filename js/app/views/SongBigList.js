@@ -14,18 +14,22 @@ define(function (require) {
         initialize: function () {
         	console.log("SongBigList: Init");
         	this.collection.on("reset", this.render, this);
-            this.collection.on("add", this.render, this);
+            this.collection.on("add", this.renderOne, this);
         },
 
         render: function () {
-        	this.$el.addClass('big-list');
-        	this.$el.empty();
+        	this.$el.empty().addClass('big-list');
 		    _.each(this.collection.models, function (song) {
             	this.$el.append(new SongListItemView({model: song}).render().el);
             }, this);
             
             return this;
-        }
+        },
+		       
+		renderOne: function (model) {
+			this.$el.append(new SongListItemView({model: model}).render().el);
+			return this;
+		}
     });
 
 });
