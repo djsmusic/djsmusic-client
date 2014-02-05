@@ -21,8 +21,12 @@ define(function (require) {
 
         render: function () {
         	this.$el.addClass('list-group-item');
-        	this.model.attributes.track.ratingStars = Display.rating(this.model.attributes.track.rating);
-        	this.model.attributes.track.durationString = Display.timeToString(this.model.attributes.track.duration);
+        	if(typeof(this.model.attributes.track)!=='undefined'){
+        		this.model.attributes.track.ratingStars = Display.rating(this.model.attributes.track.rating);
+        		this.model.attributes.track.durationString = Display.timeToString(this.model.attributes.track.duration);
+        	}else{
+        		console.warn('SongListItem: Track undefined:',this.model.attributes);
+        	}
         	this.$el.html(template(this.model.attributes));
             return this;
         },
