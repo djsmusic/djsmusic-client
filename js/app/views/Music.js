@@ -8,6 +8,7 @@ define(function (require) {
         tpl         = require('text!tpl/Music.html'),
         Player		= require('app/views/Player'),
         Display		= require('display'),
+        Comments	= require('app/views/Comments'),
 
         template = _.template(tpl);
 
@@ -15,6 +16,7 @@ define(function (require) {
     	
     	initialize: function(){
     		console.log('Music: init');
+    		this.comments = new Comments();
     		this.model.on("change", this.render);
     	},
 
@@ -29,6 +31,9 @@ define(function (require) {
         	attr.track.duration = Display.timeToString(attr.track.duration);
         	attr.track.rating = Display.rating(attr.track.rating);
         	this.$el.html(template(attr));
+        	
+        	// Display comment box
+        	$('#comments').html(this.comments.render().el);
             return this;
         },
         

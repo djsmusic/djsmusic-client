@@ -10,6 +10,7 @@ define(function (require) {
         Display		= require('display'),
         Songs		= require('app/collections/songs'),
         SongListView		= require('app/views/SongList'),
+        Comments	= require('app/views/Comments'),
 
         template = _.template(tpl);
 
@@ -27,12 +28,16 @@ define(function (require) {
     			}
     		});
     		this.songList = new SongListView({collection : this.songs});
+    		this.comments = new Comments();
     	},
 
         render: function () {
         	this.$el.html(template(this.model.attributes));
         	
         	$('#songs').append(this.songList.render().el);
+        	
+        	// Display comment box
+        	$('#comments').html(this.comments.render().el);
         	
             return this;
         },

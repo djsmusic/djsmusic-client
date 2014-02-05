@@ -12,6 +12,7 @@ define(function (require) {
         Albums			= require('app/collections/albums'),
         SongListView	= require('app/views/SongList'),
         AlbumListView	= require('app/views/AlbumList'),
+        Comments	= require('app/views/Comments'),
 
         template = _.template(tpl);
 
@@ -42,6 +43,8 @@ define(function (require) {
     		// Create new list views
     		this.songList = new SongListView({collection : this.songs});
     		this.albumList = new AlbumListView({collection : this.albums});
+    		// Comments init
+    		this.comments = new Comments();
     	},
 
         render: function () {
@@ -49,6 +52,9 @@ define(function (require) {
         	
         	$('#songs').append(this.songList.render().el);
         	$('#albums').append(this.albumList.render().el);
+        	
+        	// Display comment box
+        	$('#comments').html(this.comments.render().el);
         	
             return this;
         },
