@@ -12,7 +12,8 @@ define(function (require) {
         Albums			= require('app/collections/albums'),
         SongListView	= require('app/views/SongList'),
         AlbumListView	= require('app/views/AlbumList'),
-        Comments	= require('app/views/Comments'),
+        Comments		= require('app/views/Comments'),
+        Display			= require('display'),
 
         template = _.template(tpl);
 
@@ -48,6 +49,10 @@ define(function (require) {
     	},
 
         render: function () {
+        	
+        	this.model.attributes.artist.playsString = Display.number(this.model.attributes.artist.plays);
+        	this.model.attributes.artist.downloadsString = Display.number(this.model.attributes.artist.downloads);
+        	
         	this.$el.html(template(this.model.attributes));
         	
         	$('#songs').append(this.songList.render().el);

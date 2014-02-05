@@ -30,6 +30,9 @@ define(function (require) {
         	attr.track.tags = tags;
         	attr.track.duration = Display.timeToString(attr.track.duration);
         	attr.track.rating = Display.rating(attr.track.rating);
+        	attr.track.plays = Display.number(attr.track.plays);
+        	attr.track.downloads = Display.number(attr.track.downloads);
+        	
         	this.$el.html(template(attr));
         	
         	// Display comment box

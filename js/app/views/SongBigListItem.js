@@ -25,6 +25,8 @@ define(function (require) {
         	// Parse data
         	this.model.attributes.track.ratingStars = Display.rating(this.model.attributes.track.rating);
         	this.model.attributes.track.durationString = Display.timeToString(this.model.attributes.track.duration);
+        	this.model.attributes.track.downloadsString = Display.number(this.model.attributes.track.downloads);
+        	this.model.attributes.track.playsString = Display.number(this.model.attributes.track.plays);
         	var tags = '';
         	for(var i=0;i<this.model.attributes.track.tags.length;i++){
         		tags += '<span class="label label-default">'+this.model.attributes.track.tags[i]+'</span> ';

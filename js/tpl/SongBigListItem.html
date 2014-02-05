@@ -8,8 +8,8 @@
 			<a href="#/music/<%= track.id %>"><%= track.name %></a>
 			<small><%= track.durationString %></small>
 			<span class="pull-right text-right">
-				<span class="rating"><%=  track.ratingStars %></span><br />
-				<small><i class="fa fa-download" style="font-size:0.9em"></i> <%= track.downloads %> &nbsp; <i class="fa fa-caret-right"></i> <%= track.plays %></small>
+				<span class="rating"><%= track.ratingStars %></span><br />
+				<small><i class="fa fa-download" style="font-size:0.9em"></i> <%= track.downloadsString %> &nbsp; <i class="fa fa-caret-right"></i> <%= track.playsString %></small>
 			</span>
 		</h4>
 		<a href="#/dj-songs/<% artist.id %>"><%= artist.name %></a>
