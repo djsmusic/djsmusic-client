@@ -50,7 +50,6 @@ define(function (require) {
         
         filter: function(e){
         	e.preventDefault();
-        	console.log('Browse filter');
         	this.songs.meta($(e.currentTarget).attr('name'), $(e.currentTarget).val());   	
         },
         
