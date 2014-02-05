@@ -12,6 +12,8 @@ define(function (require) {
 			model: Song,
 			
 			initialize: function(models, options){
+				console.log('Songs: init');
+				
 				this._meta = {};
 			},
 			
@@ -30,6 +32,7 @@ define(function (require) {
 		        	// Setter, triggers an event (duh)
 		        	console.log('SongCollection: Set meta '+prop+'='+value);
 		            this._meta[prop] = value;
+		            
 		            if(typeof(notify)==='undefined' || notify==true){
 		            	this.trigger('set:meta');
 		            }
@@ -44,6 +47,8 @@ define(function (require) {
 		            		}
 		            	});
 		            }
+
+		            this.trigger('set:meta');
 		        }
 		    },
 
