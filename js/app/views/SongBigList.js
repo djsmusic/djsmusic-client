@@ -67,6 +67,14 @@ define(function (require) {
         },
         
         setPage: function(){
+        	// First check if this might be the last page
+        	// I need to somehow get that 10 from somewhere.
+        	if(this.collection.length < 10){
+        		// This is the last page
+        		$('.pager li:last-child').addClass('disabled');
+        	}else{
+        		$('.pager li:last-child').removeClass('disabled');
+        	}
         	var page = this.collection.meta('page');
         	if(page<1) $('.pager li:first-child').addClass('disabled');
 			if(page>0) $('.pager li:first-child').removeClass('disabled');
