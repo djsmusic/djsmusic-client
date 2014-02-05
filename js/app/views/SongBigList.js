@@ -36,6 +36,7 @@ define(function (require) {
 			}, this);
 			
 			return this;
+<<<<<<< HEAD
         },
         
         renderAgain: function () {
@@ -46,6 +47,8 @@ define(function (require) {
 			}, this);
             
             return this;
+=======
+>>>>>>> BigList: Better pagination
         },
         
         renderAgain: function () {
@@ -61,7 +64,7 @@ define(function (require) {
         paging: function(e){
         	var type = $(e.currentTarget).attr('rel'),
 				current = this.collection.meta('page');
-			if(typeof(current)==='undefined' || current < 1) current = 1;
+			if(typeof(current)==='undefined' || current < 0) current = 0;
 			switch(type){
 				case 'prev':
 					current--;
@@ -78,8 +81,6 @@ define(function (require) {
 				$('.pager li:first-child').addClass('disabled');
 			}
 			if(current>1) $('.pager li:first-child').removeClass('disabled');
-			this.collection.meta('page',current);
-			$('.pager small').text(current);
 			
 			return this;
         },
@@ -93,6 +94,7 @@ define(function (require) {
         	}else{
         		$('.pager li:last-child').removeClass('disabled');
         	}
+
         	var page = this.collection.meta('page');
         	if(page<1) $('.pager li:first-child').addClass('disabled');
 			if(page>0) $('.pager li:first-child').removeClass('disabled');
@@ -100,7 +102,7 @@ define(function (require) {
         },
         
         filter: function(e){
-        	console.log('BigList filter');
+        	this.collection.meta('page', 0, false);
         	this.collection.meta($(e.currentTarget).attr('name'), $(e.currentTarget).val());
         	return this;   	
         },
