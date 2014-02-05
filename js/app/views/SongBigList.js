@@ -36,7 +36,6 @@ define(function (require) {
 			}, this);
 			
 			return this;
-<<<<<<< HEAD
         },
         
         renderAgain: function () {
@@ -47,8 +46,6 @@ define(function (require) {
 			}, this);
             
             return this;
-=======
->>>>>>> BigList: Better pagination
         },
         
         renderAgain: function () {
