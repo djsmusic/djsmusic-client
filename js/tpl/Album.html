@@ -24,18 +24,27 @@
 			<div class="col-md-9">
 				<ol class="breadcrumb">
 				  <li><a href="#/dj-songs/<%= artist.id %>"><%= artist.name %></a></li>
-				  <li><a href="#/albums/<%= artist.id %>">Albums</a></li>
 				  <li><%= album.name %></li>
 				</ol>
 				<h1><%= album.name %>
 					<div class="pull-right"><small style="font-size:0.4em">
-						<i class="fa fa-play"></i> <%= album.plays %> |
+						<i class="fa fa-play"></i> <%= album.playsString %> |
 						<i class="fa fa-comments"></i> <span class="fb-comments-count" data-href="http://djs-music.com/album/<%= album.id %>">0</span> |
-						<i class="fa fa-download"></i> <%= album.downloads %>
+						<i class="fa fa-download"></i> <%= album.downloadsString %>
 					</small></div>
 				</h1>
 				
 				<blockquote><%= album.description %></blockquote>
+				
+				<div class="pull-right">
+					<small>Order by:
+						<select name="orderby" class="filter">
+							<option value="release">Release date</option>
+							<option value="best">Best tracks</option>
+							<option value="downloads">Downloads</option>
+						</select>
+					</small>
+				</div>
 				
 				<h3>Track list</h3>
 				

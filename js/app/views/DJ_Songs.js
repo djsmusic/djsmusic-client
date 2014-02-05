@@ -24,12 +24,15 @@ define(function (require) {
     		this.model.on("change", this.render);
     		// Artist ID
 			var artistId = this.model.attributes.artist.id;
+			// Search params
+			this.params = {
+				user: artistId
+			};
+			var params = this.params;
 			// Get the artists songs
        		this.songs = new Songs();
     		this.songs.fetch({
-    			data: {
-    				user: artistId
-    			}
+    			data: params
     		});
     		// Get the artists albums
     		this.albums = new Albums();
@@ -47,6 +50,11 @@ define(function (require) {
     		// Comments init
     		this.comments = new Comments();
     	},
+    	
+    	events: {
+        	'click a.playAll' : 'playAllSongs',
+        	'change .filter' : 'filter'
+        },
 
         render: function () {
         	
@@ -64,8 +72,18 @@ define(function (require) {
             return this;
         },
         
-        events: {
-        	'click a.playAll' : 'playAllSongs'
+        filter: function(e){
+        	e.preventDefault();
+        	this.params[$(e.currentTarget).attr('name')] = $(e.currentTarget).val();  
+        	this.songs.reset();
+        	var params = this.params;
+        	console.log('Searching with ',params);
+        	this.songs.fetch({
+    			data: params,
+    			success: function(collection){
+    				collection.trigger('fetched');
+    			}
+    		}); 	
         },
         
         playAllSongs: function(e){

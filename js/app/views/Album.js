@@ -21,17 +21,29 @@ define(function (require) {
     		this.model.on("change", this.render);
     		// Request the list of songs in the album
 			var albumId = this.model.attributes.album.id;
+			// Search params
+			this.params = {
+				album: albumId
+			};
+			var params = this.params;
+			// Song list
        		this.songs = new Songs();
     		this.songs.fetch({
-    			data: {
-    				album: albumId
-    			}
+    			data: params
     		});
     		this.songList = new SongListView({collection : this.songs});
     		this.comments = new Comments();
     	},
+    	
+    	events: {
+        	'click a.playAll' : 'playAllSongs',
+        	'change .filter' : 'filter'
+        },
 
         render: function () {
+        	this.model.attributes.album.playsString = Display.number(this.model.attributes.album.plays);
+        	this.model.attributes.album.downloadsString = Display.number(this.model.attributes.album.downloads);
+        	
         	this.$el.html(template(this.model.attributes));
         	
         	$('#songs').append(this.songList.render().el);
@@ -42,8 +54,18 @@ define(function (require) {
             return this;
         },
         
-        events: {
-        	'click a.playAll' : 'playAllSongs'
+        filter: function(e){
+        	e.preventDefault();
+        	this.params[$(e.currentTarget).attr('name')] = $(e.currentTarget).val();  
+        	this.songs.reset();
+        	var params = this.params;
+        	console.log('Searching with ',params);
+        	this.songs.fetch({
+    			data: params,
+    			success: function(collection){
+    				collection.trigger('fetched');
+    			}
+    		}); 	
         },
         
         playAllSongs: function(e){
