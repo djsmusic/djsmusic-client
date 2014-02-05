@@ -28,18 +28,11 @@ define(function (require) {
        		this.songs = new Songs();
        		this.songs.meta('user', this.model.attributes.artist.id);
        		
+       		// Comments
+       		this.comments = new Comments();
+       		
     		this.songs.fetch({
-    			data: this.songs.meta()
-    		});
-    		// Get the artists albums
-    		this.albums = new Albums();
-    		this.albums.fetch({
-    			data: {
-    				user: artistId
-    			},
-    			success: function(mod,data){
-    				console.log('Albums: Fetched ',data);
-    			}
+				data: this.songs.meta()
     		});
     		// Get the artists albums
     		this.albums = new Albums();
