@@ -12,8 +12,6 @@ define(function (require) {
 			model: Song,
 			
 			initialize: function(models, options){
-				console.log('Songs: init');
-				
 				this._meta = {};
 			},
 			
@@ -21,7 +19,7 @@ define(function (require) {
 				return API.url+"/music";
 			},
 			
-			meta: function(prop, value) {
+			meta: function(prop, value, notify) {
 				if(typeof(prop) === 'undefined'){
 					// Get all
 					return this._meta;
@@ -32,7 +30,9 @@ define(function (require) {
 		        	// Setter, triggers an event (duh)
 		        	console.log('SongCollection: Set meta '+prop+'='+value);
 		            this._meta[prop] = value;
-		            this.trigger('set:meta');
+		            if(typeof(notify)==='undefined' || notify==true){
+		            	this.trigger('set:meta');
+		            }
 		        }
 		    },
 

@@ -15,9 +15,10 @@ define(function (require) {
     	initialize: function () {
         	console.log("SongBigList: Init");
         	
-        	this.collection.on("reset", this.renderAgain, this);
+			this.collection.on("reset", this.renderAgain, this);
         	this.collection.on("fetched", this.check, this);
             this.collection.on("add", this.renderOne, this);
+            this.collection.on("set:meta", this.setPage, this);
         },
         
         events: {
@@ -33,8 +34,8 @@ define(function (require) {
         	_.each(this.collection.models, function (song) {
 				this.$list.append(new SongListItemView({model: song}).render().el);
 			}, this);
-            
-            return this;
+			
+			return this;
         },
         
         renderAgain: function () {
@@ -50,7 +51,7 @@ define(function (require) {
         paging: function(e){
         	var type = $(e.currentTarget).attr('rel'),
 				current = this.collection.meta('page');
-			if(typeof(current)==='undefined' || current < 1) current = 1;
+			if(typeof(current)==='undefined' || current < 0) current = 0;
 			switch(type){
 				case 'prev':
 					current--;
@@ -59,19 +60,21 @@ define(function (require) {
 					current++;
 					break;
 			}
-			if(current<2){
-				current = 1;
-				$('.pager li:first-child').addClass('disabled');
-			}
-			if(current>1) $('.pager li:first-child').removeClass('disabled');
+			if(current<0) current = 0;
 			this.collection.meta('page',current);
-			$('.pager small').text(current);
 			
 			return this;
         },
         
+        setPage: function(){
+        	var page = this.collection.meta('page');
+        	if(page<1) $('.pager li:first-child').addClass('disabled');
+			if(page>0) $('.pager li:first-child').removeClass('disabled');
+        	$('.pager small').text(page+1);
+        },
+        
         filter: function(e){
-        	console.log('BigList filter');
+        	this.collection.meta('page', 0, false);
         	this.collection.meta($(e.currentTarget).attr('name'), $(e.currentTarget).val());
         	return this;   	
         },
