@@ -29,13 +29,10 @@ define(function (require) {
 		},
 		
 		fetched: function(){
-			if(this.collection.length > 0){
-				_.each(this.collection.models, function (song) {
-					this.$el.append(new SongListItemView({model: song}).render().el);
-				}, this);
-			}else{
+			if(this.collection.length == 0){
 				this.$el.append('<li class="media"><div class="alert alert-warning">No results</div></li>');
 			}
+			return this;
 		},
 		       
 		renderOne: function (model) {
