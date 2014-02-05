@@ -13,7 +13,7 @@ require.config({
     config:{
     	'api': {
     		// App mode: 1= Testing, 0= Production
-    		'mode': 0
+    		'mode': 1
     	}
     },
     
