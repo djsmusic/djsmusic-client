@@ -129,6 +129,15 @@ a.play:hover{
 	color:inherit;
 }
 
+.small-list h4{
+	font-size:16px;
+}
+
+.small-list li{
+	padding:0 10px;
+	font-size:90%;
+}
+
 .content-bottom{
 	position:absolute;
 	bottom:0;
