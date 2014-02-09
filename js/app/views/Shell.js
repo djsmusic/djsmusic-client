@@ -6,9 +6,11 @@ define(function (require) {
         _                   = require('underscore'),
         Backbone            = require('backbone'),
         Player				= require('app/views/Player'),
+        Songs				= require('app/collections/songs'),
+        SongList			= require('app/views/SongSmallList'),
         tpl                 = require('text!tpl/Shell.html'),
 
-        template = _.template(tpl),
+		template = _.template(tpl),
         $menuItems;
 
     return Backbone.View.extend({
@@ -16,28 +18,63 @@ define(function (require) {
         initialize: function () {
         	this.Player = Player;
         	console.log('Shell: init');
+        	
+        	// Dropdown search
+        	this.searchResults = new Songs();
+        	this.searchresultsView = new SongList({collection: this.searchResults});
+        	this.searchTimer = false;
         },
 
         render: function () {
             this.$el.html(template());
             $menuItems = $('.navbar .nav li', this.el);
+            // Render the player
             $('#player').append(this.Player.render().el);
+            
+            $('.navbar-search', this.el).append(this.searchresultsView.render().el);
+            
+            this.$loader = this.$el.find('form .fa-spin');
             
             return this;
         },
 
         events: {
-            "keyup .search-query": "search",
+            "keyup .search-query": "typed",
             "keypress .search-query": "onkeypress"
         },
 
-        search: function (event) {
-        	var key = $('#searchText').val();
-        	console.log('Shell: Search for '+key);
+        typed: function (event) {
+        	// Prevent too small searches
+        	var key = $('#searchText').val(),
+        		this_ = this;
+        	if(key.length<3) return;
+        	// Wait while user types
+        	clearTimeout(this.searchTimer);
+        	this.searchTimer = setTimeout(function(){
+        		this_.search(key);
+        	},50);
+        },
+        
+        search: function(text){
+        	this.startSearching();
+        	var this_ = this;
+        	this.searchResults.fetch({
+        		reset: true,
+        		data: {
+        			title: text,
+        			items: 6
+        		},
+        		success: function(){
+        			this_.endSearching();
+        		}
+        	});
+        	setTimeout(function () {
+	            $('.dropdown').addClass('open');
+	        });
         },
 
-        onkeypress: function (event) {
-            if (event.keyCode === 13) { // enter key pressed
+        onkeypress: function (event){
+            if(event.keyCode === 13){ // enter key pressed
                 event.preventDefault();
             }
         },
@@ -52,6 +89,14 @@ define(function (require) {
             if (menuItem) {
                 $('.' + menuItem).addClass('active');
             }
+        },
+        
+        startSearching: function(){
+        	this.$loader.removeClass('hidden');
+        },
+        
+        endSearching: function(){
+        	this.$loader.addClass('hidden');
         }
 
     });
