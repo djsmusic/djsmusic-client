@@ -27,7 +27,7 @@ define(function (require) {
     	},
 
         render: function () {
-        	this.$el.empty().addClass('big-list').html(template());
+        	this.$el.addClass('big-list').html(template());
         	
         	this.$list = this.$el.find('.SongBigList');
         	
@@ -71,14 +71,14 @@ define(function (require) {
         	// I need to somehow get that 10 from somewhere.
         	if(this.collection.length < 10){
         		// This is the last page
-        		$('.pager li:last-child').addClass('disabled');
+        		this.$el.find('.pager li:last-child').addClass('disabled');
         	}else{
-        		$('.pager li:last-child').removeClass('disabled');
+        		this.$el.find('.pager li:last-child').removeClass('disabled');
         	}
         	var page = this.collection.meta('page');
-        	if(page<1) $('.pager li:first-child').addClass('disabled');
-			if(page>0) $('.pager li:first-child').removeClass('disabled');
-        	$('.pager small').text(page+1);
+        	if(page<1) this.$el.find('.pager li:first-child').addClass('disabled');
+			if(page>0) this.$el.find('.pager li:first-child').removeClass('disabled');
+        	this.$el.find('.pager small').text(page+1);
         },
         
         filter: function(e){
