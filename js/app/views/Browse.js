@@ -20,9 +20,6 @@ define(function (require) {
 			this.songs = new Songs();
     		this.songs.fetch();
     		this.songList = new SongListView({collection : this.songs});
-    		this.songs.on('set:meta',function(){
-    			this.search();
-    		}, this);
     	},
     	
     	events: {
