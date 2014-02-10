@@ -19,7 +19,7 @@ define(function (require) {
 				return API.url+"/music";
 			},
 			
-			meta: function(prop, value, notify) {
+			meta: function(prop, value, notify, fetch) {
 				if(typeof(prop) === 'undefined'){
 					// Get all
 					return this._meta;
@@ -32,6 +32,17 @@ define(function (require) {
 		            this._meta[prop] = value;
 		            if(typeof(notify)==='undefined' || notify==true){
 		            	this.trigger('set:meta');
+		            }
+		            if(typeof(fetch)==='undefined' || fetch==true){
+		            	var this_ = this;
+		            	this.reset();
+		            	console.log('SongCollection: Fetch data: ', this_._meta);
+		            	this.fetch({
+		            		data: this_._meta,
+		            		success: function(){
+		            			this_.trigger('fetched');
+		            		}
+		            	});
 		            }
 		        }
 		    },

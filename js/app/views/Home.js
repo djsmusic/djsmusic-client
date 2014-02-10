@@ -19,22 +19,12 @@ define(function (require) {
     		this.topSongs = new Songs();
     		this.latestSongs = new Songs();
     		this.downloadedSongs = new Songs();
+    		
     		// Fetch
-    		this.topSongs.fetch({
-    			data: {
-    				orderby: 'best'
-    			}
-    		});
-    		this.latestSongs.fetch({
-    			data: {
-    				orderby: 'release'
-    			}
-    		});
-    		this.downloadedSongs.fetch({
-    			data: {
-    				orderby: 'downloads'
-    			}
-    		});
+    		this.topSongs.meta('orderby','best',0);
+    		this.latestSongs.meta('orderby','release',0);
+    		this.latestSongs.meta('orderby','downloads',0);
+    		
     		// Create the lists
     		this.topSongsList = new SongListView({collection : this.topSongs});
     		this.latestSongsList = new SongListView({collection : this.latestSongs});
