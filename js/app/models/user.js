@@ -9,8 +9,7 @@ define(function (require, exports, module) {
     UserModel = Backbone.Model.extend({
 
         initialize: function(){
-            _.bindAll(this);
-        
+            _.bindAll(this);        
         },
 
         defaults: {
@@ -21,7 +20,7 @@ define(function (require, exports, module) {
         },
 
         url: function(){
-            return API.url + '/user';
+        	return API.url+"users/"+this.get('id');
         }
 
     });
