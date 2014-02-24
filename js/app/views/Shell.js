@@ -9,6 +9,7 @@ define(function (require) {
         Songs				= require('app/collections/songs'),
         SongList			= require('app/views/SongSmallList'),
         tpl                 = require('text!tpl/Shell.html'),
+        App					= require('app/app'),
 
 		template = _.template(tpl),
         $menuItems;

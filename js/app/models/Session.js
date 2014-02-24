@@ -70,17 +70,18 @@ define(function (require, exports, module) {
         postAuth: function(opts, callback, args){
             var self = this;
             var postData = _.omit(opts, 'method');
-            if(DEBUG) console.log(postData);
+            //console.log(postData);
             $.ajax({
                 url: this.url() + '/' + opts.method,
                 contentType: 'application/json',
                 dataType: 'json',
                 type: 'POST',
-                beforeSend: function(xhr) {
+                // Removed CSRF functionality for now
+                /*beforeSend: function(xhr) {
                     // Set the CSRF Token in the header for security
                     var token = $('meta[name="csrf-token"]').attr('content');
                     if (token) xhr.setRequestHeader('X-CSRF-Token', token);
-                },
+                },*/
                 data:  JSON.stringify( _.omit(opts, 'method') ),
                 success: function(res){
 
