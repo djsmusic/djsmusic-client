@@ -152,6 +152,15 @@ define(function (require) {
             });
         },
         
+        login: function () {
+            require(["app/views/Login"], function (View) {
+                var view = new View({el: $content});
+                view.render();
+
+                shellView.selectMenuItem('login-menu');
+            });
+        },
+        
         technology: function () {
         	var this_ = this;
             require(["app/views/Technology"], function (View) {
