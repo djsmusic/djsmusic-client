@@ -46,8 +46,4 @@ require.config({
 
 require(['jquery', 'backbone', 'app/app', 'app/router', 'app/models/Session'], function ($, Backbone, App, Router, Session) {
     App.router = new Router();
-    
-    // Create a new session model and scope it to the app global
-    // This will be a singleton, which other modules can access
-    App.session = new Session({});
 });
