@@ -8,6 +8,8 @@ define([
     "utils"
 ],
 function($, _, Backbone) {
+	
+	console.log('App: init');
 
     var app = {
         root : "/",                     // The root path to run the application through.

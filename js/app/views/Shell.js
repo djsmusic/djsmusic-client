@@ -24,6 +24,9 @@ define(function (require) {
         	this.searchResults = new Songs();
         	this.searchresultsView = new SongList({collection: this.searchResults});
         	this.searchTimer = false;
+        	
+        	// React to changes in user status
+        	App.session.on("change:logged_in", this.loggedBox, this);
         },
 
         render: function () {
@@ -98,6 +101,14 @@ define(function (require) {
         
         endSearching: function(){
         	this.$loader.addClass('hidden');
+        },
+        
+        loggedBox: function(){
+        	if(App.session.get('logged_in')){
+        		this.$el.find('.login-menu').html('<a href="#profile">Profile</a>');
+        	}else{
+        		this.$el.find('.login-menu').html('<a href="#login">Login/Register</a>');
+        	}
         }
 
     });
