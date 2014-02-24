@@ -194,7 +194,7 @@ define(function (require) {
         dj_songs : function(id){
         	var this_ = this;
         	require(["app/views/DJ_Songs", "app/models/user"], function (View, User) {
-        		var user = new User({userId: id});
+        		var user = new User({id: id});
 	        	user.fetch({
 	    			success: function(data){
 	    				var view = new View({el: this_.$content, model: data});
