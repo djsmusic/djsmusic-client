@@ -12,6 +12,8 @@ define(function (require) {
 			model: Song,
 			
 			initialize: function(models, options){
+				console.log('Songs: init');
+				
 				this._meta = {};
 			},
 			

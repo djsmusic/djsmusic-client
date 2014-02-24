@@ -48,10 +48,20 @@ define(function (require) {
             return this;
         },
         
+        renderAgain: function () {
+        	this.$list.empty();
+        	
+        	_.each(this.collection.models, function (song) {
+				this.$list.append(new SongListItemView({model: song}).render().el);
+			}, this);
+            
+            return this;
+        },
+        
         paging: function(e){
         	var type = $(e.currentTarget).attr('rel'),
 				current = this.collection.meta('page');
-			if(typeof(current)==='undefined' || current < 0) current = 0;
+			if(typeof(current)==='undefined' || current < 1) current = 1;
 			switch(type){
 				case 'prev':
 					current--;
@@ -62,6 +72,14 @@ define(function (require) {
 			}
 			if(current<0) current = 0;
 			this.collection.meta('page',current);
+			
+			if(current<2){
+				current = 1;
+				$('.pager li:first-child').addClass('disabled');
+			}
+			if(current>1) $('.pager li:first-child').removeClass('disabled');
+			this.collection.meta('page',current);
+			$('.pager small').text(current);
 			
 			return this;
         },
@@ -82,7 +100,7 @@ define(function (require) {
         },
         
         filter: function(e){
-        	this.collection.meta('page', 0, false);
+        	console.log('BigList filter');
         	this.collection.meta($(e.currentTarget).attr('name'), $(e.currentTarget).val());
         	return this;   	
         },
