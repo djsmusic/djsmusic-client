@@ -26,8 +26,9 @@ define(function (require) {
     			error: function(){
 	    			App.showAlert('Error','Wrong username or password, please try again');
 	    		},
-	    		success: function(){
-	    			App.showAlert('','Login done, id = '+App.session.user_id);
+	    		success: function(mod,res){
+	    			//App.showAlert('','Login done, id = '+res);
+	    			App.router.navigate('profile', {trigger: true});
 	    		}
     		});
     	},
