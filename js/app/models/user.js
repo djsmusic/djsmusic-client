@@ -1,4 +1,4 @@
-define(function (require) {
+define(function (require, exports, module) {
 
     "use strict";
 
@@ -6,16 +6,25 @@ define(function (require) {
         Backbone            = require('backbone'),
         API					= require('api'),
 
-        Model = Backbone.Model.extend({
-			
-			initialize: function(options){
-				this.userId = options.userId;
-			},
-			
-			url: function(){
-				return API.url+"users/"+this.userId;
-			}
-        });
+    UserModel = Backbone.Model.extend({
 
-    return Model;
+        initialize: function(){
+            _.bindAll(this);
+        
+        },
+
+        defaults: {
+            id: 0,
+            username: '',
+            name: '',
+            email: ''
+        },
+
+        url: function(){
+            return API.url + '/user';
+        }
+
+    });
+    
+    return UserModel;
 });
