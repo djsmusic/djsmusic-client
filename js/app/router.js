@@ -36,7 +36,8 @@ define(function (require) {
             "people": "people",
             "music/:songId" : "music",
             "album/:albumId" : "album",
-            "dj-songs/:id" : "dj_songs"
+            "dj-songs/:id" : "dj_songs",
+            "login" : 'login'
         },
 
         home: function () {
@@ -87,6 +88,15 @@ define(function (require) {
                 view.render();
 
                 shellView.deselectMenuItems();
+            });
+        },
+        
+        login: function () {
+            require(["app/views/Login"], function (View) {
+                var view = new View({el: $content});
+                view.render();
+
+                shellView.selectMenuItem('login-menu');
             });
         },
         
