@@ -23,7 +23,7 @@ define(function (require) {
     		// Fetch
     		this.topSongs.meta('orderby','best',0);
     		this.latestSongs.meta('orderby','release',0);
-    		this.latestSongs.meta('orderby','downloads',0);
+    		this.downloadedSongs.meta('orderby','downloads',0);
     		
     		// Create the lists
     		this.topSongsList = new SongListView({collection : this.topSongs});
