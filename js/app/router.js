@@ -46,8 +46,7 @@ define(function (require) {
 		        event.preventDefault();
 		        this.shellView.search();
 		    });
-        
-    	},
+		},
 
         routes: {
             "": "home",
@@ -149,15 +148,6 @@ define(function (require) {
                 view.render();
 
                 this_.shellView.selectMenuItem('login-menu');
-            });
-        },
-        
-        login: function () {
-            require(["app/views/Login"], function (View) {
-                var view = new View({el: $content});
-                view.render();
-
-                shellView.selectMenuItem('login-menu');
             });
         },
         
