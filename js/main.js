@@ -26,7 +26,8 @@ require.config({
         underscore : '../lib/underscore-min',
         soundmanager2 : '../lib/soundmanager/script/soundmanager2-jsmin',
         slider : '../lib/bootstrap-slider',
-    	api : '../app/api'
+    	api : '../app/api',
+    	utils: '../app/utils'
     },
 
     map: {
@@ -50,7 +51,24 @@ require.config({
     }
 });
 
-require(['jquery', 'backbone', 'app/router'], function ($, Backbone, Router) {
+require(['jquery', 'backbone', 'app/app', 'app/router', 'app/models/Session'], function ($, Backbone, App, Router, Session) {
     var router = new Router();
-    Backbone.history.start();
+    
+    // Create a new session model and scope it to the app global
+    // This will be a singleton, which other modules can access
+    App.session = new Session({});
+
+    // Check the auth status upon initialization,
+    // before rendering anything or matching routes
+    App.session.checkAuth({
+
+        // Start the backbone routing once we have captured a user's auth status
+        complete: function(){
+			// HTML5 pushState for URLs without hashbangs
+            /*var hasPushstate = !!(window.history && history.pushState);
+            if(hasPushstate) Backbone.history.start({ pushState: true, root: '/' } );
+            else Backbone.history.start();*/
+			Backbone.history.start();
+        }
+    });
 });
