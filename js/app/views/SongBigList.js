@@ -63,6 +63,12 @@ define(function (require) {
 			if(current<0) current = 0;
 			this.collection.meta('page',current);
 			
+			if(current<2){
+				current = 1;
+				$('.pager li:first-child').addClass('disabled');
+			}
+			if(current>1) $('.pager li:first-child').removeClass('disabled');
+			
 			return this;
         },
         
@@ -75,6 +81,7 @@ define(function (require) {
         	}else{
         		this.$el.find('.pager li:last-child').removeClass('disabled');
         	}
+
         	var page = this.collection.meta('page');
         	if(page<1) this.$el.find('.pager li:first-child').addClass('disabled');
 			if(page>0) this.$el.find('.pager li:first-child').removeClass('disabled');
