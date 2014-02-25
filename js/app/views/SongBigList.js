@@ -48,16 +48,6 @@ define(function (require) {
             return this;
         },
         
-        renderAgain: function () {
-        	this.$list.empty();
-        	
-        	_.each(this.collection.models, function (song) {
-				this.$list.append(new SongListItemView({model: song}).render().el);
-			}, this);
-            
-            return this;
-        },
-        
         paging: function(e){
         	var type = $(e.currentTarget).attr('rel'),
 				current = this.collection.meta('page');
