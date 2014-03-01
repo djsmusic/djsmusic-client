@@ -12,7 +12,7 @@ define(function (require) {
 			model: Album,
 			
 			url: function(){
-				return API.url+"/albums";
+				return API.url+"albums";
 			}
 
         });
