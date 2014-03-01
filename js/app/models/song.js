@@ -4,7 +4,7 @@ define(function (require, exports, module) {
 
     var $                   = require('jquery'),
         Backbone            = require('backbone'),
-        API					= require('api'),
+        App					= require('app/app'),
 
         Model = Backbone.Model.extend({
         	
@@ -13,7 +13,7 @@ define(function (require, exports, module) {
 			},
 			
 			url: function(){
-				return API.url+"music/"+this.songId;
+				return App.url+"music/"+this.songId;
 			}
         });
 

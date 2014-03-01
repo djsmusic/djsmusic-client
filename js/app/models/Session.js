@@ -4,7 +4,7 @@ define(function (require, exports, module) {
 
     var $                   = require('jquery'),
         Backbone            = require('backbone'),
-        API					= require('api'),
+        App					= require('app/app'),
         UserModel			= require('app/models/user'),
 
     SessionModel = Backbone.Model.extend({
@@ -26,7 +26,7 @@ define(function (require, exports, module) {
 
 
         url: function(){
-            return API.url + 'auth';
+            return App.url + 'auth';
         },
 
         // Fxn to update user attributes after recieving API response

@@ -10,13 +10,6 @@ require.config({
 
 	baseUrl: 'js/lib',
     
-    config:{
-    	'api': {
-    		// App mode: 1= Testing, 0= Production
-    		'mode': 1
-    	}
-    },
-    
     paths: {
         app: '../app',
         tpl: '../tpl',
@@ -26,7 +19,6 @@ require.config({
         underscore : '../lib/underscore-min',
         soundmanager2 : '../lib/soundmanager/script/soundmanager2-jsmin',
         slider : '../lib/bootstrap-slider',
-    	api : '../app/api',
     	utils: '../app/utils'
     },
 

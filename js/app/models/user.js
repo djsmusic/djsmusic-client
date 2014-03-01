@@ -4,7 +4,7 @@ define(function (require, exports, module) {
 
     var $                   = require('jquery'),
         Backbone            = require('backbone'),
-        API					= require('api'),
+        App					= require('app/app'),
 
     UserModel = Backbone.Model.extend({
 
@@ -20,7 +20,7 @@ define(function (require, exports, module) {
         },
 
         url: function(){
-        	return API.url+"users/"+this.get('id');
+        	return App.url+"users/"+this.get('id');
         }
 
     });

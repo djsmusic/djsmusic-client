@@ -21,7 +21,7 @@ define(function (require) {
                     xfbml      : true  				// parse XFBML
             	});
     		}else{
-    			console.error('Comments: No Facebook API detected!');
+    			console.warn('Comments: No Facebook API detected!');
     		}
     	},
 
