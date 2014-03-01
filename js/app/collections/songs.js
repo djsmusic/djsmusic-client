@@ -5,7 +5,7 @@ define(function (require) {
     var $                   = require('jquery'),
         Backbone            = require('backbone'),
         Song				= require('app/models/song'),
-        API					= require('api'),
+        App					= require('app/app'),
 
         collection = Backbone.Collection.extend({
 
@@ -16,7 +16,7 @@ define(function (require) {
 			},
 			
 			url: function(){
-				return API.url+"music";
+				return App.url+"music";
 			},
 			
 			meta: function(prop, value, notify, fetch) {

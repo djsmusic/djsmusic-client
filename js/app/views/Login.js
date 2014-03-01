@@ -27,6 +27,7 @@ define(function (require) {
 	    			App.showAlert('Error','Wrong username or password, please try again');
 	    		},
 	    		success: function(mod,res){
+	    			console.log('Login OK');
 	    			//App.showAlert('','Login done, id = '+res);
 	    			App.router.navigate('profile', {trigger: true});
 	    		}
