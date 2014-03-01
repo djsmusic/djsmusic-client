@@ -206,15 +206,14 @@ define(function (require) {
         
         // Google Analytics Tracking
         trackPageview: function (){
-	        var url = Backbone.history.getFragment();
-	
-	        // Prepend slash
-	        if (!/^\//.test(url) && url != ""){
-	            url = "/" + url;
-	        }
-			
-			if(typeof(_gaq)!=='undefined'){
-				_gaq.push(['_trackPageview', url]);
+        	
+        	if(App.mode==1){
+        		// Ignore G.Analytics pageviews when in local mode
+        		return;
+        	}
+        	
+	        if(typeof(ga)!=='undefined'){
+	        	ga('send', 'pageview');
 			}else{
 				console.warn('Router: Google Analytics not found');
 			}
