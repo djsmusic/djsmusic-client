@@ -16,7 +16,7 @@ define(function (require) {
 			},
 			
 			url: function(){
-				return API.url+"/music";
+				return API.url+"music";
 			},
 			
 			meta: function(prop, value, notify, fetch) {

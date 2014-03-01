@@ -13,7 +13,7 @@ define(function (require, exports, module) {
 			},
 			
 			url: function(){
-				return API.url+"/music/"+this.songId;
+				return API.url+"music/"+this.songId;
 			}
         });
 

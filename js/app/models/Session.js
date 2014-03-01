@@ -26,7 +26,7 @@ define(function (require, exports, module) {
 
 
         url: function(){
-            return API.url + '/auth';
+            return API.url + 'auth';
         },
 
         // Fxn to update user attributes after recieving API response
