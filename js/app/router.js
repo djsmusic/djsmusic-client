@@ -62,7 +62,9 @@ define(function (require) {
             "dj-songs/:id" : "dj_songs",
             "login" : 'login',
             "register": 'login',
-            "profile" : 'profile'
+            "profile" : 'profile',
+            'tos' : 'tos',
+            'privacy' : 'privacy'
         },
 
         home: function () {
@@ -96,6 +98,24 @@ define(function (require) {
         contact: function () {
         	var this_ = this;
             require(["app/views/Contact"], function (View) {
+                var view = new View({el: this_.$content});
+                view.render();
+                this_.shellView.deselectMenuItems();
+            });
+        },
+        
+        tos: function () {
+        	var this_ = this;
+            require(["app/views/ToS"], function (View) {
+                var view = new View({el: this_.$content});
+                view.render();
+                this_.shellView.deselectMenuItems();
+            });
+        },
+        
+        privacy: function () {
+        	var this_ = this;
+            require(["app/views/Privacy"], function (View) {
                 var view = new View({el: this_.$content});
                 view.render();
                 this_.shellView.deselectMenuItems();
