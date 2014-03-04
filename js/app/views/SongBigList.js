@@ -40,7 +40,6 @@ define(function (require) {
         
         renderAgain: function () {
         	this.$list.empty();
-        	this.$el.empty().addClass('big-list').html(template());
         	
         	this.$list = this.$el.find('.SongBigList');
         	
@@ -64,8 +63,6 @@ define(function (require) {
 					break;
 			}
 			if(current<0) current = 0;
-
-			this.collection.meta('page',current);
 			
 			if(current<2){
 				current = 1;
@@ -73,7 +70,6 @@ define(function (require) {
 			}
 			if(current>1) $('.pager li:first-child').removeClass('disabled');
 			
-
 			this.collection.meta('page',current);
 			
 			return this;
