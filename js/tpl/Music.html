@@ -4,7 +4,7 @@
 			<div class="col-md-3 visible-lg visible-md">
 				<div class="row album text-center">
 					<img src="<%= album.photo %>" width="100%" alt="<%= album.name %>" />
-					<h3><a href="#album/<%= album.id %>"><%= album.name %></a></h3>
+					<h3><a href="/album/<%= album.id %>"><%= album.name %></a></h3>
 				</div>
 				<hr />
 				<div class="row">
@@ -12,7 +12,7 @@
 						<img src="<%= artist.photo %>" class="img-thumbnail" width="100%" alt="Photo" />
 					</div>
 					<div class="col-md-8">
-						<h4><a href="#/dj-songs/<%= artist.id %>"><%= artist.name %></a></h4>
+						<h4><a href="/dj-songs/<%= artist.id %>"><%= artist.name %></a></h4>
 						<p><%= artist.tracks %> Tracks</p>
 						<hr />
 						Related tracks...
@@ -22,11 +22,11 @@
 			
 			<div class="col-md-9">
 				<ol class="breadcrumb">
-				  <li><a href="#/dj-songs/<%= artist.id %>"><%= artist.name %></a></li>
-				  <li><a href="#/album/<%= album.id %>"><%= album.name %></a></li>
+				  <li><a href="/dj-songs/<%= artist.id %>"><%= artist.name %></a></li>
+				  <li><a href="/album/<%= album.id %>"><%= album.name %></a></li>
 				  <li class="active"><%= track.name %></li>
 				</ol>
-				<h1><a class="play" href="#/music/<% track.id %>" title="Play track"><i class="fa fa-play-circle fa-xs"></i></a> <%= track.name %>
+				<h1><a class="play" href="/music/<% track.id %>" title="Play track"><i class="fa fa-play-circle fa-xs"></i></a> <%= track.name %>
 					<div class="pull-right"><small style="font-size:0.4em">
 						<i class="fa fa-play"></i> <%= track.plays %> |
 						<i class="fa fa-comments"></i> <span class="fb-comments-count" data-href="http://djs-music.com/music/<%= track.id %>">0</span> |

@@ -8,17 +8,17 @@
  */
 require.config({
 
-    baseUrl: 'js/lib',
+    baseUrl: '/js/lib/',
     
     paths: {
         app: '../app',
         tpl: '../tpl',
-        jquery : '../lib/jquery-1.9.1.min',
-        backbone : '../lib/backbone-min',
-        text : '../lib/text',
-        underscore : '../lib/underscore-min',
-        soundmanager2 : '../lib/soundmanager/script/soundmanager2-jsmin',
-        slider : '../lib/bootstrap-slider',
+        jquery : 'jquery-1.9.1.min',
+        backbone : 'backbone-min',
+        text : 'text',
+        underscore : 'underscore-min',
+        soundmanager2 : 'soundmanager/script/soundmanager2-jsmin',
+        slider : 'bootstrap-slider',
     	utils: '../app/utils'
     },
 

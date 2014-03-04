@@ -18,20 +18,24 @@ define(function (require) {
 		    App.session = new Session({});
 
 			console.log('App session defined');
-		
-		    // Check the auth status upon initialization,
-		    // before rendering anything or matching routes
-		    App.session.checkAuth({
-		
-		        // Start the backbone routing once we have captured a user's auth status
-		        complete: function(){
-					// HTML5 pushState for URLs without hashbangs
-		            /*var hasPushstate = !!(window.history && history.pushState);
-		            if(hasPushstate) Backbone.history.start({ pushState: true, root: '/' } );
-		            else Backbone.history.start();*/
-					Backbone.history.start();
-		        }
-		    });
+			
+			if(App.mode == 1){
+				Backbone.history.start({ pushState: true });
+			}else{
+				// Check the auth status upon initialization,
+			    // before rendering anything or matching routes
+			    App.session.checkAuth({
+			
+			        // Start the backbone routing once we have captured a user's auth status
+			        complete: function(){
+						// HTML5 pushState for URLs without hashbangs
+			            /*var hasPushstate = !!(window.history && history.pushState);
+			            if(hasPushstate) Backbone.history.start({ pushState: true, root: '/' } );
+			            else Backbone.history.start();*/
+						Backbone.history.start({ pushState: true });
+			        }
+			    });
+			}
 		    
 			this.$body = $('body');
 			this.shellView = new ShellView({el: this.$body}).render();
@@ -184,7 +188,6 @@ define(function (require) {
         music : function(id){
         	var this_ = this;
         	require(["app/views/Music", "app/models/song"], function (View, Song) {
-        		console.log('New Song():');
         		var track = new Song({songId: id});
 	        	track.fetch({
 	    			success: function(data){
