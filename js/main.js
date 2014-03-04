@@ -19,7 +19,8 @@ require.config({
         underscore : 'underscore-min',
         soundmanager2 : 'soundmanager/script/soundmanager2-jsmin',
         slider : 'bootstrap-slider',
-    	utils: '../app/utils'
+    	utils: '../app/utils',
+    	nanobar: 'nanobar-min'
     },
 
     shim: {
@@ -32,6 +33,9 @@ require.config({
         },
         'soundmanager2':{
         	exports: 'soundManager'
+        },
+        'nanobar':{
+        	exports: 'Nanobar'
         }
     }
 });

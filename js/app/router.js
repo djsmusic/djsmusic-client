@@ -6,7 +6,8 @@ define(function (require) {
         Backbone    = require('backbone'),
         ShellView   = require('app/views/Shell'),
         App			= require('app/app'),
-        Session		= require('app/models/Session');
+        Session		= require('app/models/Session'),
+        Nanobar		= require('nanobar');
 
     return Backbone.Router.extend({
     	
@@ -49,6 +50,12 @@ define(function (require) {
 		    $("body").on("click", "#showMeBtn", function (event) {
 		        event.preventDefault();
 		        this.shellView.search();
+		    });
+		    
+		    // Global loading bar
+		    App.nanobar = new Nanobar({
+		    	bg: '#eb0000',
+		    	id: 'globalNanobar'
 		    });
 		},
 
