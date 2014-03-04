@@ -16,8 +16,8 @@ define(function (require) {
     		// Create a new session model and scope it to the app global
 		    // This will be a singleton, which other modules can access
 		    App.session = new Session({});
-		    
-		    console.log('App session defined');
+
+			console.log('App session defined');
 		
 		    // Check the auth status upon initialization,
 		    // before rendering anything or matching routes
@@ -46,8 +46,7 @@ define(function (require) {
 		        event.preventDefault();
 		        this.shellView.search();
 		    });
-        
-    	},
+		},
 
         routes: {
             "": "home",

@@ -26,7 +26,7 @@ define(function (require) {
     		'click .pager a' : 'paging'
     	},
 
-        render: function () {
+		render: function () {
         	this.$el.addClass('big-list').html(template());
         	
         	this.$list = this.$el.find('.SongBigList');
@@ -40,6 +40,9 @@ define(function (require) {
         
         renderAgain: function () {
         	this.$list.empty();
+        	this.$el.empty().addClass('big-list').html(template());
+        	
+        	this.$list = this.$el.find('.SongBigList');
         	
         	_.each(this.collection.models, function (song) {
 				this.$list.append(new SongListItemView({model: song}).render().el);
@@ -61,6 +64,7 @@ define(function (require) {
 					break;
 			}
 			if(current<0) current = 0;
+
 			this.collection.meta('page',current);
 			
 			if(current<2){
@@ -68,6 +72,9 @@ define(function (require) {
 				$('.pager li:first-child').addClass('disabled');
 			}
 			if(current>1) $('.pager li:first-child').removeClass('disabled');
+			
+
+			this.collection.meta('page',current);
 			
 			return this;
         },

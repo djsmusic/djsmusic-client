@@ -36,6 +36,6 @@ require.config({
     }
 });
 
-require(['jquery', 'backbone', 'app/app', 'app/router'], function ($, Backbone, App, Router) {
+require(['jquery', 'backbone', 'app/app', 'app/router', 'app/models/Session'], function ($, Backbone, App, Router, Session) {
     App.router = new Router();
 });
