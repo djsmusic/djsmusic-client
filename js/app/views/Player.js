@@ -107,9 +107,7 @@ var $                   = require('jquery'),
         	this.$playlist.empty();
         	
         	_.each(this.playlist.models, function (song) {
-        		var element = new PlaylistItem({model: song}).render().el;
-        		console.log('Element: ',element);
-				this.$playlist.append(new PlaylistItem({model: song}).render().el);
+        		this.$playlist.append(new PlaylistItem({model: song}).render().el);
 			}, this);
             
             return this;
@@ -141,6 +139,8 @@ var $                   = require('jquery'),
         	var this_ = this;
         	
         	console.log('Player: Adding to playlist: ', model.attributes);
+        	
+        	console.log('Exists? ',this.playlist.get(model));
         	
         	soundManager.onready(function(){
         		// Check if it's playable
@@ -340,8 +340,8 @@ var $                   = require('jquery'),
 			e.preventDefault();
 			var index = $(e.currentTarget).parent('li').index('.playlist li'),
 				item = this.playlist.at(index);
-			item.$obj.remove();
-			this.playlist.splice(index,1);
+			
+			this.playlist.remove(item);
 		},
 		/**
 		 * Play the track in current 

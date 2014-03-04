@@ -14,8 +14,6 @@ define(function (require) {
     	tagName: 'li',
     	
     	initialize: function(){
-    		console.log('Playlist Item: New ', this.model.attributes);
-    		
     		this.model.on("change", this.render, this);
     	},
     	
