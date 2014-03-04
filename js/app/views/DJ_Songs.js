@@ -64,6 +64,8 @@ define(function (require) {
     		// Create new list views
     		this.songList = new SongListView({collection : this.songs});
     		this.albumList = new AlbumListView({collection : this.albums});
+    		// Init comments
+    		this.comments = new Comments();
     	},
     	
     	events: {
