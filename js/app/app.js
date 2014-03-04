@@ -9,7 +9,7 @@ define(function (require, exports, module) {
 	        productionUrl: 'http://api.djs-music.com/',
 	    	localUrl: 'http://localhost/djsmusic/',
 	    	url: '',
-	    	mode: 1,	// API mode: 1= Testing, 0= Production
+	    	mode: 0,	// API mode: 1= Testing, 0= Production
 	
 	        // Show alert classes and hide after specified timeout
 	        showAlert: function(title, text, klass) {
