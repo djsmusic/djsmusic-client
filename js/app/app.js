@@ -9,7 +9,7 @@ define(function (require, exports, module) {
 	        productionUrl: 'http://api.djs-music.com/',
 	    	localUrl: 'http://localhost/djsmusic/',
 	    	url: '',
-	    	mode: 0,	// API mode: 1= Testing, 0= Production
+	    	mode: 0,	// Override API mode: 1= Testing, 0= Production
 	
 	        // Show alert classes and hide after specified timeout
 	        showAlert: function(title, text, klass) {
@@ -29,8 +29,9 @@ define(function (require, exports, module) {
     
     app.url = app.productionUrl;
     
-    if(app.mode == 1){
+    if(window.location.hostname == 'local.djs-music.com' || window.location.hostname == 'localhost' || app.mode == 1){
     	console.info('API: Local mode');
+    	app.mode = 1;
     	app.url = app.localUrl;
     }
 
