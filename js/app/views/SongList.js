@@ -66,6 +66,7 @@ define(function (require) {
 					break;
 			}
 			if(current<0) current = 0;
+			
 			this.collection.meta('page',current);
 			
 			return this;

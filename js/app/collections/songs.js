@@ -45,21 +45,6 @@ define(function (require) {
 		            		}
 		            	});
 		            }
-
-		            if(typeof(notify)==='undefined' || notify==true){
-		            	this.trigger('set:meta');
-		            }
-		            if(typeof(fetch)==='undefined' || fetch==true){
-		            	var this_ = this;
-		            	this.reset();
-		            	console.log('SongCollection: Fetch data: ', this_._meta);
-		            	this.fetch({
-		            		data: this_._meta,
-		            		success: function(){
-		            			this_.trigger('fetched');
-		            		}
-		            	});
-		            }
 		        }
 		    },
 
