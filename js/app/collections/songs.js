@@ -7,7 +7,7 @@ define(function (require) {
         Song				= require('app/models/song'),
         App					= require('app/app'),
 
-        collection = Backbone.Collection.extend({
+		collection = Backbone.Collection.extend({
 
 			model: Song,
 			
@@ -42,11 +42,29 @@ define(function (require) {
 		            		data: this_._meta,
 		            		success: function(){
 		            			this_.trigger('fetched');
-		            		}
+		            		},
+		            		xhr: function() {
+								var xhr = $.ajaxSettings.xhr();
+								xhr.onprogress = this_.handleProgress;
+								return xhr;
+							}
 		            	});
 		            }
 		        }
 		    },
+		    
+		    handleProgress: function(evt){
+				var percentComplete = 0;
+				console.log(evt);
+				if (evt.lengthComputable) {  
+				    percentComplete = evt.loaded / evt.total;
+				    this.loaded = percentComplete;
+					this.trigger('fetch:loading');
+					console.log('Song Collection '+this._meta['orderby']+' Loaded: '+Math.round(percentComplete * 100)+"%");
+				}else{
+					console.warn('Song Collection: Cant get percent loaded');
+				}
+			}
 
         });
 
