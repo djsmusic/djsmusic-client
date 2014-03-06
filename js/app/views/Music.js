@@ -17,7 +17,7 @@ define(function (require) {
     	initialize: function(){
     		console.log('Music: init');
     		this.comments = new Comments();
-    		this.model.on("change", this.render);
+    		this.model.on("change", this.render, this);
     	},
 
         render: function () {

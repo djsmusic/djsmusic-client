@@ -6,7 +6,8 @@ define(function (require) {
         Backbone    = require('backbone'),
         ShellView   = require('app/views/Shell'),
         App			= require('app/app'),
-        Session		= require('app/models/Session');
+        Session		= require('app/models/Session'),
+        Nanobar		= require('nanobar');
 
     return Backbone.Router.extend({
     	
@@ -50,6 +51,12 @@ define(function (require) {
 		        event.preventDefault();
 		        this.shellView.search();
 		    });
+		    
+		    // Global loading bar
+		    App.nanobar = new Nanobar({
+		    	bg: '#eb0000',
+		    	id: 'globalNanobar'
+		    });
 		},
 
         routes: {
@@ -72,6 +79,7 @@ define(function (require) {
 
         home: function () {
         	var this_ = this;
+        	App.startLoading();
         	require(["app/views/Home"], function (HomeView) {
         		var view = new HomeView({el: this_.$content});
 	            view.render();
@@ -82,7 +90,7 @@ define(function (require) {
         
         browse: function () {
         	var this_ = this;
-            require(["app/views/Browse"], function (View) {
+        	require(["app/views/Browse"], function (View) {
                 var view = new View({el: this_.$content});
                 view.render();
                 this_.shellView.selectMenuItem('browse-menu');

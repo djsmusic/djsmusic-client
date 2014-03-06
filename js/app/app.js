@@ -7,7 +7,7 @@ define(function (require, exports, module) {
 
     	app = {
 	        productionUrl: 'http://api.djs-music.com/',
-	    	localUrl: 'http://localhost/djsmusic/',
+	    	localUrl: 'http://127.0.0.1/djsmusic/',
 	    	url: '',
 	    	mode: 0,	// Override API mode: 1= Testing, 0= Production
 	
@@ -21,6 +21,13 @@ define(function (require, exports, module) {
 	            setTimeout(function() {
 	                $("#header-alert").hide();
 	            }, 7000 );*/
+	        },
+	        
+	        /**
+	         * Capture AJAX requests and display a global nanobar for them 
+	         */
+	        startLoading: function(){
+	        	if(typeof(this.nanobar)=='undefined') return;
 	        }
 	    };
 	
@@ -33,6 +40,9 @@ define(function (require, exports, module) {
     	console.info('API: Local mode');
     	app.mode = 1;
     	app.url = app.localUrl;
+    }else{
+    	// Disable console logging for production mode.
+    	//console.log = function(){};
     }
 
     // Global event aggregator

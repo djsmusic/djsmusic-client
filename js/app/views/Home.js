@@ -8,6 +8,7 @@ define(function (require) {
         Songs				= require('app/collections/songs'),
         SongListView		= require('app/views/SongList'),
         tpl                 = require('text!tpl/Home.html'),
+        
 
         template = _.template(tpl);
 
@@ -18,7 +19,7 @@ define(function (require) {
     		// Create the collections
     		this.topSongs = new Songs();
     		this.latestSongs = new Songs();
-    		this.downloadedSongs = new Songs();
+    		this.downloadedSongs = new Songs();	
     		
     		// Fetch
     		this.topSongs.meta('orderby','best',0);

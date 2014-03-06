@@ -9,11 +9,14 @@ define(function (require, exports, module) {
         Model = Backbone.Model.extend({
         	
         	initialize: function(options){
-        		this.songId = options.songId;
+        		if(typeof(options.songId)!=='undefined'){
+        			this.set('id', options.songId);
+        			delete options.songId;
+        		}
 			},
 			
 			url: function(){
-				return App.url+"music/"+this.songId;
+				return App.url+"music/"+this.get('id');
 			}
         });
 

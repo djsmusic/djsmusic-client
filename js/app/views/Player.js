@@ -2,19 +2,25 @@ define(function (require) {
 
     "use strict";
 
-    var $                   = require('jquery'),
-        _                   = require('underscore'),
-        Backbone            = require('backbone'),
-        tpl                 = require('text!tpl/Player.html'),
-        soundManager		= require('soundmanager2'),
-        Slider				= require('slider'),
-        Display				= require('display'),
+var $                   = require('jquery'),
+    _                   = require('underscore'),
+    Backbone            = require('backbone'),
+    tpl                 = require('text!tpl/Player.html'),
+    soundManager		= require('soundmanager2'),
+    Slider				= require('slider'),
+    Display				= require('display'),
+    PlaylistItem		= require('app/views/PlayerPlaylistItem'),
+    Song				= require('app/models/Song'),
 
-        template = _.template(tpl);
+    template = _.template(tpl),
     
-    var Player = Backbone.View.extend({
+    // Custom collection for the playlist
+	Playlist = Backbone.Collection.extend({
+		model: Song
+	}),
+    
+    Player = Backbone.View.extend({
     	
-    	playlist : [],		// Playlist, array of track objects
     	current: {},		// Current track object
     	state : 1,			// 0 => Pause, 1 => Playing
     	random: false,		// Random mode
@@ -36,8 +42,27 @@ define(function (require) {
 				soundManager.onerror = {}; 			// Prevent an infinite loop, in case it's not flashblock
 				soundManager.reboot();				// and, go!
 			});
+			
+			// Playlist holder
+			this.playlist = new Playlist();
+			
+			this.playlist.on('add', this.renderPlaylist, this);
+			this.playlist.on('remove', this.renderPlaylist, this);
         },
-
+        
+        events: {
+        	"click .playPause": "playPause",
+        	"click .previous": "prev",
+        	"click .next": "next",
+        	"click .random": "toggleRandom",
+        	"click .repeat": "toggleRepeat",
+        	"click .playlist a.track": "clickedTrack",
+        	"click .playlist a.delete": "removeTrack",
+        	"mouseover .playlist li" : "overTrack",
+        	"mouseout .playlist li" : "outTrack"
+        },
+		
+		// Initial render of the Player. Should happen only once
         render: function () {
         	this.$el.html(template());
         	
@@ -76,54 +101,56 @@ define(function (require) {
         	       	
             return this;
         },
-
-        events: {
-        	"click .playPause": "playPause",
-        	"click .previous": "prev",
-        	"click .next": "next",
-        	"click .random": "toggleRandom",
-        	"click .repeat": "toggleRepeat",
-        	"click .playlist a.track": "clickedTrack",
-        	"click .playlist a.delete": "removeTrack",
-        	"mouseover .playlist li" : "overTrack",
-        	"mouseout .playlist li" : "outTrack"
+        
+        // Renders only the playlist
+        renderPlaylist: function(){
+        	this.$playlist.empty();
+        	
+        	_.each(this.playlist.models, function (song) {
+        		this.$playlist.append(new PlaylistItem({model: song}).render().el);
+			}, this);
+            
+            return this;
         },
         
         /**
          * Add a track to the playlist
-         * @param (Object) Backbone song model
+         * @param (Object) Backbone song model or Songs collection
          */
         addToPlaylist: function(model){
         	
-        	var data;
+        	this.show();
         	
         	if(model instanceof Backbone.Model){
-				console.log('Player: Received model, all fine');
-				data = model.attributes;
+				this.checkModelAndAdd(model);
 			}else if(model instanceof Backbone.Collection){
 				// Loop through the collection adding each model
 				for(var i=0;i<model.models.length;i++){
-					this.addToPlaylist(model.models[i]);
+					this.checkModelAndAdd(model.models[i]);
 				}
-				return;
 			}
-			   	
-        	this.show();
-        	
+        },
+        
+        /**
+         * Check the added model and add to the Playlist collection if valid
+         * @param (Object) Backbone song model
+         */
+        checkModelAndAdd: function(model){
         	var this_ = this;
         	
-        	console.log('Player: Adding to playlist: ', data);
+        	console.log('Player: Adding to playlist: ', model.attributes);
+        	
+        	console.log('Exists? ',this.playlist.get(model));
         	
         	soundManager.onready(function(){
         		// Check if it's playable
-				if(soundManager.canPlayURL(data.track.url)){
+				if(soundManager.canPlayURL(model.get('track').url)){
 					
-					data.track.title += '-'+this_.playlist.length;
-					data.played = false;	// Played flag, used by the random mode
+					model.played = false;	// Played flag, used by the random mode
 					
-					data.sound = soundManager.createSound({
-						url: data.track.url,
-						id: data.track.url+'-'+this_.playlist.length,
+					model.sound = soundManager.createSound({
+						url: model.get('track').url,
+						id: model.get('track').url+'-'+this_.playlist.length,
 						autoPlay: false,
 						autoLoad: false,
 						whileloading: function(){
@@ -136,21 +163,13 @@ define(function (require) {
 							this_.$elapsed.text(Display.timeToString(this.position/1000));
 						},
 						onload: function(){
-							console.log('Player: Track loaded: '+data.track.title);
-							data.duration = this.duration;
+							console.log('Player: Track loaded');
+							model.duration = this.duration;
 							this_.$total.text(Display.timeToString(this_.current.duration/1000));
 						}
 					});
 					
-					// Display in the playlist
-					data.$obj = $('<li><a class="track" href="#music/'+data.track.id+'" title="'+data.track.name+'" data-toggle="tooltip"><img src="'+data.album.photo+'" class="img-thumbnail" style="height:40px" /></a><a class="delete" aria-hidden="true" title="Remove from playlist" data-toggle="tooltip" data-placement="top"><i class="fa fa-times-circle"></i></a></li>').appendTo($(this_.$playlist).find('ul'));
-					// Add the tooltip
-					data.$obj.find('a.track').tooltip({
-						delay: { show: 250, hide: 0 }
-					});
-					
-					// Store in playlist
-					this_.playlist.push(data);
+					this_.playlist.add(model);
 					
 					if(typeof(this_.current.index)==='undefined'){
 						this_.current.index = -1;
@@ -168,7 +187,7 @@ define(function (require) {
 		        		this_.next();
 		        	}
 				}else{
-					console.error('Player: Cant play track: ',data.track.url);
+					console.error('Player: Cant play track: '+model.get('track').title+' ('+model.get('track').url+')',model);
 				}
 			});
         	
@@ -192,9 +211,11 @@ define(function (require) {
 		next: function(){
 			console.log('Player: Next');
 			
+			console.log('Playlist:', this.playlist);
+			
 			if(this.playlist.length==0 && this.repeat && this.ready()){
 				// Playlist is empty, but we are in repeat mode
-				// so keep playing the loaded sound
+				// so keep playing the loaded track
 				this.playCurrent();
 				return true;
 			}
@@ -208,7 +229,7 @@ define(function (require) {
 				// Different from the current one
 				index = Math.floor(Math.random()*this.playlist.length);
 				var initial = index;
-				while(index == this.current.index || this.playlist[index].played){
+				while(index == this.current.index || this.playlist.at(index).played){
 					// Chose another one until it's different and it wasn't already played
 					index++;
 					if(index == initial){
@@ -216,7 +237,7 @@ define(function (require) {
 						console.error('Player: No next track');
 						return false;
 					}
-					if(typeof(this.playlist[index]) === 'undefined'){
+					if(typeof(this.playlist.at(index)) === 'undefined'){
 						index = 0; // Start over
 					}
 				}
@@ -225,7 +246,7 @@ define(function (require) {
 				// Check if there are any more available
 				var available = false;
 				for(var i=0;i<this.playlist.length;i++){
-					if(!this.playlist[i].played){
+					if(!this.playlist.at(i).played){
 						available = true;
 						break;
 					}
@@ -240,7 +261,7 @@ define(function (require) {
 			}
 			
 			// Make sure it's valid
-			if(typeof(this.playlist[index]) === 'undefined'){
+			if(typeof(this.playlist.at(index)) === 'undefined'){
 				if(this.repeat){
 					index = 0;
 				}else{
@@ -262,7 +283,7 @@ define(function (require) {
 			
 			var index = this.current.index-1;
 			
-			if(typeof(this.playlist[index]) === 'undefined'){
+			if(typeof(this.playlist.at(index)) === 'undefined'){
 				console.error('Player: No prev track');
 				this.disable(this.$prev);
 				return false;
@@ -304,7 +325,7 @@ define(function (require) {
 		 * Plays the selected object from the playlist 
 		 */
 		playTrack: function(index){
-			this.current = this.playlist[index];
+			this.current = this.playlist.at(index);
 			this.current.index = index;
 						
 			// Rewind the track in case it was already listened
@@ -318,9 +339,9 @@ define(function (require) {
 		removeTrack: function(e){
 			e.preventDefault();
 			var index = $(e.currentTarget).parent('li').index('.playlist li'),
-				item = this.playlist[index];
-			item.$obj.remove();
-			this.playlist.splice(index,1);
+				item = this.playlist.at(index);
+			
+			this.playlist.remove(item);
 		},
 		/**
 		 * Play the track in current 
@@ -328,7 +349,6 @@ define(function (require) {
 		playCurrent: function(){
 			// Add the active class
 			this.$playlist.find('a.active').removeClass('active');
-			this.current.$obj.find('a.track').addClass('active');
 			
 			// Enable/Disable next/prev buttons
 			if(this.current.index > 0){
@@ -344,7 +364,7 @@ define(function (require) {
 			
 			this.slider.slider('enable');
 			
-			this.$songInfo.html('<a href="#music/'+this.current.track.id+'">'+this.current.track.name+'</a> <small>by <a href="#dj-songs/'+this.current.artist.id+'">'+this.current.artist.name+'</a></small>');
+			this.$songInfo.html('<a href="/music/'+this.current.get('track').id+'">'+this.current.get('track').name+'</a> <small>by <a href="/dj-songs/'+this.current.get('artist').id+'">'+this.current.get('artist').name+'</a></small>');
 			
 			// Start playing
 			this.play();
@@ -425,7 +445,7 @@ define(function (require) {
 		 */
 		resetPlayed: function(){
 			for(var i=0;i<this.playlist.length;i++){
-				this.playlist[i].played = false;
+				this.playlist.at(i).played = false;
 			}
 		},
 		/**
