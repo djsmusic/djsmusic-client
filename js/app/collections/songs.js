@@ -4,12 +4,12 @@ define(function (require) {
 
     var $                   = require('jquery'),
         Backbone            = require('backbone'),
-        Song				= require('app/models/song'),
+        song				= require('app/models/song'),
         App					= require('app/app'),
 
 		collection = Backbone.Collection.extend({
 
-			model: Song,
+			model: song,
 			
 			initialize: function(models, options){
 				this._meta = {};
