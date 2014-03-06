@@ -10,13 +10,13 @@ var $                   = require('jquery'),
     Slider				= require('slider'),
     Display				= require('display'),
     PlaylistItem		= require('app/views/PlayerPlaylistItem'),
-    Song				= require('app/models/Song'),
+    song				= require('app/models/song'),
 
     template = _.template(tpl),
     
     // Custom collection for the playlist
 	Playlist = Backbone.Collection.extend({
-		model: Song
+		model: song
 	}),
     
     Player = Backbone.View.extend({
