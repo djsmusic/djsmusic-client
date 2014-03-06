@@ -21,6 +21,13 @@ define(function (require, exports, module) {
 	            setTimeout(function() {
 	                $("#header-alert").hide();
 	            }, 7000 );*/
+	        },
+	        
+	        /**
+	         * Capture AJAX requests and display a global nanobar for them 
+	         */
+	        startLoading: function(){
+	        	if(typeof(this.nanobar)=='undefined') return;
 	        }
 	    };
 	

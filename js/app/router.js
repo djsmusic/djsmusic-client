@@ -79,6 +79,7 @@ define(function (require) {
 
         home: function () {
         	var this_ = this;
+        	App.startLoading();
         	require(["app/views/Home"], function (HomeView) {
         		var view = new HomeView({el: this_.$content});
 	            view.render();
@@ -89,7 +90,7 @@ define(function (require) {
         
         browse: function () {
         	var this_ = this;
-            require(["app/views/Browse"], function (View) {
+        	require(["app/views/Browse"], function (View) {
                 var view = new View({el: this_.$content});
                 view.render();
                 this_.shellView.selectMenuItem('browse-menu');
