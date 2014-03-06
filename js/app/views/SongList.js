@@ -7,6 +7,7 @@ define(function (require) {
         Backbone                = require('backbone'),
         tpl                 	= require('text!tpl/SongList.html'),
         SongListItemView    	= require('app/views/SongListItem'),
+        Nanobar					= require('nanobar'),
         
         template = _.template(tpl);
 
@@ -19,6 +20,13 @@ define(function (require) {
 			this.collection.on("fetched", this.fetched, this);
 			this.collection.on("add", this.renderOne, this);
 			this.collection.on("set:meta", this.setPage, this);
+			
+			
+			// Update nanobar on fetch:loading events
+			this.collection.on("fetch:loading", function(){
+				console.log(this.collection.meta('orderby')+' - Moving nanobar to '+this.collection.loaded);
+				this.nanobar.go(this.collection.loaded);
+			}, this);
 		},
 		
 		events: {
@@ -37,6 +45,14 @@ define(function (require) {
 			_.each(this.collection.models, function (song) {
 				this.$list.append(new SongListItemView({model: song}).render().el);
 			}, this);
+			
+			// Create a nanobar for the collection
+			this.nanobar = new Nanobar({
+				bg: '#cccccc',
+				target: this.el
+			});
+			
+			this.nanobar.go(0);
 			
 			return this;
 		},

@@ -45,26 +45,23 @@ define(function (require) {
 		            		},
 		            		xhr: function() {
 								var xhr = $.ajaxSettings.xhr();
-								xhr.onprogress = this_.handleProgress;
+								xhr.onprogress = function(evt){
+									var percentComplete = 0;
+									if (evt.lengthComputable) {  
+									    percentComplete = Math.round((evt.loaded / evt.total)*100);
+									    this_.loaded = percentComplete;
+										this_.trigger('fetch:loading');
+										console.log('Song Collection '+this_._meta['orderby']+' Loaded: '+percentComplete+"%");
+									}else{
+										console.warn('Song Collection: Cant get percent loaded');
+									}
+								};
 								return xhr;
 							}
 		            	});
 		            }
 		        }
-		    },
-		    
-		    handleProgress: function(evt){
-				var percentComplete = 0;
-				console.log(evt);
-				if (evt.lengthComputable) {  
-				    percentComplete = evt.loaded / evt.total;
-				    this.loaded = percentComplete;
-					this.trigger('fetch:loading');
-					console.log('Song Collection '+this._meta['orderby']+' Loaded: '+Math.round(percentComplete * 100)+"%");
-				}else{
-					console.warn('Song Collection: Cant get percent loaded');
-				}
-			}
+		    }
 
         });
 
