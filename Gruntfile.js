@@ -75,15 +75,13 @@ module.exports = function(grunt) {
 	        ]
 	      }
 	    },
-	    buildGhPages: {
+	    'gh-pages': {
 		    options: {
-		    	dist: "build"
+		      base: 'build',
+		      push: false,
+		      branch: 'gh-pages',
 		    },
-		    production: {
-		      	build_branch: "gh-pages",
-		        dist: "build",
-		        pull: true
-		    },
+		    src: ['**']
 	   },
 	    shell: {
 	      bumpVersion: {
@@ -129,7 +127,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-rename');
 	grunt.loadNpmTasks('grunt-contrib-requirejs');
-	grunt.loadNpmTasks('grunt-build-gh-pages');
+	grunt.loadNpmTasks('grunt-gh-pages');
 	
 	// Add the hashres to everything
 	grunt.registerTask('cacheBust', [
@@ -152,7 +150,7 @@ module.exports = function(grunt) {
 	]);
 	
 	grunt.registerTask('deploy', [
-	  'buildGhPages:production',
+	  'gh-pages',
 	  'release'
 	]);
 };
