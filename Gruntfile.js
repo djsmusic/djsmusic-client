@@ -40,7 +40,8 @@ module.exports = function(grunt) {
 		      {expand:true, src: ['js/app/views/*'], dest: 'build/'},
 		      {expand:true, src: ['js/app/models/*'], dest: 'build/'},
 		      {expand:true, src: ['js/app/collections/*'], dest: 'build/'},
-		      {src: ['404.html'], dest: 'build/', filter: 'isFile'}
+		      {src: ['404.html'], dest: 'build/', filter: 'isFile'},
+		      {src: ['CNAME'], dest: 'build/', filter: 'isFile'}
 		    ]
 		  }
 		},
@@ -139,7 +140,7 @@ module.exports = function(grunt) {
 	  'shell:bumpVersion'
 	]); 
 	
-	grunt.registerTask('test', [
+	grunt.registerTask('build', [
 	  'clean',
 	  'copy:html',
 	  'rename:html',
