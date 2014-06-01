@@ -24,9 +24,11 @@ define(function (require) {
     	render: function () {
             this.$el.html(template(this.model.attributes));
             // Add the tooltip
-            this.$el.find('a.track').tooltip({
-				delay: { show: 250, hide: 0 }
-			});
+			if(typeof(tooltip)!=='undefined'){
+			  this.$el.find('a.track').tooltip({
+			  	delay: { show: 250, hide: 0 }
+			  });
+			}
             return this;
         }
 
