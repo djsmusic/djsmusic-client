@@ -119,6 +119,13 @@ module.exports = function(grunt) {
 	        ]
 	      }
 	    },
+		uglify: {
+			build: {
+				files: {
+					'build/js/app.js': ['build/js/app.js']
+				}
+			}
+		}
 	});
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');

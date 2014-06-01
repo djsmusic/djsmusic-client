@@ -6,17 +6,19 @@ require.config({
     
     baseUrl: "js/",
     
-    optimize: "none",
+    optimize: "uglify",
+
+		normalizeDirDefines: "all",
     
     paths: {
     	app: 'app',
-        tpl: 'tpl',
-        jquery : 'lib/jquery-1.9.1.min',
-        backbone : 'lib/backbone-min',
-        text : 'lib/text',
-        underscore : 'lib/underscore-min',
-        soundmanager2 : 'lib/soundmanager/script/soundmanager2-jsmin',
-        slider : 'lib/bootstrap-slider',
+			tpl: 'tpl',
+			jquery : 'lib/jquery-1.9.1.min',
+			backbone : 'lib/backbone-min',
+			text : 'lib/text',
+			underscore : 'lib/underscore-min',
+			soundmanager2 : 'lib/soundmanager/script/soundmanager2-jsmin',
+			slider : 'lib/bootstrap-slider',
     	utils: 'app/utils',
     	nanobar: 'lib/nanobar-min',
     	display: 'lib/display',
@@ -24,8 +26,10 @@ require.config({
     },
     
     include: [
-    	'requireLib'
+    	'requireLib', '../bootstrap-3/js/bootstrap.min.js'
     ],
+
+	removeCombined: false,
     
     shim: {
         'backbone': {
