@@ -118,14 +118,7 @@ module.exports = function(grunt) {
 	          'build/**/*.md'
 	        ]
 	      }
-	    },
-		uglify: {
-			build: {
-				files: {
-					'build/js/app.js': ['build/js/app.js']
-				}
-			}
-		}
+	    }
 	});
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-contrib-cssmin');
@@ -159,6 +152,6 @@ module.exports = function(grunt) {
 	
 	grunt.registerTask('deploy', [
 	  'gh-pages',
-	  'release'
+	  //'release'
 	]);
 };
