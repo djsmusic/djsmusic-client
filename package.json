@@ -15,7 +15,8 @@
     "grunt-contrib-copy": "^0.5.0",
     "grunt-contrib-requirejs": "^0.4.3",
     "grunt-contrib-rename": "0.0.3",
-    "grunt-gh-pages": "^0.9.1"
+    "grunt-gh-pages": "^0.9.1",
+    "grunt-release-branch": "^0.2.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
