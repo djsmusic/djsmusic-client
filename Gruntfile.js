@@ -40,7 +40,7 @@ module.exports = function (grunt) {
 					},
 					{
 						expand: true,
-						src: ['bootstrap-3/**'],
+						src: ['bootstrap/bootstrap-3.2.0/**'],
 						dest: 'build/'
 					},
 					{
