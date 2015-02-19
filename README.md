@@ -1,4 +1,7 @@
-![DJs Music](http://static.djs-music.com/img/body/logo.gif)
+#![DJs Music](http://static.djs-music.com/img/body/logo.gif)
+
+[![Release](https://img.shields.io/github/release/DJsMusic/DJsMusic-Client.svg?style=flat-square)](https://github.com/DJsMusic/DJsMusic-Client/releases)
+![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
 
 > Web client for the DJs Music website running on Backbone.js and Require.js
 
