@@ -7,7 +7,7 @@ define(function (require, exports, module) {
 
 		app = {
 			productionUrl: 'https://api.djs-music.com/',
-			localUrl: 'http://127.0.0.1/djsmusic/',
+			localUrl: 'https://127.0.0.1/djsmusic/',
 			url: '',
 			mode: 0, // API mode: 1= Testing, 0= Production
 

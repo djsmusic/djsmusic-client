@@ -1,4 +1,4 @@
-#![DJs Music](http://static.djs-music.com/img/body/logo.gif)
+#![DJs Music](https://static.djs-music.com/img/body/logo.gif)
 
 [![Release](https://img.shields.io/github/release/DJsMusic/DJsMusic-Client.svg?style=flat-square)](https://github.com/DJsMusic/DJsMusic-Client/releases)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
@@ -23,4 +23,4 @@ Which will commit the latest changes to the `gh-pages` branch.
 
 ***
 
-Released under the MIT License - Developed by [Alejandro U. Álvarez](http://urbanoalvarez.es)
+Released under the MIT License - Developed by [Alejandro U. Álvarez](https://urbanoalvarez.es)

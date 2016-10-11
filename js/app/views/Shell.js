@@ -28,7 +28,7 @@ define(function (require) {
         	// React to changes in user status
         	App.session.on("change:logged_in", this.loggedBox, this);
         	
-        	// Catch internal links (Credit TenFarms http://dev.tenfarms.com/posts/proper-link-handling)
+        	// Catch internal links (Credit TenFarms https://dev.tenfarms.com/posts/proper-link-handling)
         	$(document).on("click", "a[href^='/']", function(event) {
         		console.log('Link cought');
 				if (!event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey) {
