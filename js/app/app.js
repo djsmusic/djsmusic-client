@@ -6,7 +6,7 @@ define(function (require, exports, module) {
 		Backbone = require('backbone'),
 
 		app = {
-			productionUrl: 'http://api.djs-music.com/',
+			productionUrl: 'https://api.djs-music.com/',
 			localUrl: 'http://127.0.0.1/djsmusic/',
 			url: '',
 			mode: 0, // API mode: 1= Testing, 0= Production
