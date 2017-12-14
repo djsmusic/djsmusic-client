@@ -1,7 +1,0 @@
-<a href="#" class="play" title="Play track"><i class="fa fa-play-circle fa-xs"></i></a> <a href="/music/<%= track.id %>" class="song"><%= track.name %></a>
- by <a href="/dj-songs/<%= artist.id %>"><%= artist.name %></a>
- <small><%= track.durationString %></small>
-<div class="pull-right">
-	<small><i class="fa fa-download"></i> <%= track.downloadsString %> &nbsp; <i class="fa fa-caret-right"></i> <%= track.playsString %></small>
-	&nbsp; <span class="rating"><%= track.ratingStars %></span>
-</div>
