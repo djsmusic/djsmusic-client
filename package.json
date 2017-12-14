@@ -1,29 +1,18 @@
 {
-  "name": "DJsMusic-Client",
-  "version": "0.0.2",
-  "description": "Web client for the DJs Music API ",
-  "main": "js/main.js",
+  "name": "djsmusic-client",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
   },
   "devDependencies": {
+    "react-scripts": "1.0.17"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/DJsMusic/DJsMusic-Client.git"
-  },
-  "keywords": [
-    "DJsMusic",
-    "music",
-    "backbone",
-    "app"
-  ],
-  "author": "Alejandro U. Alvarez",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/DJsMusic/DJsMusic-Client/issues"
-  },
-  "homepage": "https://github.com/DJsMusic/DJsMusic-Client"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
 }
