@@ -1,0 +1,12 @@
+// @flow
+
+import { createSelector } from 'reselect';
+
+import { NAMESPACE } from './constants';
+
+const selectProps = () => createSelector(
+  (state) => state.get(NAMESPACE),
+  (substate) => substate.toJS()
+);
+
+export default selectProps;

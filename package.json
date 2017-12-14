@@ -3,8 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "classnames": "^2.2.5",
+    "immutable": "^3.8.1",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-dom": "^16.2.0",
+    "react-redux": "^5.0.5",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "5.0.0-alpha.8",
+    "redux": "^3.6.0",
+    "redux-actions": "^2.0.3",
+    "redux-history-transitions": "^2.2.0",
+    "redux-immutable": "^4.0.0",
+    "reselect": "^3.0.1",
+    "semantic-ui-css": "^2.2.10",
+    "semantic-ui-react": "^0.77.1",
+    "uuid": "^3.0.1"
   },
   "devDependencies": {
     "react-scripts": "1.0.17"
