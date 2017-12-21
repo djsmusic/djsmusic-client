@@ -11,7 +11,6 @@ import handleTransitions from 'redux-history-transitions';
 
 import { PENDING, SUCCESS, FAILURE } from 'utils/actionsUtil';
 import delayMiddleware from 'utils/delayMiddleware';
-import asmMiddleware from 'utils/asmMiddleware';
 import sagaApiMiddleware from 'utils/sagaApiMiddleware';
 
 import createReducer from './reducers';
@@ -24,7 +23,6 @@ export default function configureStore(initialState = {}, history) {
   // 2. routerMiddleware: Syncs the location/URL path to the state
   // 3. loadingBarMiddleware: Automatically displays a loading bar
   const middlewares = [
-    asmMiddleware(),
     sagaApiMiddleware(),
     sagaMiddleware,
     delayMiddleware(),

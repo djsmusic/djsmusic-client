@@ -4,14 +4,11 @@ import 'whatwg-fetch';
 import React from 'react';
 import { call, put } from 'redux-saga/effects';
 import uuid from 'uuid';
-import Notifications from 'react-notification-system-redux';
 import { List } from 'semantic-ui-react';
 
 import { pending, success, failure } from 'utils/actionsUtil';
 import { RequestError, ApiError } from 'utils/errors';
 import type { Action } from 'definitions/action';
-
-import { LOG_EVENT } from 'containers/ErrorHistory/constants';
 
 import { CSRF_HEADER } from './constants';
 import type { RequestParams } from './constants';
@@ -131,11 +128,11 @@ export function* processResponse(action: Action, actionId: string, response: any
       onSuccessAction.meta.log = action.meta.onSuccess.log;
 
       if (action.meta.onSuccess.notify) {
-        yield put(
-          Notifications.success({
-            message: action.meta.onSuccess.notify,
-          })
-        );
+        // yield put(
+        //   Notifications.success({
+        //     message: action.meta.onSuccess.notify,
+        //   })
+        // );
       }
     }
 
@@ -149,17 +146,17 @@ export function* processResponse(action: Action, actionId: string, response: any
     if (!returnError.response) {
       returnError = new RequestError(error.message, requestParams);
 
-      yield put(Notifications.warning({
-        title: 'Offline!',
-        message: 'Server not reachable.',
-        autoDismiss: false,
-        action: {
-          label: 'Retry',
-          callback: () => {
-            window.dispatch(action);
-          },
-        },
-      }));
+      // yield put(Notifications.warning({
+      //   title: 'Offline!',
+      //   message: 'Server not reachable.',
+      //   autoDismiss: false,
+      //   action: {
+      //     label: 'Retry',
+      //     callback: () => {
+      //       window.dispatch(action);
+      //     },
+      //   },
+      // }));
     }
 
     const onErrorAction: Action = {
@@ -173,16 +170,6 @@ export function* processResponse(action: Action, actionId: string, response: any
       },
       error: true,
     };
-
-    // Log the error
-    yield put({
-      type: LOG_EVENT,
-      payload: {
-        timestamp: new Date(),
-        message: returnError.toString(),
-        error: returnError,
-      },
-    });
 
     if (typeof action.meta !== 'undefined' && typeof action.meta.onFailure !== 'undefined') {
       // An onFailure action has been defined
@@ -202,13 +189,13 @@ export function* processResponse(action: Action, actionId: string, response: any
             </List>
           );
         }
-        yield put(
-          Notifications.error({
-            message,
-            children,
-            autoDismiss: false,
-          })
-        );
+        // yield put(
+        //   Notifications.error({
+        //     message,
+        //     children,
+        //     autoDismiss: false,
+        //   })
+        // );
       }
     } else {
       // Nothing was specified to be done onFailure, so notify by default
@@ -222,11 +209,11 @@ export function* processResponse(action: Action, actionId: string, response: any
           </List>
         );
       }
-      yield put(Notifications.error({
-        message: error.message,
-        children,
-        autoDismiss: false,
-      }));
+      // yield put(Notifications.error({
+      //   message: error.message,
+      //   children,
+      //   autoDismiss: false,
+      // }));
     }
 
     // Overwrite redirect to /login if it's a 401 and we're not trying to login

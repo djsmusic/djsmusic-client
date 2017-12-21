@@ -21,17 +21,19 @@ import classNames from 'classnames';
 import { Switch, withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 
+import 'semantic-ui-css/semantic.css';
+
 import AuthenticatedRoute from 'containers/Routes/AuthenticatedRoute';
 import UnauthenticatedRoute from 'containers/Routes/UnauthenticatedRoute';
 import injectSaga from 'utils/injectSaga';
 
 import AuthPage from 'sections/AuthPage/Loadable';
-import Frame from 'sections/Frame/Loadable';
+import Site from 'sections/Site/Loadable';
 
-import 'semantic-ui-less/definitions/globals/reset.less';
-import 'semantic-ui-less/definitions/globals/site.less';
-import 'semantic-ui-less/semantic.less';
-import 'styles/main.less';
+// import 'semantic-ui-less/definitions/globals/reset.less';
+// import 'semantic-ui-less/definitions/globals/site.less';
+// import 'semantic-ui-less/semantic.less';
+// import 'styles/main.less';
 
 import saga from './sagas';
 
@@ -76,7 +78,7 @@ class App extends React.PureComponent {
           />
           <AuthenticatedRoute
             path='/'
-            component={ Frame }
+            component={ Site }
           />
         </Switch>
       </HotKeys>

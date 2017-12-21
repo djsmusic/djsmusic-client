@@ -1,7 +1,7 @@
 // @flow
 
 /**
- * app.js
+ * DJs Music Web Client
  *
  * This is the entry file for the application, only setup and boilerplate
  * code.
@@ -40,7 +40,7 @@ import { translationMessages } from './i18n';
 const initialState = {};
 const history = createHistory();
 const store = configureStore(initialState, history);
-const MOUNT_NODE: null | HTMLElement = document.getElementById('app');
+const MOUNT_NODE: null | HTMLElement = document.getElementById('root');
 
 // Ugliest hack in the world of hacks...
 // This is here so that sagasUtil can resend actions
