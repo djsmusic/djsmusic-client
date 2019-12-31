@@ -3,23 +3,25 @@
   "version": "0.0.2",
   "description": "Web client for the DJs Music API ",
   "main": "js/main.js",
+  "scripts": {
+    "build": "grunt build",
+    "deploy": "gh-pages -d build"
+  },
   "dependencies": {
     "grunt": "~0.4.4"
   },
   "devDependencies": {
-    "grunt-contrib-cssmin": "^0.9.0",
+    "gh-pages": "^2.1.1",
     "grunt-contrib-clean": "^0.5.0",
-    "grunt-shell": "^0.6.4",
-    "grunt-line-remover": "0.0.2",
-    "grunt-hashres": "^0.4.1",
     "grunt-contrib-copy": "^0.5.0",
-    "grunt-contrib-requirejs": "^0.4.3",
+    "grunt-contrib-cssmin": "^0.9.0",
     "grunt-contrib-rename": "0.0.3",
+    "grunt-contrib-requirejs": "^0.4.3",
     "grunt-gh-pages": "^0.9.1",
-    "grunt-release-branch": "^0.2.0"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "grunt-hashres": "^0.4.1",
+    "grunt-line-remover": "0.0.2",
+    "grunt-release-branch": "^0.2.0",
+    "grunt-shell": "^0.6.4"
   },
   "repository": {
     "type": "git",
